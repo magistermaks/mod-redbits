@@ -1,10 +1,9 @@
 package net.darktree.redbits.mixin;
 
-import net.darktree.redbits.RedBits;
-import net.darktree.redbits.blocks.AbstractRedstoneGate;
-import net.darktree.redbits.blocks.TwoWayRepeaterBlock;
 import net.darktree.redbits.utils.RedstoneConnectable;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.RedstoneWireBlock;
 import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
