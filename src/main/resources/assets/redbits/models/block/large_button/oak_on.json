@@ -1,0 +1,6 @@
+{
+  "parent": "redbits:block/large_button/base/on",
+  "textures": {
+    "texture": "minecraft:block/oak_planks"
+  }
+}

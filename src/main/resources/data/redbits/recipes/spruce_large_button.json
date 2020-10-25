@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:spruce_button"
+    }
+  },
+  "result": {
+    "item": "redbits:spruce_large_button"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "222"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:redstone_torch"
+    },
+    "2": {
+      "item": "minecraft:stone"
+    }
+  },
+  "result": {
+    "item": "redbits:inverter"
+  }
+}

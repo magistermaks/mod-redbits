@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "facing=east,powered=false,input=true,inverted=true": {
+      "model": "redbits:block/detector/on-on-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=true,inverted=true": {
+      "model": "redbits:block/detector/on-on-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=true,inverted=true": {
+      "model": "redbits:block/detector/on-on-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=true,inverted=true": {
+      "model": "redbits:block/detector/on-on-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=true,inverted=true": {
+      "model": "redbits:block/detector/on-on-off"
+    },
+    "facing=south,powered=true,input=true,inverted=true": {
+      "model": "redbits:block/detector/on-on-on"
+    },
+    "facing=west,powered=false,input=true,inverted=true": {
+      "model": "redbits:block/detector/on-on-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=true,inverted=true": {
+      "model": "redbits:block/detector/on-on-on",
+      "y": 90
+    },
+    "facing=east,powered=false,input=false,inverted=true": {
+      "model": "redbits:block/detector/off-on-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=false,inverted=true": {
+      "model": "redbits:block/detector/off-on-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=false,inverted=true": {
+      "model": "redbits:block/detector/off-on-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=false,inverted=true": {
+      "model": "redbits:block/detector/off-on-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=false,inverted=true": {
+      "model": "redbits:block/detector/off-on-off"
+    },
+    "facing=south,powered=true,input=false,inverted=true": {
+      "model": "redbits:block/detector/off-on-on"
+    },
+    "facing=west,powered=false,input=false,inverted=true": {
+      "model": "redbits:block/detector/off-on-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=false,inverted=true": {
+      "model": "redbits:block/detector/off-on-on",
+      "y": 90
+    },
+    "facing=east,powered=false,input=true,inverted=false": {
+      "model": "redbits:block/detector/on-off-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=true,inverted=false": {
+      "model": "redbits:block/detector/on-off-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=true,inverted=false": {
+      "model": "redbits:block/detector/on-off-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=true,inverted=false": {
+      "model": "redbits:block/detector/on-off-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=true,inverted=false": {
+      "model": "redbits:block/detector/on-off-off"
+    },
+    "facing=south,powered=true,input=true,inverted=false": {
+      "model": "redbits:block/detector/on-off-on"
+    },
+    "facing=west,powered=false,input=true,inverted=false": {
+      "model": "redbits:block/detector/on-off-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=true,inverted=false": {
+      "model": "redbits:block/detector/on-off-on",
+      "y": 90
+    },
+    "facing=east,powered=false,input=false,inverted=false": {
+      "model": "redbits:block/detector/off-off-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=false,inverted=false": {
+      "model": "redbits:block/detector/off-off-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=false,inverted=false": {
+      "model": "redbits:block/detector/off-off-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=false,inverted=false": {
+      "model": "redbits:block/detector/off-off-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=false,inverted=false": {
+      "model": "redbits:block/detector/off-off-off"
+    },
+    "facing=south,powered=true,input=false,inverted=false": {
+      "model": "redbits:block/detector/off-off-on"
+    },
+    "facing=west,powered=false,input=false,inverted=false": {
+      "model": "redbits:block/detector/off-off-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=false,inverted=false": {
+      "model": "redbits:block/detector/off-off-on",
+      "y": 90
+    }
+  }
+}

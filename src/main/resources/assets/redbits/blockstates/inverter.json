@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,powered=false": {
+      "model": "redbits:block/inverter/off",
+      "y": 270
+    },
+    "facing=east,powered=true": {
+      "model": "redbits:block/inverter/on",
+      "y": 270
+    },
+    "facing=north,powered=false": {
+      "model": "redbits:block/inverter/off",
+      "y": 180
+    },
+    "facing=north,powered=true": {
+      "model": "redbits:block/inverter/on",
+      "y": 180
+    },
+    "facing=south,powered=false": {
+      "model": "redbits:block/inverter/off"
+    },
+    "facing=south,powered=true": {
+      "model": "redbits:block/inverter/on"
+    },
+    "facing=west,powered=false": {
+      "model": "redbits:block/inverter/off",
+      "y": 90
+    },
+    "facing=west,powered=true": {
+      "model": "redbits:block/inverter/on",
+      "y": 90
+    }
+  }
+}

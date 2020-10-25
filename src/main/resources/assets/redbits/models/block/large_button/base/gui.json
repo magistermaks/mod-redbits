@@ -1,0 +1,21 @@
+{
+	"credit": "Made with Blockbench by magistermaks",
+	"parent": "block/block",
+	"textures": {
+		"particle": "#texture"
+	},
+	"elements": [
+		{
+			"from": [4, 4, 6],
+			"to": [12, 12, 10],
+			"faces": {
+				"north": {"uv": [5, 12, 11, 16], "texture": "#texture"},
+				"east": {"uv": [6, 8, 10, 16], "texture": "#texture"},
+				"south": {"uv": [5, 8, 13, 16], "texture": "#texture"},
+				"west": {"uv": [6, 8, 10, 16], "texture": "#texture"},
+				"up": {"uv": [5, 10, 13, 6], "texture": "#texture"},
+				"down": {"uv": [5, 6, 13, 10], "texture": "#texture"}
+			}
+		}
+	]
+}

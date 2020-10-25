@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "redbits",
+  "version": "1.2.0",
+  "name": "RedBits",
+  "description": "Vanilla style redstone additions and improvements!",
+  "authors": [
+    "magistermaks"
+  ],
+  "contact": {
+    "homepage": "http://darktree.net/"
+  },
+  "icon": "assets/redbits/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.darktree.redbits.RedBits"
+    ],
+    "client": [
+      "net.darktree.redbits.RedBits"
+    ]
+  },
+  "mixins": [
+    "redbits.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  }
+}

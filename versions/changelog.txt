@@ -1,0 +1,14 @@
+1.0.0
+    - Initial Version
+
+1.1.0
+    - Jukeboxes now interact with hoppers, droppers and dispensers
+    - Fixed one Jukebox related bug
+    - Shaded redstone lamps now use emissive lighting
+    - Added Redstone Latch
+    - Added tooltips to pressure plates
+
+1.2.0
+    - Fixed minor translation error
+    - Fixed Inverted Redstone Torch lighting bug
+    - Fixed mixin configuration bug

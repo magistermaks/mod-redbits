@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "axis=x,power=front": {
+            "model": "redbits:block/latch/front",
+            "y": 90
+        },
+        "axis=z,power=front": {
+            "model": "redbits:block/latch/front",
+            "y": 180
+        },
+        "axis=x,power=back": {
+            "model": "redbits:block/latch/back",
+            "y": 90
+        },
+        "axis=z,power=back": {
+            "model": "redbits:block/latch/back",
+            "y": 180
+        }
+    }
+}

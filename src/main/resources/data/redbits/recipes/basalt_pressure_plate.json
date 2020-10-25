@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "11"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:basalt"
+    }
+  },
+  "result": {
+    "item": "redbits:basalt_pressure_plate"
+  }
+}

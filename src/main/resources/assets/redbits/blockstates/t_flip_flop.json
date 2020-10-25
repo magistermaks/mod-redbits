@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,powered=false,input=true": {
+      "model": "redbits:block/flip_flop/on-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=true": {
+      "model": "redbits:block/flip_flop/on-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=true": {
+      "model": "redbits:block/flip_flop/on-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=true": {
+      "model": "redbits:block/flip_flop/on-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=true": {
+      "model": "redbits:block/flip_flop/on-off"
+    },
+    "facing=south,powered=true,input=true": {
+      "model": "redbits:block/flip_flop/on-on"
+    },
+    "facing=west,powered=false,input=true": {
+      "model": "redbits:block/flip_flop/on-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=true": {
+      "model": "redbits:block/flip_flop/on-on",
+      "y": 90
+    },
+    "facing=east,powered=false,input=false": {
+      "model": "redbits:block/flip_flop/off-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=false": {
+      "model": "redbits:block/flip_flop/off-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=false": {
+      "model": "redbits:block/flip_flop/off-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=false": {
+      "model": "redbits:block/flip_flop/off-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=false": {
+      "model": "redbits:block/flip_flop/off-off"
+    },
+    "facing=south,powered=true,input=false": {
+      "model": "redbits:block/flip_flop/off-on"
+    },
+    "facing=west,powered=false,input=false": {
+      "model": "redbits:block/flip_flop/off-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=false": {
+      "model": "redbits:block/flip_flop/off-on",
+      "y": 90
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:oak_button"
+    }
+  },
+  "result": {
+    "item": "redbits:oak_large_button"
+  }
+}

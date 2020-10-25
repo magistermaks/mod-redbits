@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:jungle_button"
+    }
+  },
+  "result": {
+    "item": "redbits:jungle_large_button"
+  }
+}

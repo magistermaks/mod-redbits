@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "redbits:block/redstone_torch/off"
+    },
+    "lit=true": {
+      "model": "redbits:block/redstone_torch/on"
+    }
+  }
+}

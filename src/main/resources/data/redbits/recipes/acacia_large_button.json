@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:acacia_button"
+    }
+  },
+  "result": {
+    "item": "redbits:acacia_large_button"
+  }
+}

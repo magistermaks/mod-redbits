@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "11"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:end_stone"
+    }
+  },
+  "result": {
+    "item": "redbits:end_stone_pressure_plate"
+  }
+}

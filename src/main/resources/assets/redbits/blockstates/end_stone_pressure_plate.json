@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "redbits:block/pressure_plate/end_stone/off"
+    },
+    "powered=true": {
+      "model": "redbits:block/pressure_plate/end_stone/on"
+    }
+  }
+}

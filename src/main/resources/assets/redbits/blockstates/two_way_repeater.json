@@ -1,0 +1,28 @@
+{
+    "variants": {
+        "axis=x,power=none": {
+            "model": "redbits:block/two_way_repeater/none",
+            "y": 90
+        },
+        "axis=z,power=none": {
+            "model": "redbits:block/two_way_repeater/none",
+            "y": 180
+        },
+        "axis=x,power=front": {
+            "model": "redbits:block/two_way_repeater/front",
+            "y": 90
+        },
+        "axis=z,power=front": {
+            "model": "redbits:block/two_way_repeater/front",
+            "y": 180
+        },
+        "axis=x,power=back": {
+            "model": "redbits:block/two_way_repeater/back",
+            "y": 90
+        },
+        "axis=z,power=back": {
+            "model": "redbits:block/two_way_repeater/back",
+            "y": 180
+        }
+    }
+}

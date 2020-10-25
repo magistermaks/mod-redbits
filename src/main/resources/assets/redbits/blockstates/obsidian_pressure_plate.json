@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "redbits:block/pressure_plate/obsidian/off"
+    },
+    "powered=true": {
+      "model": "redbits:block/pressure_plate/obsidian/on"
+    }
+  }
+}
