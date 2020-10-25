@@ -39,7 +39,7 @@ public class MusicDispenserBehavior {
 
     };
 
-    public boolean register() {
+    public void register() {
         DispenserBlock.registerBehavior( Items.MUSIC_DISC_13, musicDiscBehavior );
         DispenserBlock.registerBehavior( Items.MUSIC_DISC_CAT, musicDiscBehavior );
         DispenserBlock.registerBehavior( Items.MUSIC_DISC_BLOCKS, musicDiscBehavior );
@@ -53,8 +53,6 @@ public class MusicDispenserBehavior {
         DispenserBlock.registerBehavior( Items.MUSIC_DISC_11, musicDiscBehavior );
         DispenserBlock.registerBehavior( Items.MUSIC_DISC_WAIT, musicDiscBehavior );
         DispenserBlock.registerBehavior( Items.MUSIC_DISC_PIGSTEP, musicDiscBehavior );
-
-        return true;
     }
 
 }
