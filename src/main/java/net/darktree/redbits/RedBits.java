@@ -2,6 +2,7 @@ package net.darktree.redbits;
 
 import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
+import net.darktree.redbits.utils.ColorProvider;
 import net.darktree.redbits.utils.MusicDispenserBehavior;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
@@ -68,6 +69,7 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 	public final static Block BASALT_PRESSURE_PLATE = new ComplexPressurePlateBlock( COLLISION_CONDITION_PET, AbstractBlock.Settings.of(Material.STONE, MaterialColor.SAND).requiresTool().noCollision().strength(0.5F) );
 	public final static Block INVERTED_REDSTONE_TORCH = new InvertedRedstoneTorchBlock(AbstractBlock.Settings.of(Material.SUPPORTED).noCollision().breakInstantly().lightLevel( (n) -> n.get(Properties.LIT) ? 7 : 0 ).sounds(BlockSoundGroup.WOOD));
 	public final static Block INVERTED_REDSTONE_WALL_TORCH = new WallInvertedRedstoneTorchBlock(AbstractBlock.Settings.of(Material.SUPPORTED).noCollision().breakInstantly().lightLevel( (n) -> n.get(Properties.LIT) ? 7 : 0 ).sounds(BlockSoundGroup.WOOD));
+	public final static Block RGB_LAMP = new AnalogLampBlock(FabricBlockSettings.of(Material.REDSTONE_LAMP).lightLevel((n) -> n.get(AnalogLampBlock.POWER) > 0 ? 1 : 0).postProcess((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).emissiveLighting((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).strength(0.3F).sounds(BlockSoundGroup.GLASS).allowsSpawning( (BlockState state, BlockView world, BlockPos pos, EntityType<?> type) -> true ) );
 
 	@Override
 	public void onInitialize() {
@@ -116,6 +118,8 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("redbits", "end_stone_pressure_plate"), new BlockItem(END_STONE_PRESSURE_PLATE, new Item.Settings().group(ItemGroup.REDSTONE)));
 		Registry.register(Registry.BLOCK, new Identifier("redbits", "basalt_pressure_plate"), BASALT_PRESSURE_PLATE);
 		Registry.register(Registry.ITEM, new Identifier("redbits", "basalt_pressure_plate"), new BlockItem(BASALT_PRESSURE_PLATE, new Item.Settings().group(ItemGroup.REDSTONE)));
+		Registry.register(Registry.BLOCK, new Identifier("redbits", "rgb_lamp"), RGB_LAMP);
+		Registry.register(Registry.ITEM, new Identifier("redbits", "rgb_lamp"), new BlockItem(RGB_LAMP, new Item.Settings().group(ItemGroup.REDSTONE)));
 
 		// register dispenser music disc behavior
 		MUSIC_DISPENSER_BEHAVIOR.register();
@@ -132,5 +136,7 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(INVERTED_REDSTONE_WALL_TORCH, RenderLayer.getCutout());
 		ColorProviderRegistry.ITEM.register( (stack, tintIndex) -> RedstoneWireBlock.getWireColor(1), REDSTONE_EMITTER );
 		ColorProviderRegistry.BLOCK.register( (state, view, pos, tintIndex) -> RedstoneWireBlock.getWireColor( state.get( EmitterBlock.POWER ) ), REDSTONE_EMITTER );
+		ColorProviderRegistry.ITEM.register( (stack, tintIndex) -> ColorProvider.getColor(0), RGB_LAMP );
+		ColorProviderRegistry.BLOCK.register( (state, view, pos, tintIndex) -> ColorProvider.getColor(state.get(AnalogLampBlock.POWER)), RGB_LAMP );
 	}
 }

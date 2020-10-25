@@ -12,3 +12,6 @@
     - Fixed minor translation error
     - Fixed Inverted Redstone Torch lighting bug
     - Fixed mixin configuration bug
+
+1.3.0
+    - Added Color Redstone Lamps

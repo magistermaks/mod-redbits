@@ -1,4 +1,5 @@
 {
+    "block.redbits.rgb_lamp": "Color Redstone Lamp",
     "block.redbits.latch": "Redstone Latch",
     "block.redbits.two_way_repeater": "Two Way Redstone Repeater",
     "block.redbits.inverted_redstone_torch": "Inverted Redstone Torch",

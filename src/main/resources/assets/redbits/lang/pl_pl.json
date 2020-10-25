@@ -1,4 +1,5 @@
 {
+    "block.redbits.rgb_lamp": "Kolorowa lampa",
     "block.redbits.latch": "Zatrzask",
     "block.redbits.two_way_repeater": "Dwukierunkowy Przekaźnik",
     "block.redbits.inverted_redstone_torch": "Odwrotna pochodnia redstone",
