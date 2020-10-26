@@ -16,3 +16,4 @@
 1.3.0
     - Added Color Redstone Lamps
     - Removed one unused asset
+    - Removed custom dispenser behaviour to better adhere to vanilla convention

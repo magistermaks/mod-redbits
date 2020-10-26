@@ -3,7 +3,6 @@ package net.darktree.redbits;
 import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
 import net.darktree.redbits.utils.ColorProvider;
-import net.darktree.redbits.utils.MusicDispenserBehavior;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -34,8 +33,6 @@ import java.util.List;
 
 
 public class RedBits implements ModInitializer, ClientModInitializer {
-
-	MusicDispenserBehavior MUSIC_DISPENSER_BEHAVIOR = new MusicDispenserBehavior();
 
 	@SuppressWarnings("unchecked")
 	public final static CollisionCondition COLLISION_CONDITION_PET = ( World world, Box box ) -> {
@@ -120,9 +117,6 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("redbits", "basalt_pressure_plate"), new BlockItem(BASALT_PRESSURE_PLATE, new Item.Settings().group(ItemGroup.REDSTONE)));
 		Registry.register(Registry.BLOCK, new Identifier("redbits", "rgb_lamp"), RGB_LAMP);
 		Registry.register(Registry.ITEM, new Identifier("redbits", "rgb_lamp"), new BlockItem(RGB_LAMP, new Item.Settings().group(ItemGroup.REDSTONE)));
-
-		// register dispenser music disc behavior
-		MUSIC_DISPENSER_BEHAVIOR.register();
 	}
 
 	@Override
