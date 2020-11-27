@@ -67,9 +67,10 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
 
         if (power != block && !world.getBlockTickScheduler().isTicking(pos, this)) {
             TickPriority tickPriority = TickPriority.HIGH;
-            if (this.isTargetNotAligned(world, pos, state)) {
-                tickPriority = TickPriority.EXTREMELY_HIGH;
-            } else if (power) {
+//            if (this.isTargetNotAligned(world, pos, state)) {
+//                tickPriority = TickPriority.EXTREMELY_HIGH;
+//            } else
+            if (power) {
                 tickPriority = TickPriority.VERY_HIGH;
             }
 
@@ -119,14 +120,14 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
         world.updateNeighborsExcept(blockPos, this, direction);
     }
 
-    public boolean isTargetNotAligned(BlockView world, BlockPos pos, BlockState state) {
-        if( state.get(POWER) != TwoWayPower.NONE ) {
-            Direction direction = Direction.from( state.get(AXIS), state.get(POWER).asAxisDirection() );
-            BlockState blockState = world.getBlockState(pos.offset(direction));
-            return isRedstoneGate(blockState) && blockState.get(HorizontalFacingBlock.FACING) != direction;
-        }
-        return false;
-    }
+//    public boolean isTargetNotAligned(BlockView world, BlockPos pos, BlockState state) {
+//        if( state.get(POWER) != TwoWayPower.NONE ) {
+//            Direction direction = Direction.from( state.get(AXIS), state.get(POWER).asAxisDirection() );
+//            BlockState blockState = world.getBlockState(pos.offset(direction));
+//            return isRedstoneGate(blockState) && blockState.get(HorizontalFacingBlock.FACING) != direction;
+//        }
+//        return false;
+//    }
 
     static class TwoWayPowerUnit {
 
