@@ -21,3 +21,4 @@
 1.4.0
     - Fixed crash caused by redstone latch
     - Fixed rendering issues on certain graphics cards
+    - Fixed NullPointerExceptions in connectsTo
