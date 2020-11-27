@@ -17,3 +17,6 @@
     - Added Color Redstone Lamps
     - Removed one unused asset
     - Removed custom dispenser behaviour to better adhere to vanilla convention
+
+1.4.0
+    - Fixed crash caused by redstone latch

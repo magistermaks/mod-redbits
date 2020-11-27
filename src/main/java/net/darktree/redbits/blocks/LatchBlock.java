@@ -112,9 +112,10 @@ public class LatchBlock extends AbstractRedstoneGate {
     }
 
     public boolean isTargetNotAligned(BlockView world, BlockPos pos, BlockState state) {
-        Direction direction = Direction.from( state.get(AXIS), state.get(POWER).asAxisDirection() );
+        Direction.Axis axis = state.get(AXIS);
+        Direction direction = Direction.from( axis, state.get(POWER).asAxisDirection() );
         BlockState blockState = world.getBlockState(pos.offset(direction));
-        return isRedstoneGate(blockState) && blockState.get(HorizontalFacingBlock.FACING) != direction;
+        return isRedstoneGate(blockState) && blockState.get(Properties.HORIZONTAL_AXIS) != axis;
     }
 
 }
