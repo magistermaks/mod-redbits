@@ -49,7 +49,7 @@ public class LatchBlock extends AbstractRedstoneGate {
 
     @Override
     public boolean connectsTo(BlockState state, Direction direction) {
-        return state.get(AXIS) == direction.getAxis();
+        return direction != null && state.get(AXIS) == direction.getAxis();
     }
 
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {

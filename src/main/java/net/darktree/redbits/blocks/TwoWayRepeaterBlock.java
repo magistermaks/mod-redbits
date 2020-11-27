@@ -35,7 +35,7 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
 
     @Override
     public boolean connectsTo(BlockState state, Direction direction) {
-        return state.get(AXIS) == direction.getAxis();
+        return direction != null && state.get(AXIS) == direction.getAxis();
     }
 
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
