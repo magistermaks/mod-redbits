@@ -21,7 +21,7 @@ abstract public class RedstoneWireBlockMixin extends Block {
     private static void connectsTo(BlockState state, Direction dir, CallbackInfoReturnable<Boolean> info) {
         if( state.getBlock() instanceof RedstoneConnectable) {
             RedstoneConnectable gate = (RedstoneConnectable) state.getBlock();
-            info.setReturnValue( gate.connectsTo( state, dir ) );
+            info.setReturnValue( dir != null && gate.connectsTo(state, dir) );
             info.cancel();
         }
     }

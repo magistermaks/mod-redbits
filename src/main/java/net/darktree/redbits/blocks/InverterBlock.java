@@ -59,8 +59,7 @@ public class InverterBlock extends AbstractRedstoneGateBlock implements Redstone
 
     @Override
     public boolean connectsTo(BlockState state, Direction direction) {
-        Direction facing = state.get(RepeaterBlock.FACING);
-        return facing == direction || facing.getOpposite() == direction;
+        return state.get(RepeaterBlock.FACING).getAxis() == direction.getAxis();
     }
 
 }

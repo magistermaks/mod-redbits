@@ -49,7 +49,7 @@ public class LatchBlock extends AbstractRedstoneGate {
 
     @Override
     public boolean connectsTo(BlockState state, Direction direction) {
-        return direction != null && state.get(AXIS) == direction.getAxis();
+        return state.get(AXIS) == direction.getAxis();
     }
 
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
@@ -74,9 +74,6 @@ public class LatchBlock extends AbstractRedstoneGate {
 
         if( block && !world.getBlockTickScheduler().isTicking(pos, this) ) {
             TickPriority tickPriority = TickPriority.HIGH;
-//            if (this.isTargetNotAligned(world, pos, state)) {
-//                tickPriority = TickPriority.EXTREMELY_HIGH;
-//            }
             world.getBlockTickScheduler().schedule(pos, this, this.getUpdateDelayInternal(), tickPriority);
         }
     }
@@ -110,12 +107,5 @@ public class LatchBlock extends AbstractRedstoneGate {
         BlockPos blockPos = pos.offset( direction );
         return getInputPower( world, blockPos, direction );
     }
-
-//    public boolean isTargetNotAligned(BlockView world, BlockPos pos, BlockState state) {
-//        Direction.Axis axis = state.get(AXIS);
-//        Direction direction = Direction.from( axis, state.get(POWER).asAxisDirection() );
-//        BlockState blockState = world.getBlockState(pos.offset(direction));
-//        return isRedstoneGate(blockState) && blockState.get(Properties.HORIZONTAL_AXIS) != axis;
-//    }
 
 }
