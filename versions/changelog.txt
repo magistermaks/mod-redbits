@@ -22,3 +22,7 @@
     - Fixed crash caused by redstone latch
     - Fixed rendering issues on certain graphics cards
     - Fixed NullPointerExceptions in connectsTo
+
+1.5.0
+    - Small changes
+    - Added Power Observers
