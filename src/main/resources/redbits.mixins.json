@@ -4,12 +4,14 @@
   "package": "net.darktree.redbits.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "HopperBlockEntityMixin",
     "JukeboxBlockMixin",
     "RedstoneTorchBlockMixin",
-    "RedstoneWireBlockMixin",
-    "HopperBlockEntityMixin"
+    "RedstoneWireBlockMixin"
   ],
-  "client": [],
+  "client": [
+    "MessageProviderMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
