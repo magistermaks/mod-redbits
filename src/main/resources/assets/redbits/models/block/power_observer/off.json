@@ -1,0 +1,6 @@
+{
+    "parent": "block/observer",
+    "textures": {
+        "front": "redbits:block/power_observer"
+    }
+}
