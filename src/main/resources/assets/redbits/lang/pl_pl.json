@@ -1,4 +1,6 @@
 {
+    "block.redbits.power_observer": "Obserwator energetyczny",
+    "block.redbits.timer": "Chronometr",
     "block.redbits.rgb_lamp": "Kolorowa lampa",
     "block.redbits.latch": "Zatrzask",
     "block.redbits.two_way_repeater": "Dwukierunkowy przekaźnik",
