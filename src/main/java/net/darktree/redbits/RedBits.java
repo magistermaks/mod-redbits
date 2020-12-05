@@ -68,6 +68,7 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 	public final static Block INVERTED_REDSTONE_WALL_TORCH = new WallInvertedRedstoneTorchBlock(AbstractBlock.Settings.of(Material.SUPPORTED).noCollision().breakInstantly().lightLevel( (n) -> n.get(Properties.LIT) ? 7 : 0 ).sounds(BlockSoundGroup.WOOD));
 	public final static Block RGB_LAMP = new AnalogLampBlock(FabricBlockSettings.of(Material.REDSTONE_LAMP).lightLevel((n) -> n.get(AnalogLampBlock.POWER) > 0 ? 1 : 0).postProcess((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).emissiveLighting((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).strength(0.3F).sounds(BlockSoundGroup.GLASS).allowsSpawning( (BlockState state, BlockView world, BlockPos pos, EntityType<?> type) -> true ) );
 	public final static Block POWER_OBSERVER = new PowerObserverBlock(FabricBlockSettings.copyOf(Blocks.OBSERVER).nonOpaque());
+	public final static Block TIMER = new TimerBlock(AbstractBlock.Settings.of(Material.SUPPORTED).breakInstantly().sounds(BlockSoundGroup.WOOD));
 
 	@Override
 	public void onInitialize() {
@@ -120,6 +121,8 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("redbits", "rgb_lamp"), new BlockItem(RGB_LAMP, new Item.Settings().group(ItemGroup.REDSTONE)));
 		Registry.register(Registry.BLOCK, new Identifier("redbits", "power_observer"), POWER_OBSERVER);
 		Registry.register(Registry.ITEM, new Identifier("redbits", "power_observer"), new BlockItem(POWER_OBSERVER, new Item.Settings().group(ItemGroup.REDSTONE)));
+		Registry.register(Registry.BLOCK, new Identifier("redbits", "timer"), TIMER);
+		Registry.register(Registry.ITEM, new Identifier("redbits", "timer"), new BlockItem(TIMER, new Item.Settings().group(ItemGroup.REDSTONE)));
 	}
 
 	@Override
