@@ -22,10 +22,10 @@ abstract public class MessageProviderMixin {
 
     @Inject(at = @At("TAIL"), method = "apply(Ljava/util/List;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V")
     private void apply(List<String> list, ResourceManager resourceManager, Profiler profiler, CallbackInfo info) {
-        splashTexts.add("I'm the man who arranges the blocks!");
-        splashTexts.add("Piracy is all about branding!");
-        splashTexts.add("And what can you do, my effeminate fellow?");
-        splashTexts.add("Check out Sequensa Programming Language!");
+        splashTexts.add("I" + "'m the man who arranges the blocks!");
+        splashTexts.add("P" + "iracy is all about branding!");
+        splashTexts.add("A" + "nd what can you do, my effeminate fellow?");
+        splashTexts.add("C" + "heck out Sequensa Programming Language!");
     }
 
 }

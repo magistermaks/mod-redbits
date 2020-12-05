@@ -1,0 +1,11 @@
+{
+	"credit": "Made with Blockbench by magistermaks",
+	"ambientocclusion": false,
+	"textures": {
+		"2": "block/smooth_stone",
+		"4": "block/repeater_on",
+		"particle": "block/repeater_on",
+		"lit": "block/redstone_torch",
+		"unlit": "block/redstone_torch_off"
+	}
+}
