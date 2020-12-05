@@ -20,7 +20,7 @@ import java.util.Random;
 
 public class TimerBlock extends FlipFlopBlock {
 
-    public static final IntProperty DELAY = IntProperty.of("inverted", 1, 4);
+    public static final IntProperty DELAY = IntProperty.of("delay", 1, 4);
 
     public TimerBlock(Settings settings) {
         super(settings);
@@ -42,25 +42,37 @@ public class TimerBlock extends FlipFlopBlock {
     }
 
     @Override
-    protected int getUpdateDelayInternal(BlockState state) {
-        return (int) Math.pow( 2, state.get(DELAY) );
+    protected void updatePowered(World world, BlockPos pos, BlockState state) {
+
+        boolean block = this.hasPower(world, pos, state);
+
+        if( !block ) {
+            world.setBlockState(pos, state.with(INPUT, false), 2 );
+        }else{
+
+            if( !state.get(INPUT) ) {
+                world.getBlockTickScheduler().schedule(pos, this, this.getUpdateDelayInternal(state), TickPriority.HIGH);
+            }
+        }
+
     }
 
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 
-        boolean input = state.get(INPUT);
-        boolean block = this.hasPower(world, pos, state);
-
-        if( input && !block ) {
+        if( !this.hasPower(world, pos, state) ) {
             world.setBlockState(pos, state.with(INPUT, false).with(POWERED, false), 2 );
-            return;
-        } else if( !input && block ) {
-            world.setBlockState(pos, state.with(INPUT, true), 2 );
         }else{
-            world.setBlockState(pos, state.cycle(POWERED), 2 );
+
+            if( state.get(INPUT) ) {
+                world.setBlockState(pos, state.cycle(POWERED), 2 );
+            }else{
+                world.setBlockState(pos, state.with(INPUT, true), 2 );
+            }
+
+            world.getBlockTickScheduler().schedule(pos, this, (int) Math.pow( 2, state.get(DELAY) ), TickPriority.HIGH);
+
         }
 
-        world.getBlockTickScheduler().schedule(pos, this, this.getUpdateDelayInternal(state), TickPriority.HIGH);
     }
 
 }
