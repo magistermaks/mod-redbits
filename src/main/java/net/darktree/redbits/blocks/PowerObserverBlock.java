@@ -46,9 +46,8 @@ public class PowerObserverBlock extends ObserverBlock {
         }
 
         if( (state.getBlock() == Blocks.REDSTONE_LAMP || state.getBlock() == RedBits.REDSTONE_LAMP) && state.get(Properties.LIT) ) return true;
-        if( state.getBlock() == RedBits.LATCH ) return true;
-
-        return false;
+        if( state.getBlock() == RedBits.RGB_LAMP && state.get(AnalogLampBlock.POWER) != 0 ) return true;
+        return state.getBlock() == RedBits.LATCH;
     }
 
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
