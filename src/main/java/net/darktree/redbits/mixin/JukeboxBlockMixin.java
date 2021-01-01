@@ -55,6 +55,7 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
         }
     }
 
+    @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         JukeboxBlockEntity jukeboxBlockEntity = (JukeboxBlockEntity) world.getBlockEntity( pos );
         if( jukeboxBlockEntity != null ) {
