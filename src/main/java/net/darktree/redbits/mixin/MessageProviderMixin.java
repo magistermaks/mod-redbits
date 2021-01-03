@@ -28,6 +28,7 @@ abstract public class MessageProviderMixin {
         splashTexts.add("P" + "iracy is all about branding!");
         splashTexts.add("A" + "nd what can you do, my effeminate fellow?");
         splashTexts.add("C" + "heck out Sequensa Programming Language!");
+        splashTexts.add("Y" + "ou know the rules and so do I!");
     }
 
 }

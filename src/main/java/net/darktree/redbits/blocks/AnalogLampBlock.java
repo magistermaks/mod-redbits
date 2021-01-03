@@ -19,10 +19,12 @@ public class AnalogLampBlock extends Block {
         this.setDefaultState(this.getDefaultState().with(POWER, 0));
     }
 
+    @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return this.getDefaultState().with(POWER, ctx.getWorld().getReceivedRedstonePower(ctx.getBlockPos()));
     }
 
+    @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
         if (!world.isClient) {
             int power = world.getReceivedRedstonePower(pos);
@@ -33,6 +35,7 @@ public class AnalogLampBlock extends Block {
         }
     }
 
+    @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         int power = world.getReceivedRedstonePower(pos);
 
@@ -42,6 +45,7 @@ public class AnalogLampBlock extends Block {
 
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(POWER);
     }

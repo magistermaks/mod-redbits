@@ -30,7 +30,7 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
 
     @Inject(at = @At("TAIL"), method = "<init>(Lnet/minecraft/block/AbstractBlock$Settings;)V")
     private void init(AbstractBlock.Settings settings, CallbackInfo info) {
-        this.setDefaultState(this.stateManager.getDefaultState().with(JukeboxBlock.HAS_RECORD, false).with(POWERED, false));
+        setDefaultState(this.stateManager.getDefaultState().with(JukeboxBlock.HAS_RECORD, false).with(POWERED, false));
     }
 
     @Inject(at = @At("TAIL"), method = "appendProperties(Lnet/minecraft/state/StateManager$Builder;)V")

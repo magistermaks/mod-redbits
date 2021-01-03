@@ -27,3 +27,8 @@
     - Small changes
     - Added Power Observers
     - Added Timers
+
+1.6.0
+    - Small code improvements
+    - Added hotbar info when clicking on Emitters
+    - Droppers can now put items into Campfires

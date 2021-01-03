@@ -14,7 +14,6 @@ abstract public class RedstoneTorchBlockMixin {
     @Inject(at = @At("HEAD"), method = "isBurnedOut(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Z)Z", cancellable = true)
     private static void isBurnedOut(World world, BlockPos pos, boolean addNew, CallbackInfoReturnable<Boolean> info) {
         info.setReturnValue( false );
-        info.cancel();
     }
 
 }

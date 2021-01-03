@@ -36,6 +36,7 @@ public class FlipFlopBlock extends AbstractRedstoneGateBlock implements Redstone
         return 2;
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING, POWERED, INPUT);
     }
@@ -50,10 +51,12 @@ public class FlipFlopBlock extends AbstractRedstoneGateBlock implements Redstone
         return super.onUse( state, world, pos, player, hand, hit );
     }
 
+    @Override
     protected boolean isValidInput(BlockState state) {
         return isRedstoneGate(state);
     }
 
+    @Override
     public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
         if( state.get(POWERED) ) {
             return state.get(FACING) == direction ? 15 : 0;
@@ -62,6 +65,7 @@ public class FlipFlopBlock extends AbstractRedstoneGateBlock implements Redstone
         }
     }
 
+    @Override
     protected void updatePowered(World world, BlockPos pos, BlockState state) {
         boolean power = state.get(INPUT);
         boolean block = this.hasPower(world, pos, state);
@@ -78,6 +82,7 @@ public class FlipFlopBlock extends AbstractRedstoneGateBlock implements Redstone
         }
     }
 
+    @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         boolean power = state.get(INPUT);
         boolean block = this.hasPower(world, pos, state);

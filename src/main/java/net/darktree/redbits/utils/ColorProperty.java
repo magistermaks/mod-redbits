@@ -7,7 +7,7 @@ import java.util.Optional;
 public class ColorProperty extends IntProperty {
 
     protected ColorProperty(String name) {
-        super(name, 0, 15);
+        super(name, 0, ColorProvider.COUNT);
     }
 
     public static ColorProperty of( String name ) {
@@ -20,7 +20,7 @@ public class ColorProperty extends IntProperty {
         if( index == -1 ) {
             return Optional.empty();
         }else{
-            // no need to check for range as there always will be only 16 colors
+            // no need to check for range as there always will be only `ColorProvider.COUNT` colors
             return Optional.of( index );
         }
     }

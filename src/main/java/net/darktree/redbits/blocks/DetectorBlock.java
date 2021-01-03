@@ -27,6 +27,7 @@ public class DetectorBlock extends FlipFlopBlock {
         this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(POWERED, false).with(INPUT, false).with(INVERTED, false));
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING, POWERED, INPUT, INVERTED);
     }
@@ -41,6 +42,7 @@ public class DetectorBlock extends FlipFlopBlock {
         return super.onUse( state, world, pos, player, hand, hit );
     }
 
+    @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 
         boolean input = state.get(INPUT);

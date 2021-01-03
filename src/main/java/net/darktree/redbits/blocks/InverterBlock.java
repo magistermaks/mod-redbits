@@ -28,14 +28,17 @@ public class InverterBlock extends AbstractRedstoneGateBlock implements Redstone
         return 2;
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING, POWERED);
     }
 
+    @Override
     protected boolean isValidInput(BlockState state) {
         return isRedstoneGate(state);
     }
 
+    @Override
     public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
         if ( !state.get(POWERED) ) {
             return state.get(FACING) == direction ? 15 : 0;
@@ -44,6 +47,7 @@ public class InverterBlock extends AbstractRedstoneGateBlock implements Redstone
         }
     }
 
+    @Override
     @Environment(EnvType.CLIENT)
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         if ( !state.get(POWERED) ) {

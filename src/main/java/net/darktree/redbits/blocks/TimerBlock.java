@@ -27,6 +27,7 @@ public class TimerBlock extends FlipFlopBlock {
         this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(POWERED, false).with(INPUT, false).with(DELAY, 1));
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING, POWERED, INPUT, DELAY);
     }
@@ -43,26 +44,18 @@ public class TimerBlock extends FlipFlopBlock {
 
     @Override
     protected void updatePowered(World world, BlockPos pos, BlockState state) {
-
-        boolean block = this.hasPower(world, pos, state);
-
-        if( !block ) {
-            world.setBlockState(pos, state.with(INPUT, false), 2 );
-        }else{
-
+        if( hasPower(world, pos, state) ) {
             if( !state.get(INPUT) ) {
-                world.getBlockTickScheduler().schedule(pos, this, this.getUpdateDelayInternal(state), TickPriority.HIGH);
+                world.getBlockTickScheduler().schedule(pos, this, getUpdateDelayInternal(state), TickPriority.HIGH);
             }
+        }else{
+            world.setBlockState(pos, state.with(INPUT, false), 2 );
         }
-
     }
 
+    @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-
-        if( !this.hasPower(world, pos, state) ) {
-            world.setBlockState(pos, state.with(INPUT, false).with(POWERED, false), 2 );
-        }else{
-
+        if( hasPower(world, pos, state) ) {
             if( state.get(INPUT) ) {
                 world.setBlockState(pos, state.cycle(POWERED), 2 );
             }else{
@@ -70,9 +63,9 @@ public class TimerBlock extends FlipFlopBlock {
             }
 
             world.getBlockTickScheduler().schedule(pos, this, (int) Math.pow( 2, state.get(DELAY) ), TickPriority.HIGH);
-
+        }else{
+            world.setBlockState(pos, state.with(INPUT, false).with(POWERED, false), 2 );
         }
-
     }
 
 }

@@ -15,6 +15,8 @@ import java.util.Random;
 
 public class PowerObserverBlock extends ObserverBlock {
 
+    // This class is cursed, don't look //
+
     public PowerObserverBlock(Settings settings) {
         super(settings);
     }
@@ -50,6 +52,13 @@ public class PowerObserverBlock extends ObserverBlock {
         return state.getBlock() == RedBits.LATCH;
     }
 
+    protected void scheduleTick(WorldAccess world, BlockPos pos) {
+        if (!world.isClient() && !world.getBlockTickScheduler().isScheduled(pos, this)) {
+            world.getBlockTickScheduler().schedule(pos, this, 2);
+        }
+    }
+
+    @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 
         Direction direction = state.get(FACING);
@@ -64,18 +73,13 @@ public class PowerObserverBlock extends ObserverBlock {
         this.updateNeighbors(world, pos, state);
     }
 
+    @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
         if ( state.get(FACING) == direction ) {
             this.scheduleTick(world, pos);
         }
 
         return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
-    }
-
-    protected void scheduleTick(WorldAccess world, BlockPos pos) {
-        if (!world.isClient() && !world.getBlockTickScheduler().isScheduled(pos, this)) {
-            world.getBlockTickScheduler().schedule(pos, this, 2);
-        }
     }
 
 }

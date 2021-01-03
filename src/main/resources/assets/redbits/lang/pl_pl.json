@@ -27,6 +27,7 @@
     "block.redbits.crimson_large_button": "Duży szkarłatny przycisk",
     "block.redbits.warped_large_button": "Duży spaczony przycisk",
     "block.redbits.stone_large_button": "Duży kamienny przycisk",
-    "block.redbits.polished_blackstone_large_button": "Duży wypolerowany czarnitowy przycisk"
+    "block.redbits.polished_blackstone_large_button": "Duży wypolerowany czarnitowy przycisk",
+    "message.redbits.power_level": "Energia: %s"
 }
 

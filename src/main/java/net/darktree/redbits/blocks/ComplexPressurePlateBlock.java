@@ -3,7 +3,6 @@ package net.darktree.redbits.blocks;
 import net.minecraft.block.AbstractPressurePlateBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -40,31 +39,21 @@ public class ComplexPressurePlateBlock extends AbstractPressurePlateBlock {
 
     @Override
     protected void playPressSound(WorldAccess world, BlockPos pos) {
-        if (this.material != Material.WOOD && this.material != Material.NETHER_WOOD) {
-            world.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.6F);
-        } else {
-            world.playSound(null, pos, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.8F);
-        }
+        world.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.6F);
     }
 
     @Override
     protected void playDepressSound(WorldAccess world, BlockPos pos) {
-        if (this.material != Material.WOOD && this.material != Material.NETHER_WOOD) {
-            world.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.5F);
-        } else {
-            world.playSound(null, pos, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.7F);
-        }
+        world.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.5F);
     }
 
     @Override
     protected int getRedstoneOutput(World world, BlockPos pos) {
         List<Entity> list = collisionCondition.call( world, BOX.offset(pos) );
 
-        if (!list.isEmpty()) {
-            for (Entity entity : list) {
-                if (!entity.canAvoidTraps()) {
-                    return 15;
-                }
+        for (Entity entity : list) {
+            if (!entity.canAvoidTraps()) {
+                return 15;
             }
         }
 

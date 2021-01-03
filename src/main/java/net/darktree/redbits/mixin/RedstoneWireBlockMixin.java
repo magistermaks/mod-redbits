@@ -17,7 +17,6 @@ abstract public class RedstoneWireBlockMixin {
         if( state.getBlock() instanceof RedstoneConnectable) {
             RedstoneConnectable gate = (RedstoneConnectable) state.getBlock();
             info.setReturnValue( dir != null && gate.connectsTo(state, dir) );
-            info.cancel();
         }
     }
 

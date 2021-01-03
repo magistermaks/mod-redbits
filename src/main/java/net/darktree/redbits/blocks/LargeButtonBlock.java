@@ -30,6 +30,7 @@ public class LargeButtonBlock extends AbstractButtonBlock {
         this.is_wooden = wooden;
     }
 
+    @Override
     protected SoundEvent getClickSound(boolean powered) {
         if( is_wooden ) {
             return powered ? SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_ON : SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_OFF;
@@ -38,6 +39,7 @@ public class LargeButtonBlock extends AbstractButtonBlock {
         }
     }
 
+    @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Direction direction = state.get(FACING);
         boolean bl = state.get(POWERED);
