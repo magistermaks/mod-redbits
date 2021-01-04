@@ -1,0 +1,244 @@
+{
+  "variants": {
+    "facing=east,powered=false,input=true,delay=1": {
+      "model": "redbits:block/timer/1/on-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=true,delay=1": {
+      "model": "redbits:block/timer/1/on-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=true,delay=1": {
+      "model": "redbits:block/timer/1/on-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=true,delay=1": {
+      "model": "redbits:block/timer/1/on-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=true,delay=1": {
+      "model": "redbits:block/timer/1/on-off"
+    },
+    "facing=south,powered=true,input=true,delay=1": {
+      "model": "redbits:block/timer/1/on-on"
+    },
+    "facing=west,powered=false,input=true,delay=1": {
+      "model": "redbits:block/timer/1/on-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=true,delay=1": {
+      "model": "redbits:block/timer/1/on-on",
+      "y": 90
+    },
+    "facing=east,powered=false,input=false,delay=1": {
+      "model": "redbits:block/timer/1/off-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=false,delay=1": {
+      "model": "redbits:block/timer/1/off-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=false,delay=1": {
+      "model": "redbits:block/timer/1/off-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=false,delay=1": {
+      "model": "redbits:block/timer/1/off-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=false,delay=1": {
+      "model": "redbits:block/timer/1/off-off"
+    },
+    "facing=south,powered=true,input=false,delay=1": {
+      "model": "redbits:block/timer/1/off-on"
+    },
+    "facing=west,powered=false,input=false,delay=1": {
+      "model": "redbits:block/timer/1/off-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=false,delay=1": {
+      "model": "redbits:block/timer/1/off-on",
+      "y": 90
+    },
+    "facing=east,powered=false,input=true,delay=2": {
+      "model": "redbits:block/timer/2/on-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=true,delay=2": {
+      "model": "redbits:block/timer/2/on-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=true,delay=2": {
+      "model": "redbits:block/timer/2/on-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=true,delay=2": {
+      "model": "redbits:block/timer/2/on-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=true,delay=2": {
+      "model": "redbits:block/timer/2/on-off"
+    },
+    "facing=south,powered=true,input=true,delay=2": {
+      "model": "redbits:block/timer/2/on-on"
+    },
+    "facing=west,powered=false,input=true,delay=2": {
+      "model": "redbits:block/timer/2/on-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=true,delay=2": {
+      "model": "redbits:block/timer/2/on-on",
+      "y": 90
+    },
+    "facing=east,powered=false,input=false,delay=2": {
+      "model": "redbits:block/timer/2/off-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=false,delay=2": {
+      "model": "redbits:block/timer/2/off-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=false,delay=2": {
+      "model": "redbits:block/timer/2/off-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=false,delay=2": {
+      "model": "redbits:block/timer/2/off-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=false,delay=2": {
+      "model": "redbits:block/timer/2/off-off"
+    },
+    "facing=south,powered=true,input=false,delay=2": {
+      "model": "redbits:block/timer/2/off-on"
+    },
+    "facing=west,powered=false,input=false,delay=2": {
+      "model": "redbits:block/timer/2/off-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=false,delay=2": {
+      "model": "redbits:block/timer/2/off-on",
+      "y": 90
+    },
+    "facing=east,powered=false,input=true,delay=3": {
+      "model": "redbits:block/timer/3/on-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=true,delay=3": {
+      "model": "redbits:block/timer/3/on-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=true,delay=3": {
+      "model": "redbits:block/timer/3/on-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=true,delay=3": {
+      "model": "redbits:block/timer/3/on-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=true,delay=3": {
+      "model": "redbits:block/timer/3/on-off"
+    },
+    "facing=south,powered=true,input=true,delay=3": {
+      "model": "redbits:block/timer/3/on-on"
+    },
+    "facing=west,powered=false,input=true,delay=3": {
+      "model": "redbits:block/timer/3/on-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=true,delay=3": {
+      "model": "redbits:block/timer/3/on-on",
+      "y": 90
+    },
+    "facing=east,powered=false,input=false,delay=3": {
+      "model": "redbits:block/timer/3/off-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=false,delay=3": {
+      "model": "redbits:block/timer/3/off-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=false,delay=3": {
+      "model": "redbits:block/timer/3/off-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=false,delay=3": {
+      "model": "redbits:block/timer/3/off-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=false,delay=3": {
+      "model": "redbits:block/timer/3/off-off"
+    },
+    "facing=south,powered=true,input=false,delay=3": {
+      "model": "redbits:block/timer/3/off-on"
+    },
+    "facing=west,powered=false,input=false,delay=3": {
+      "model": "redbits:block/timer/3/off-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=false,delay=3": {
+      "model": "redbits:block/timer/3/off-on",
+      "y": 90
+    },
+    "facing=east,powered=false,input=true,delay=4": {
+      "model": "redbits:block/timer/4/on-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=true,delay=4": {
+      "model": "redbits:block/timer/4/on-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=true,delay=4": {
+      "model": "redbits:block/timer/4/on-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=true,delay=4": {
+      "model": "redbits:block/timer/4/on-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=true,delay=4": {
+      "model": "redbits:block/timer/4/on-off"
+    },
+    "facing=south,powered=true,input=true,delay=4": {
+      "model": "redbits:block/timer/4/on-on"
+    },
+    "facing=west,powered=false,input=true,delay=4": {
+      "model": "redbits:block/timer/4/on-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=true,delay=4": {
+      "model": "redbits:block/timer/4/on-on",
+      "y": 90
+    },
+    "facing=east,powered=false,input=false,delay=4": {
+      "model": "redbits:block/timer/4/off-off",
+      "y": 270
+    },
+    "facing=east,powered=true,input=false,delay=4": {
+      "model": "redbits:block/timer/4/off-on",
+      "y": 270
+    },
+    "facing=north,powered=false,input=false,delay=4": {
+      "model": "redbits:block/timer/4/off-off",
+      "y": 180
+    },
+    "facing=north,powered=true,input=false,delay=4": {
+      "model": "redbits:block/timer/4/off-on",
+      "y": 180
+    },
+    "facing=south,powered=false,input=false,delay=4": {
+      "model": "redbits:block/timer/4/off-off"
+    },
+    "facing=south,powered=true,input=false,delay=4": {
+      "model": "redbits:block/timer/4/off-on"
+    },
+    "facing=west,powered=false,input=false,delay=4": {
+      "model": "redbits:block/timer/4/off-off",
+      "y": 90
+    },
+    "facing=west,powered=true,input=false,delay=4": {
+      "model": "redbits:block/timer/4/off-on",
+      "y": 90
+    }
+  }
+}
