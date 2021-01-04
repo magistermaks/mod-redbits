@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(SplashTextResourceSupplier.class)
@@ -20,7 +19,7 @@ abstract public class MessageProviderMixin {
 
     @Final
     @Shadow
-    private final List<String> splashTexts = new ArrayList<>();
+    private List<String> splashTexts;
 
     @Inject(at = @At("TAIL"), method = "apply(Ljava/util/List;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V")
     private void apply(List<String> list, ResourceManager resourceManager, Profiler profiler, CallbackInfo info) {
