@@ -2,13 +2,22 @@ package net.darktree.redbits;
 
 import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
+import net.darktree.redbits.net.VisionSensorNetwork;
 import net.darktree.redbits.utils.ColorProvider;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.impl.registry.sync.FabricRegistry;
+import net.fabricmc.fabric.impl.registry.sync.FabricRegistryInit;
+import net.fabricmc.loader.gui.FabricStatusTree;
+import net.fabricmc.loader.launch.FabricClientTweaker;
 import net.minecraft.block.*;
+import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -16,23 +25,26 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.AbstractTraderEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.WallStandingBlockItem;
+import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 
 public class RedBits implements ModInitializer, ClientModInitializer {
+
+	public static final Logger LOGGER = LogManager.getLogger("redbits");
 
 	@SuppressWarnings("unchecked")
 	public final static CollisionCondition COLLISION_CONDITION_PET = ( World world, Box box ) -> {
@@ -59,7 +71,7 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 	public final static Block DETECTOR = new DetectorBlock(AbstractBlock.Settings.of(Material.SUPPORTED).breakInstantly().sounds(BlockSoundGroup.WOOD));
 	public final static Block TWO_WAY_REPEATER = new TwoWayRepeaterBlock(AbstractBlock.Settings.of(Material.SUPPORTED).breakInstantly().sounds(BlockSoundGroup.WOOD));
 	public final static Block LATCH = new LatchBlock(AbstractBlock.Settings.of(Material.SUPPORTED).breakInstantly().sounds(BlockSoundGroup.WOOD));
-	public final static Block REDSTONE_EMITTER = new EmitterBlock();
+	public final static Block REDSTONE_EMITTER = new EmitterBlock( AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F).solidBlock( (BlockState state, BlockView world, BlockPos pos) -> true ) );
 	public final static Block OBSIDIAN_PRESSURE_PLATE = new ComplexPressurePlateBlock( COLLISION_CONDITION_PLAYERS, AbstractBlock.Settings.of(Material.STONE, MaterialColor.BLACK).requiresTool().noCollision().strength(0.5F) );
 	public final static Block CRYING_OBSIDIAN_PRESSURE_PLATE = new ComplexPressurePlateBlock( COLLISION_CONDITION_HOSTILE, AbstractBlock.Settings.of(Material.STONE, MaterialColor.BLACK).requiresTool().noCollision().strength(0.5F) );
 	public final static Block END_STONE_PRESSURE_PLATE = new ComplexPressurePlateBlock( COLLISION_CONDITION_VILLAGER, AbstractBlock.Settings.of(Material.STONE, MaterialColor.SAND).requiresTool().noCollision().strength(0.5F) );
@@ -69,6 +81,10 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 	public final static Block RGB_LAMP = new AnalogLampBlock(FabricBlockSettings.of(Material.REDSTONE_LAMP).lightLevel((n) -> n.get(AnalogLampBlock.POWER) > 0 ? 1 : 0).postProcess((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).emissiveLighting((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).strength(0.3F).sounds(BlockSoundGroup.GLASS).allowsSpawning( (BlockState state, BlockView world, BlockPos pos, EntityType<?> type) -> true ) );
 	public final static Block POWER_OBSERVER = new PowerObserverBlock(AbstractBlock.Settings.of(Material.STONE).strength(3.0F).requiresTool().solidBlock((state, world, pos) -> false));
 	public final static Block TIMER = new TimerBlock(AbstractBlock.Settings.of(Material.SUPPORTED).breakInstantly().sounds(BlockSoundGroup.WOOD));
+	public final static Block VISION_SENSOR = new VisionSensorBlock( AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F).solidBlock( (BlockState state, BlockView world, BlockPos pos) -> true ) );
+
+	@Environment(EnvType.CLIENT)
+	private BlockPos rayTraceTarget = null;
 
 	@Override
 	public void onInitialize() {
@@ -123,10 +139,37 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("redbits", "power_observer"), new BlockItem(POWER_OBSERVER, new Item.Settings().group(ItemGroup.REDSTONE)));
 		Registry.register(Registry.BLOCK, new Identifier("redbits", "timer"), TIMER);
 		Registry.register(Registry.ITEM, new Identifier("redbits", "timer"), new BlockItem(TIMER, new Item.Settings().group(ItemGroup.REDSTONE)));
+		Registry.register(Registry.BLOCK, new Identifier("redbits", "vision_sensor"), VISION_SENSOR);
+		Registry.register(Registry.ITEM, new Identifier("redbits", "vision_sensor"), new BlockItem(VISION_SENSOR, new Item.Settings().group(ItemGroup.REDSTONE)));
+
+		VisionSensorNetwork.init();
 	}
 
 	@Override
 	public void onInitializeClient() {
+
+		ClientTickEvents.END_CLIENT_TICK.register( client -> {
+
+			Entity entity = client.getCameraEntity();
+			if( entity != null && client.world != null ) {
+
+				HitResult hit = entity.rayTrace(128.0f, client.getTickDelta(), false);
+				if( hit.getType() == HitResult.Type.BLOCK ) {
+
+					BlockPos pos = ((BlockHitResult) hit).getBlockPos();
+					BlockState state = client.world.getBlockState(pos);
+
+					if( !pos.equals(rayTraceTarget) ) {
+						if( state.getBlock() == RedBits.VISION_SENSOR ) {
+							VisionSensorNetwork.send( pos );
+						}
+						rayTraceTarget = pos;
+					}
+
+				}
+			}
+		} );
+
 		BlockRenderLayerMap.INSTANCE.putBlock(INVERTER, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(T_FLIP_FLOP, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(DETECTOR, RenderLayer.getCutout());

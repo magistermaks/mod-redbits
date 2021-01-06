@@ -23,13 +23,8 @@ public class EmitterBlock extends Block {
 
     public static final IntProperty POWER = Properties.POWER;
 
-    public EmitterBlock() {
-        super( Settings.of(Material.METAL, MaterialColor.LAVA)
-                .requiresTool()
-                .strength(5.0F, 6.0F)
-                .sounds(BlockSoundGroup.METAL)
-                .solidBlock( (BlockState state, BlockView world, BlockPos pos) -> true ) );
-
+    public EmitterBlock( Settings settings ) {
+        super( settings );
         this.setDefaultState( this.stateManager.getDefaultState().with(POWER, 1) );
     }
 

@@ -1,0 +1,7 @@
+{
+	"credit": "Made with Blockbench by magistermaks",
+	"parent": "redbits:block/emitter",
+	"textures": {
+		"all": "redbits:block/vision_sensor_on"
+	}
+}

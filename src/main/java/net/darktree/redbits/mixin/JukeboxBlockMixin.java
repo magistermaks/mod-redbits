@@ -1,5 +1,6 @@
 package net.darktree.redbits.mixin;
 
+import net.darktree.redbits.RedBits;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.JukeboxBlockEntity;
@@ -61,7 +62,7 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
         if( jukeboxBlockEntity != null ) {
             world.syncWorldEvent(1010, pos, Item.getRawId(jukeboxBlockEntity.getRecord().getItem()));
         }else{
-            LOGGER.warn( "[RedBits] Unable to trigger sound event, as the given Jukebox don't have a BlockEntity attached!" );
+            RedBits.LOGGER.warn( "Unable to trigger sound event, as the given Jukebox don't have a BlockEntity attached!" );
         }
     }
 
