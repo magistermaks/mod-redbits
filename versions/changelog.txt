@@ -32,3 +32,6 @@
     - Small code improvements
     - Added hotbar info when clicking on Emitters
     - Droppers can now put items into Campfires
+
+1.7.0
+    - Added Sight Sensors
