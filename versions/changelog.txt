@@ -1,34 +1,34 @@
-1.0.0
-    - Initial Version
+1.0.0 <2020/08/22>
+    - Initial version
 
-1.1.0
+1.1.0 <2020/08/25>
     - Jukeboxes now interact with hoppers, droppers and dispensers
     - Fixed one Jukebox related bug
     - Shaded redstone lamps now use emissive lighting
     - Added Redstone Latch
     - Added tooltips to pressure plates
 
-1.2.0
+1.2.0 <2020/09/23>
     - Fixed minor translation error
     - Fixed Inverted Redstone Torch lighting bug
     - Fixed mixin configuration bug
 
-1.3.0
+1.3.0 <2020/10/26>
     - Added Color Redstone Lamps
     - Removed one unused asset
     - Removed custom dispenser behaviour to better adhere to vanilla convention
 
-1.4.0
+1.4.0 <2020/11/27>
     - Fixed crash caused by redstone latch
     - Fixed rendering issues on certain graphics cards
     - Fixed NullPointerExceptions in connectsTo
 
-1.5.0
+1.5.0 <2020/12/07>
     - Small changes
     - Added Power Observers
     - Added Timers
 
-1.6.0
+1.6.0 <2021/01/03>
     - Small code improvements
     - Added hotbar info when clicking on Emitters
     - Droppers can now put items into Campfires

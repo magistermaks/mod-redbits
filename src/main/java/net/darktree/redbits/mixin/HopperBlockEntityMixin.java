@@ -34,12 +34,10 @@ abstract public class HopperBlockEntityMixin {
 
         if( state.getBlock() == Blocks.JUKEBOX ) {
             info.setReturnValue( new JukeboxInventory( world, pos ) );
-            info.cancel();
         }
 
         if( state.getBlock() instanceof CampfireBlock) {
             info.setReturnValue( new CampfireInventory( world, pos ) );
-            info.cancel();
         }
 
     }
