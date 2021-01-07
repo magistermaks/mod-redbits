@@ -1,4 +1,4 @@
-package net.darktree.redbits.net;
+package net.darktree.redbits.blocks.vision;
 
 import io.netty.buffer.Unpooled;
 import net.darktree.redbits.RedBits;
@@ -12,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class VisionSensorNetwork {
 
@@ -29,13 +30,14 @@ public class VisionSensorNetwork {
 
             BlockState state = player.world.getBlockState(pos);
             if( state.getBlock() == RedBits.VISION_SENSOR ) {
-                if( ((VisionSensorBlock) RedBits.VISION_SENSOR).activate(state, player.world, pos) ) {
-                    return;
+                if (player.getPos().distanceTo(new Vec3d(pos.getX(), pos.getY(), pos.getZ())) < 130.0) {
+                    if (((VisionSensorBlock) RedBits.VISION_SENSOR).activate(state, player.world, pos)) {
+                        return;
+                    }
                 }
             }
 
-            RedBits.LOGGER.warn( "Invalid Vision Sensor activation packet, sent by: " + player.getNameAndUuid() + "!" );
-
+            RedBits.LOGGER.warn( "Invalid Sight Sensor packet sent by: " + player.getEntityName() + "!" );
         }
     }
 
@@ -45,6 +47,5 @@ public class VisionSensorNetwork {
         data.writeBlockPos( pos );
         ClientSidePacketRegistry.INSTANCE.sendToServer( VISION_SENSOR_ACTIVATE, data );
     }
-
 
 }
