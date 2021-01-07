@@ -1,12 +1,12 @@
-## RedBits help page
+# RedBits help page
 
-### Recipes
+## Recipes
 
 All recipes are available in game, in the "crafting book", 
 but are initially hidden. To unlock all of them use this command 
 `/recipe give @s *`
 
-### Gates
+## Gates
 
 **Detector**  
 Is a falling/rising edge detector, in rising mode it triggers
@@ -37,7 +37,7 @@ Works like vanilla repeater but doesn't have timing control,
 (delay is always equal 1 redstone tick) and allows signals to
 pass in both directions.
 
-### Other Components
+## Other Components
 
 TODO
 
