@@ -1,5 +1,11 @@
 ## RedBits help page
 
+### Recipes
+
+All recipes are available in game, in the "crafting book", 
+but are initially hidden. To unlock all of them use this command 
+`/recipe give @s *`
+
 ### Gates
 
 **Detector**  
@@ -30,5 +36,9 @@ by clicking on the timer. Available timings: 1, 2, 4, 8 redstone ticks.
 Works like vanilla repeater but doesn't have timing control,
 (delay is always equal 1 redstone tick) and allows signals to
 pass in both directions.
+
+### Other Components
+
+TODO
 
 **This help page is in not yet complete, more information will be added with time.**
