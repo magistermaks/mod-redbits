@@ -23,7 +23,7 @@ public class ComplexPressurePlateBlock extends PressurePlateBlock {
     private final CollisionCondition collisionCondition;
 
     public ComplexPressurePlateBlock(CollisionCondition condition, Settings settings) {
-        super(ActivationRule.EVERYTHING, settings);
+        super(null, settings);
         this.collisionCondition = condition;
     }
 
