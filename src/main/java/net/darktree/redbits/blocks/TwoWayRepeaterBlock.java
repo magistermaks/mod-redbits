@@ -3,7 +3,6 @@ package net.darktree.redbits.blocks;
 import net.darktree.redbits.utils.TwoWayPower;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;

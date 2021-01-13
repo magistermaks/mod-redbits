@@ -25,27 +25,19 @@ public class PowerObserverBlock extends ObserverBlock {
 
         try{
             if( state.get(Properties.POWERED) ) return true;
-        }catch (IllegalArgumentException exception) {
-            // ignored
-        }
+        }catch (IllegalArgumentException ignore) {}
 
         try{
             if( state.get(Properties.POWER) > 0 ) return true;
-        }catch (IllegalArgumentException exception) {
-            // ignored
-        }
+        }catch (IllegalArgumentException ignore) {}
 
         try{
             if( state.get(Properties.EXTENDED) ) return true;
-        }catch (IllegalArgumentException exception) {
-            // ignored
-        }
+        }catch (IllegalArgumentException ignore) {}
 
         try{
             if( state.get(TwoWayRepeaterBlock.POWER) != TwoWayPower.NONE ) return true;
-        }catch (IllegalArgumentException exception) {
-            // ignored
-        }
+        }catch (IllegalArgumentException ignore) {}
 
         if( (state.getBlock() == Blocks.REDSTONE_LAMP || state.getBlock() == RedBits.REDSTONE_LAMP) && state.get(Properties.LIT) ) return true;
         if( state.getBlock() == RedBits.RGB_LAMP && state.get(AnalogLampBlock.POWER) != 0 ) return true;

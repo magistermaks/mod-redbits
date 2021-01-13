@@ -16,7 +16,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class VisionSensorNetwork {
 
-    public static final Identifier VISION_SENSOR_ACTIVATE = new Identifier("redbits", "vision_sensor_activate");
+    public static final Identifier VISION_SENSOR_ACTIVATE = new Identifier(RedBits.NAMESPACE, "vision_sensor_activate");
 
     public static void init() {
         ServerSidePacketRegistry.INSTANCE.register(VISION_SENSOR_ACTIVATE, (ctx, data) -> {

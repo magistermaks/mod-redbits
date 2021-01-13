@@ -2,8 +2,8 @@ package net.darktree.redbits;
 
 import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
-import net.darktree.redbits.blocks.vision.VisionSensorTracker;
 import net.darktree.redbits.blocks.vision.VisionSensorNetwork;
+import net.darktree.redbits.blocks.vision.VisionSensorTracker;
 import net.darktree.redbits.utils.ColorProvider;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -20,7 +20,10 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.AbstractTraderEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.WallStandingBlockItem;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
@@ -37,7 +40,9 @@ import java.util.List;
 
 public class RedBits implements ModInitializer, ClientModInitializer {
 
-	public static final Logger LOGGER = LogManager.getLogger("redbits");
+	public static final Logger LOGGER = LogManager.getLogger("RedBits");
+	public static final Item.Settings SETTINGS = new Item.Settings().group(ItemGroup.REDSTONE);
+	public static final String NAMESPACE = "redbits";
 
 	@SuppressWarnings("unchecked")
 	public final static CollisionCondition COLLISION_CONDITION_PET = ( World world, Box box ) -> {
@@ -78,73 +83,48 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 
 	@Override
 	public void onInitialize() {
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "inverted_redstone_torch"), INVERTED_REDSTONE_TORCH);
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "inverted_redstone_wall_torch"), INVERTED_REDSTONE_WALL_TORCH);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "inverted_redstone_torch"), new WallStandingBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, (new Item.Settings()).group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "two_way_repeater"), TWO_WAY_REPEATER);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "two_way_repeater"), new BlockItem(TWO_WAY_REPEATER, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "t_flip_flop"), T_FLIP_FLOP);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "t_flip_flop"), new BlockItem(T_FLIP_FLOP, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "inverter"), INVERTER);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "inverter"), new BlockItem(INVERTER, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "detector"), DETECTOR);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "detector"), new BlockItem(DETECTOR, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "latch"), LATCH);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "latch"), new BlockItem(LATCH, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "emitter"), REDSTONE_EMITTER);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "emitter"), new BlockItem(REDSTONE_EMITTER, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "redstone_lamp"), REDSTONE_LAMP);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "redstone_lamp"), new BlockItem(REDSTONE_LAMP, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "oak_large_button"), OAK_LARGE_BUTTON);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "oak_large_button"), new BlockItem(OAK_LARGE_BUTTON, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "spruce_large_button"), SPRUCE_LARGE_BUTTON);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "spruce_large_button"), new BlockItem(SPRUCE_LARGE_BUTTON, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "birch_large_button"), BIRCH_LARGE_BUTTON);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "birch_large_button"), new BlockItem(BIRCH_LARGE_BUTTON, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "jungle_large_button"), JUNGLE_LARGE_BUTTON);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "jungle_large_button"), new BlockItem(JUNGLE_LARGE_BUTTON, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "acacia_large_button"), ACACIA_LARGE_BUTTON);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "acacia_large_button"), new BlockItem(ACACIA_LARGE_BUTTON, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "dark_oak_large_button"), DARK_OAK_LARGE_BUTTON);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "dark_oak_large_button"), new BlockItem(DARK_OAK_LARGE_BUTTON, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "crimson_large_button"), CRIMSON_LARGE_BUTTON);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "crimson_large_button"), new BlockItem(CRIMSON_LARGE_BUTTON, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "warped_large_button"), WARPED_LARGE_BUTTON);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "warped_large_button"), new BlockItem(WARPED_LARGE_BUTTON, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "stone_large_button"), STONE_LARGE_BUTTON);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "stone_large_button"), new BlockItem(STONE_LARGE_BUTTON, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "polished_blackstone_large_button"), POLISHED_BLACKSTONE_LARGE_BUTTON);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "polished_blackstone_large_button"), new BlockItem(POLISHED_BLACKSTONE_LARGE_BUTTON, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "obsidian_pressure_plate"), OBSIDIAN_PRESSURE_PLATE);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "obsidian_pressure_plate"), new BlockItem(OBSIDIAN_PRESSURE_PLATE, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "crying_obsidian_pressure_plate"), CRYING_OBSIDIAN_PRESSURE_PLATE);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "crying_obsidian_pressure_plate"), new BlockItem(CRYING_OBSIDIAN_PRESSURE_PLATE, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "end_stone_pressure_plate"), END_STONE_PRESSURE_PLATE);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "end_stone_pressure_plate"), new BlockItem(END_STONE_PRESSURE_PLATE, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "basalt_pressure_plate"), BASALT_PRESSURE_PLATE);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "basalt_pressure_plate"), new BlockItem(BASALT_PRESSURE_PLATE, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "rgb_lamp"), RGB_LAMP);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "rgb_lamp"), new BlockItem(RGB_LAMP, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "power_observer"), POWER_OBSERVER);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "power_observer"), new BlockItem(POWER_OBSERVER, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "timer"), TIMER);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "timer"), new BlockItem(TIMER, new Item.Settings().group(ItemGroup.REDSTONE)));
-		Registry.register(Registry.BLOCK, new Identifier("redbits", "vision_sensor"), VISION_SENSOR);
-		Registry.register(Registry.ITEM, new Identifier("redbits", "vision_sensor"), new BlockItem(VISION_SENSOR, new Item.Settings().group(ItemGroup.REDSTONE)));
+		registerBlock("inverted_redstone_torch", INVERTED_REDSTONE_TORCH);
+		registerBlock("inverted_redstone_wall_torch", INVERTED_REDSTONE_WALL_TORCH);
+		registerItem("inverted_redstone_torch", new WallStandingBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, SETTINGS));
+		register("two_way_repeater", TWO_WAY_REPEATER);
+		register("t_flip_flop", T_FLIP_FLOP);
+		register("inverter", INVERTER);
+		register("detector", DETECTOR);
+		register("latch", LATCH);
+		register("emitter", REDSTONE_EMITTER);
+		register("redstone_lamp", REDSTONE_LAMP);
+		register("oak_large_button", OAK_LARGE_BUTTON);
+		register("spruce_large_button", SPRUCE_LARGE_BUTTON);
+		register("birch_large_button", BIRCH_LARGE_BUTTON);
+		register("jungle_large_button", JUNGLE_LARGE_BUTTON);
+		register("acacia_large_button", ACACIA_LARGE_BUTTON);
+		register("dark_oak_large_button", DARK_OAK_LARGE_BUTTON);
+		register("crimson_large_button", CRIMSON_LARGE_BUTTON);
+		register("warped_large_button", WARPED_LARGE_BUTTON);
+		register("stone_large_button", STONE_LARGE_BUTTON);
+		register("polished_blackstone_large_button", POLISHED_BLACKSTONE_LARGE_BUTTON);
+		register("obsidian_pressure_plate", OBSIDIAN_PRESSURE_PLATE);
+		register("crying_obsidian_pressure_plate", CRYING_OBSIDIAN_PRESSURE_PLATE);
+		register("end_stone_pressure_plate", END_STONE_PRESSURE_PLATE);
+		register("basalt_pressure_plate", BASALT_PRESSURE_PLATE);
+		register("rgb_lamp", RGB_LAMP);
+		register("power_observer", POWER_OBSERVER);
+		register("timer", TIMER);
+		register("vision_sensor", VISION_SENSOR);
 
 		VisionSensorNetwork.init();
 	}
 
 	@Override
 	public void onInitializeClient() {
-		BlockRenderLayerMap.INSTANCE.putBlock(INVERTER, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(T_FLIP_FLOP, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(DETECTOR, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(LATCH, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TWO_WAY_REPEATER, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(INVERTED_REDSTONE_TORCH, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(INVERTED_REDSTONE_WALL_TORCH, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TIMER, RenderLayer.getCutout());
+		cutout(INVERTER);
+		cutout(T_FLIP_FLOP);
+		cutout(DETECTOR);
+		cutout(LATCH);
+		cutout(TWO_WAY_REPEATER);
+		cutout(INVERTED_REDSTONE_TORCH);
+		cutout(INVERTED_REDSTONE_WALL_TORCH);
+		cutout(TIMER);
 		ColorProviderRegistry.ITEM.register( (stack, tintIndex) -> RedstoneWireBlock.getWireColor(1), REDSTONE_EMITTER );
 		ColorProviderRegistry.BLOCK.register( (state, view, pos, tintIndex) -> RedstoneWireBlock.getWireColor( state.get( EmitterBlock.POWER ) ), REDSTONE_EMITTER );
 		ColorProviderRegistry.ITEM.register( (stack, tintIndex) -> ColorProvider.getColor(0), RGB_LAMP );
@@ -152,4 +132,23 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 
 		VisionSensorTracker.init();
 	}
+
+	private void registerBlock( String name, Block block ) {
+		Registry.register(Registry.BLOCK, new Identifier( NAMESPACE, name ), block);
+	}
+
+	private void registerItem( String name, Item item ) {
+		Registry.register(Registry.ITEM, new Identifier( NAMESPACE, name ), item);
+	}
+
+	private void register( String name, Block block ) {
+		registerBlock( name, block );
+		registerItem( name, new BlockItem( block, SETTINGS ) );
+	}
+
+	@Environment(EnvType.CLIENT)
+	private void cutout( Block block ) {
+		BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
+	}
+
 }

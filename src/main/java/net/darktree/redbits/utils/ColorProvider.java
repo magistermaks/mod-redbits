@@ -1,7 +1,6 @@
 package net.darktree.redbits.utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ColorProvider {
 
