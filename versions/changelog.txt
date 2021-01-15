@@ -34,4 +34,6 @@
     - Droppers can now put items into Campfires
 
 1.7.0
+    - Small code improvements
+    - Fixed potential compatibility issues (ChloeDawn)
     - Added Sight Sensors
