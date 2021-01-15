@@ -33,7 +33,7 @@
     - Added hotbar info when clicking on Emitters
     - Droppers can now put items into Campfires
 
-1.7.0
+1.7.0 <2021/01/15>
     - Small code improvements
     - Fixed potential compatibility issues (ChloeDawn)
     - Added Sight Sensors
