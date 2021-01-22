@@ -37,3 +37,6 @@
     - Small code improvements
     - Fixed potential compatibility issues (ChloeDawn)
     - Added Sight Sensors
+
+1.8.0
+    - Updated mod icon
