@@ -40,3 +40,4 @@
 
 1.8.0
     - Updated mod icon
+    - Fixed one translation error
