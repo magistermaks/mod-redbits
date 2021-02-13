@@ -1,0 +1,12 @@
+{
+    "values": [
+        "minecraft:repeater",
+        "minecraft:comparator",
+        "redbits:two_way_repeater",
+        "redbits:t_flip_flop",
+        "redbits:inverter",
+        "redbits:detector",
+        "redbits:latch",
+        "redbits:timer"
+    ]
+}

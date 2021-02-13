@@ -40,4 +40,5 @@
 
 1.8.0
     - Updated mod icon
-    - Fixed one translation error
+    - Fixed one translation error (mug12)
+    - Added block tags and statistics

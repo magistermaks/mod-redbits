@@ -1,5 +1,6 @@
 package net.darktree.redbits.blocks;
 
+import net.darktree.redbits.RedBits;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,6 +39,7 @@ public class EmitterBlock extends Block {
             world.playSound( null, pos, SoundEvents.BLOCK_COMPARATOR_CLICK, SoundCategory.BLOCKS, 1.0f, 0.7f );
 
             if( player != null ) {
+                player.incrementStat(RedBits.INTERACT_WITH_REDSTONE_EMITTER);
                 player.sendMessage(new TranslatableText("message.redbits.power_level", j), true);
             }
 

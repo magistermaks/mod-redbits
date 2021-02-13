@@ -25,6 +25,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.WallStandingBlockItem;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.stat.StatFormatter;
+import net.minecraft.stat.Stats;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -88,6 +90,10 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 	public final static Block INVERTED_REDSTONE_TORCH = new InvertedRedstoneTorchBlock(AbstractBlock.Settings.of(Material.SUPPORTED).noCollision().breakInstantly().lightLevel( (n) -> n.get(Properties.LIT) ? 7 : 0 ).sounds(BlockSoundGroup.WOOD));
 	public final static Block INVERTED_REDSTONE_WALL_TORCH = new WallInvertedRedstoneTorchBlock(AbstractBlock.Settings.of(Material.SUPPORTED).noCollision().breakInstantly().lightLevel( (n) -> n.get(Properties.LIT) ? 7 : 0 ).sounds(BlockSoundGroup.WOOD));
 
+	// Statistics
+	public static final Identifier INTERACT_WITH_SIGHT_SENSOR = new Identifier(NAMESPACE, "interact_with_sight_sensor");
+	public static final Identifier INTERACT_WITH_REDSTONE_EMITTER = new Identifier(NAMESPACE, "interact_with_redstone_emitter");
+
 	@Override
 	public void onInitialize() {
 		registerBlock("inverted_redstone_torch", INVERTED_REDSTONE_TORCH);
@@ -118,6 +124,10 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		register("power_observer", POWER_OBSERVER);
 		register("timer", TIMER);
 		register("vision_sensor", VISION_SENSOR);
+
+		// Register statistics
+		registerStat(INTERACT_WITH_SIGHT_SENSOR);
+		registerStat(INTERACT_WITH_REDSTONE_EMITTER);
 
 		VisionSensorNetwork.init();
 	}
@@ -151,6 +161,11 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 	private void register( String name, Block block ) {
 		registerBlock( name, block );
 		registerItem( name, new BlockItem( block, SETTINGS ) );
+	}
+
+	private void registerStat( Identifier id ) {
+		Registry.register(Registry.CUSTOM_STAT, id, id);
+		Stats.CUSTOM.getOrCreateStat(id, StatFormatter.DEFAULT);
 	}
 
 	@Environment(EnvType.CLIENT)
