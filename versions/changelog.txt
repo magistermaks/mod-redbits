@@ -38,7 +38,7 @@
     - Fixed potential compatibility issues (ChloeDawn)
     - Added Sight Sensors
 
-1.8.0
+1.8.0 <2021/03/18>
     - Updated mod icon
     - Fixed one translation error (mug12)
     - Added block tags and statistics
