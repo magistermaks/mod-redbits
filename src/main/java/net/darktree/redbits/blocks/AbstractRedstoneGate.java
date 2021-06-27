@@ -79,7 +79,7 @@ public abstract class AbstractRedstoneGate extends Block implements RedstoneConn
         if (state.canPlaceAt(world, pos)) {
             this.updatePowered(world, pos, state);
         } else {
-            BlockEntity blockEntity = this.hasBlockEntity() ? world.getBlockEntity(pos) : null;
+            BlockEntity blockEntity = world.getBlockEntity(pos);
             dropStacks(state, world, pos, blockEntity);
             world.removeBlock(pos, false);
             for (Direction direction : Direction.values()) {

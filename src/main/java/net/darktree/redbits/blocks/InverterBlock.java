@@ -57,7 +57,7 @@ public class InverterBlock extends AbstractRedstoneGateBlock implements Redstone
             double f = (double)pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 0.2D;
             double h = (-5.0F / 16) * (float)direction.getOffsetX();
             double i = (-5.0F / 16) * (float)direction.getOffsetZ();
-            world.addParticle(DustParticleEffect.RED, d + h, e, f + i, 0.0D, 0.0D, 0.0D);
+            world.addParticle(DustParticleEffect.DEFAULT, d + h, e, f + i, 0.0D, 0.0D, 0.0D);
         }
     }
 
