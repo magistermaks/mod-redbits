@@ -17,8 +17,8 @@ import java.util.List;
 
 public class ComplexPressurePlateBlock extends PressurePlateBlock {
 
-    public interface CollisionCondition<T extends Entity> {
-        List<T> call( World world, Box box );
+    public interface CollisionCondition {
+        boolean call( World world, Box box );
     }
 
     private final CollisionCondition collisionCondition;
@@ -30,15 +30,7 @@ public class ComplexPressurePlateBlock extends PressurePlateBlock {
 
     @Override
     protected int getRedstoneOutput(World world, BlockPos pos) {
-        List<Entity> list = collisionCondition.call( world, BOX.offset(pos) );
-
-        for (Entity entity : list) {
-            if (!entity.canAvoidTraps()) {
-                return 15;
-            }
-        }
-
-        return 0;
+        return collisionCondition.call( world, BOX.offset(pos) ) ? 15 : 0;
     }
 
     @Override

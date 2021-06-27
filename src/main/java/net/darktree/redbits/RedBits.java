@@ -37,7 +37,8 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 public class RedBits implements ModInitializer, ClientModInitializer {
@@ -46,14 +47,11 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 	public static final Item.Settings SETTINGS = new Item.Settings().group(ItemGroup.REDSTONE);
 	public static final String NAMESPACE = "redbits";
 
-	@SuppressWarnings("unchecked")
-	public final static CollisionCondition COLLISION_CONDITION_PET = ( World world, Box box ) -> {
-		List<TameableEntity> l = world.getNonSpectatingEntities(TameableEntity.class, box);
-		l.removeIf( n -> !n.isTamed() ); return (List<Entity>) (List<?>) l;
-	};
-	public final static CollisionCondition COLLISION_CONDITION_PLAYERS = ( World world, Box box ) -> world.getNonSpectatingEntities(PlayerEntity.class, box);
-	public final static CollisionCondition COLLISION_CONDITION_HOSTILE = ( World world, Box box ) -> world.getNonSpectatingEntities(HostileEntity.class, box);
-	public final static CollisionCondition COLLISION_CONDITION_VILLAGER = ( World world, Box box ) -> world.getNonSpectatingEntities(VillagerEntity.class, box);
+	private final static Predicate<Entity> CANT_AVOID_TRAPS = n -> !n.canAvoidTraps();
+	public final static CollisionCondition COLLISION_CONDITION_PET = ( World world, Box box ) -> world.getNonSpectatingEntities(TameableEntity.class, box).stream().anyMatch(n -> n.isTamed() && !n.canAvoidTraps());
+	public final static CollisionCondition COLLISION_CONDITION_PLAYERS = ( World world, Box box ) -> world.getNonSpectatingEntities(PlayerEntity.class, box).stream().anyMatch(CANT_AVOID_TRAPS);
+	public final static CollisionCondition COLLISION_CONDITION_HOSTILE = ( World world, Box box ) -> world.getNonSpectatingEntities(HostileEntity.class, box).stream().anyMatch(CANT_AVOID_TRAPS);
+	public final static CollisionCondition COLLISION_CONDITION_VILLAGER = ( World world, Box box ) -> world.getNonSpectatingEntities(VillagerEntity.class, box).stream().anyMatch(CANT_AVOID_TRAPS);
 
 	// Buttons
 	public final static Block OAK_LARGE_BUTTON = new LargeButtonBlock( true, AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
