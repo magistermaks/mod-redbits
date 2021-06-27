@@ -43,7 +43,7 @@ public class FlipFlopBlock extends AbstractRedstoneGateBlock implements Redstone
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if( player == null || player.abilities.allowModifyWorld ) {
+        if( player == null || player.getAbilities().allowModifyWorld ) {
             world.setBlockState( pos, state.with( POWERED, !state.get(POWERED)) );
             world.playSound( null, pos, SoundEvents.BLOCK_COMPARATOR_CLICK, SoundCategory.BLOCKS, 1.0f, 0.7f );
             return ActionResult.SUCCESS;

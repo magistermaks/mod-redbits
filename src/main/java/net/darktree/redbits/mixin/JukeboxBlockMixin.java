@@ -66,7 +66,4 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
         }
     }
 
-    @Shadow
-    abstract public BlockEntity createBlockEntity(BlockView world);
-
 }

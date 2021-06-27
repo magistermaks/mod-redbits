@@ -25,7 +25,7 @@ public class VisionSensorTracker {
         Entity entity = client.getCameraEntity();
         if( entity != null && client.world != null ) {
 
-            HitResult hit = entity.rayTrace(128.0f, client.getTickDelta(), false);
+            HitResult hit = entity.raycast(128.0f, client.getTickDelta(), false);
             if( hit.getType() == HitResult.Type.BLOCK ) {
 
                 BlockPos pos = ((BlockHitResult) hit).getBlockPos();

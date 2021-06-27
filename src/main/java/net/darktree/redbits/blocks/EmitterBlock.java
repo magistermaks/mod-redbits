@@ -32,7 +32,7 @@ public class EmitterBlock extends Block {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if( player == null || player.abilities.allowModifyWorld ) {
+        if( player == null || player.getAbilities().allowModifyWorld ) {
             int i = state.get(POWER);
             int j = i < 15 ? i + 1 : 0;
             world.setBlockState( pos, state.with( POWER, j ) );

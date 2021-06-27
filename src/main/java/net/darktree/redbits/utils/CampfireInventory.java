@@ -6,7 +6,6 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.CampfireCookingRecipe;
-import net.minecraft.recipe.RecipeFinder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.WorldAccess;
@@ -60,9 +59,6 @@ public class CampfireInventory extends SimpleInventory implements SidedInventory
     public void clear() {
         getCampfireEntity().clear();
         this.markDirty();
-    }
-
-    public void provideRecipeInputs(RecipeFinder finder) {
     }
 
     public String toString() {

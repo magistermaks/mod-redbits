@@ -34,7 +34,7 @@ public class TimerBlock extends FlipFlopBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if( player == null || player.abilities.allowModifyWorld ) {
+        if( player == null || player.getAbilities().allowModifyWorld ) {
             world.setBlockState( pos, state.cycle(DELAY) );
             world.playSound( null, pos, SoundEvents.BLOCK_COMPARATOR_CLICK, SoundCategory.BLOCKS, 1.0f, 0.7f );
             return ActionResult.SUCCESS;

@@ -9,7 +9,7 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
-import net.minecraft.recipe.RecipeFinder;
+import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.WorldAccess;
@@ -95,8 +95,8 @@ public class JukeboxInventory extends SimpleInventory implements SidedInventory 
         this.markDirty();
     }
 
-    public void provideRecipeInputs(RecipeFinder finder) {
-        finder.addItem(getStack());
+    public void provideRecipeInputs(RecipeMatcher finder) {
+        finder.addInput(getStack());
     }
 
     public String toString() {

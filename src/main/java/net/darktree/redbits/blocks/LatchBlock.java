@@ -73,7 +73,7 @@ public class LatchBlock extends AbstractRedstoneGate {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if( player == null || player.abilities.allowModifyWorld ) {
+        if( player == null || player.getAbilities().allowModifyWorld ) {
             world.setBlockState( pos, state.with( POWER, state.get(POWER).other()) );
             world.playSound( null, pos, SoundEvents.BLOCK_COMPARATOR_CLICK, SoundCategory.BLOCKS, 1.0f, 0.7f );
             this.updatePowered( world, pos, state );
