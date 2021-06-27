@@ -46,8 +46,6 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 	public static final Item.Settings SETTINGS = new Item.Settings().group(ItemGroup.REDSTONE);
 	public static final String NAMESPACE = "redbits";
 
-	//Blocks
-
 	@SuppressWarnings("unchecked")
 	public final static CollisionCondition COLLISION_CONDITION_PET = ( World world, Box box ) -> {
 		List<TameableEntity> l = world.getNonSpectatingEntities(TameableEntity.class, box);
@@ -88,7 +86,6 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 	public final static Block RGB_LAMP = new AnalogLampBlock(FabricBlockSettings.of(Material.REDSTONE_LAMP).lightLevel((n) -> n.get(AnalogLampBlock.POWER) > 0 ? 1 : 0).postProcess((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).emissiveLighting((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).strength(0.3F).sounds(BlockSoundGroup.GLASS).allowsSpawning( (BlockState state, BlockView world, BlockPos pos, EntityType<?> type) -> true ) );
 	public final static Block REDSTONE_EMITTER = new EmitterBlock( AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F).solidBlock( (BlockState state, BlockView world, BlockPos pos) -> true ) );
 	public final static Block VISION_SENSOR = new VisionSensorBlock( AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F).solidBlock( (BlockState state, BlockView world, BlockPos pos) -> true ) );
-	public final static Block POWER_OBSERVER = new PowerObserverBlock(AbstractBlock.Settings.of(Material.STONE).strength(3.0F).requiresTool().solidBlock((state, world, pos) -> false));
 	public final static Block INVERTED_REDSTONE_TORCH = new InvertedRedstoneTorchBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().breakInstantly().luminance( (n) -> n.get(Properties.LIT) ? 7 : 0 ).sounds(BlockSoundGroup.WOOD));
 	public final static Block INVERTED_REDSTONE_WALL_TORCH = new WallInvertedRedstoneTorchBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().breakInstantly().luminance( (n) -> n.get(Properties.LIT) ? 7 : 0 ).sounds(BlockSoundGroup.WOOD));
 
@@ -123,7 +120,6 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		register("end_stone_pressure_plate", END_STONE_PRESSURE_PLATE);
 		register("basalt_pressure_plate", BASALT_PRESSURE_PLATE);
 		register("rgb_lamp", RGB_LAMP);
-		register("power_observer", POWER_OBSERVER);
 		register("timer", TIMER);
 		register("vision_sensor", VISION_SENSOR);
 
