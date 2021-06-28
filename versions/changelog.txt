@@ -42,3 +42,8 @@
     - Updated mod icon
     - Fixed one translation error (mug12)
     - Added block tags and statistics
+
+1.9.0 <2021/05/28>
+	- Updated to minecraft 1.17
+	- Removed Power Observers	
+

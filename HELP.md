@@ -15,12 +15,12 @@ and in the falling mode it triggers when input turns off.
 The mode can be toggled be clicking on the gate.
 
 **Switcher**  
-When triggered inverts own output (which can also be done by clicking
-on the block).
+Works like a redstone leaver that can be switched by powering it (it can also be switched by clicking
+on it).
 
 **Inverter**  
-Works like vanilla redstone torch but is in the form of a redstone gate,
-has no delay control (delay is always equal 1 redstone tick).
+Works like vanilla redstone torch but in the form of a redstone gate,
+with no delay control (delay is always equal to 1 redstone tick).
 
 **Latch**  
 Has two outputs, one of which is always active while the other inactive,
@@ -30,7 +30,7 @@ inactive side.
 **Timer**  
 When powered will periodically activate emitting a pulse,
 the delay between those pulses and their length can be regulated
-by clicking on the timer. Available timings: 1, 2, 4, 8 redstone ticks.
+by clicking on the timer. Available timings: 1, 2, 4, and 8 redstone ticks.
 
 **Two Way Repeater**  
 Works like vanilla repeater but doesn't have timing control,
@@ -56,21 +56,18 @@ Maximum activation distance is 128 blocks.
 ## Lamps
 
 **Shaded Lamp**  
-Works like vanilla redstone lamp, but doesn't emit light. 
+Works like vanilla redstone lamp, but it doesn't emit light. 
 Because of this it's a perfect fit for blinking controls and large displays 
 as the performance impact of activating those lamps is much smaller.
 
 **Color Lamp**  
-Depending on the strength of the input signal changes its color.
+Depending on the strength of the input signal it changes its color.
 
 ## Other
 
 **Redstone Emitter**  
 Emits comparator signal whose strength can be regulated by clicking on the block, 
 replacement for using cauldrons and composters in circuits.
-
-**Power Observer**  
-Detects if the observed redstone component is active.
 
 **Inverted Redstone Torch**  
 Redstone torch that doesn't invert the signal.
