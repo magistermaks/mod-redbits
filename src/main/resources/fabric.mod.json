@@ -18,6 +18,9 @@
     ],
     "client": [
       "net.darktree.redbits.RedBits"
+    ],
+    "modmenu": [
+      "net.darktree.redbits.config.RedBitsModMenu"
     ]
   },
   "mixins": [
