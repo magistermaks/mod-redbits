@@ -5,6 +5,6 @@ import net.minecraft.util.math.Direction;
 
 public interface RedstoneConnectable {
 
-    boolean connectsTo( BlockState state, Direction direction );
+	boolean connectsTo( BlockState state, Direction direction );
 
 }

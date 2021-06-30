@@ -15,19 +15,19 @@ import java.util.List;
 @Mixin(SplashTextResourceSupplier.class)
 abstract public class MessageProviderMixin {
 
-    // Nothing to see here //
+	// Nothing to see here //
 
-    @Final
-    @Shadow
-    private List<String> splashTexts;
+	@Final
+	@Shadow
+	private List<String> splashTexts;
 
-    @Inject(at = @At("TAIL"), method = "apply(Ljava/util/List;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V")
-    private void apply(List<String> list, ResourceManager resourceManager, Profiler profiler, CallbackInfo info) {
-        splashTexts.add("I" + "'m the man who arranges the blocks!");
-        splashTexts.add("P" + "iracy is all about branding!");
-        splashTexts.add("A" + "nd what can you do, my effeminate fellow?");
-        splashTexts.add("C" + "heck out Sequensa Programming Language!");
-        splashTexts.add("Y" + "ou know the rules and so do I!");
-    }
+	@Inject(at = @At("TAIL"), method = "apply(Ljava/util/List;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V")
+	private void apply(List<String> list, ResourceManager resourceManager, Profiler profiler, CallbackInfo info) {
+		splashTexts.add("I" + "'m the man who arranges the blocks!");
+		splashTexts.add("P" + "iracy is all about branding!");
+		splashTexts.add("A" + "nd what can you do, my effeminate fellow?");
+		splashTexts.add("C" + "heck out Sequensa Programming Language!");
+		splashTexts.add("Y" + "ou know the rules and so do I!");
+	}
 
 }

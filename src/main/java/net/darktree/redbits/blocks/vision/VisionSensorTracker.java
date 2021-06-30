@@ -14,31 +14,31 @@ import net.minecraft.util.math.BlockPos;
 @Environment(EnvType.CLIENT)
 public class VisionSensorTracker {
 
-    private static BlockPos target;
+	private static BlockPos target;
 
-    public static void init() {
-        ClientTickEvents.END_CLIENT_TICK.register( VisionSensorTracker::apply );
-    }
+	public static void init() {
+		ClientTickEvents.END_CLIENT_TICK.register( VisionSensorTracker::apply );
+	}
 
-    private static void apply( MinecraftClient client ) {
+	private static void apply( MinecraftClient client ) {
 
-        Entity entity = client.getCameraEntity();
-        if( entity != null && client.world != null ) {
+		Entity entity = client.getCameraEntity();
+		if( entity != null && client.world != null ) {
 
-            HitResult hit = entity.raycast(128.0f, client.getTickDelta(), false);
-            if( hit.getType() == HitResult.Type.BLOCK ) {
+			HitResult hit = entity.raycast(RedBits.CONFIG.other.vision_distance, client.getTickDelta(), false);
+			if( hit.getType() == HitResult.Type.BLOCK ) {
 
-                BlockPos pos = ((BlockHitResult) hit).getBlockPos();
-                BlockState state = client.world.getBlockState(pos);
+				BlockPos pos = ((BlockHitResult) hit).getBlockPos();
+				BlockState state = client.world.getBlockState(pos);
 
-                if( !pos.equals(target) ) {
-                    if( state.getBlock() == RedBits.VISION_SENSOR ) {
-                        VisionSensorNetwork.send( pos );
-                    }
-                    target = pos;
-                }
-            }
-        }
-    }
+				if( !pos.equals(target) ) {
+					if( state.getBlock() == RedBits.VISION_SENSOR ) {
+						VisionSensorNetwork.send( pos );
+					}
+					target = pos;
+				}
+			}
+		}
+	}
 
 }

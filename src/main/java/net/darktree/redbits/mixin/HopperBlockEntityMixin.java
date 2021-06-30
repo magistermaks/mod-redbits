@@ -17,19 +17,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(HopperBlockEntity.class)
 abstract public class HopperBlockEntityMixin {
 
-    @Inject(at = @At("HEAD"), method = "getInventoryAt(Lnet/minecraft/world/World;DDD)Lnet/minecraft/inventory/Inventory;", cancellable = true)
-    private static void getInventoryAt(World world, double x, double y, double z, CallbackInfoReturnable<Inventory> info) {
-        BlockPos pos = new BlockPos( x, y, z );
-        BlockState state = world.getBlockState(pos);
+	@Inject(at = @At("HEAD"), method = "getInventoryAt(Lnet/minecraft/world/World;DDD)Lnet/minecraft/inventory/Inventory;", cancellable = true)
+	private static void getInventoryAt(World world, double x, double y, double z, CallbackInfoReturnable<Inventory> info) {
+		BlockPos pos = new BlockPos( x, y, z );
+		BlockState state = world.getBlockState(pos);
 
-        if( state.getBlock() == Blocks.JUKEBOX ) {
-            info.setReturnValue( new JukeboxInventory( world, pos ) );
-        }
+		if( state.getBlock() == Blocks.JUKEBOX ) {
+			info.setReturnValue( new JukeboxInventory( world, pos ) );
+		}
 
-        if( state.getBlock() instanceof CampfireBlock) {
-            info.setReturnValue( new CampfireInventory( world, pos ) );
-        }
+		if( state.getBlock() instanceof CampfireBlock) {
+			info.setReturnValue( new CampfireInventory( world, pos ) );
+		}
 
-    }
+	}
 
 }

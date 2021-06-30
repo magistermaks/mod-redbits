@@ -1,16 +1,13 @@
 package net.darktree.redbits;
 
-import net.darktree.redbits.blocks.*;
-import net.darktree.redbits.config.*;
 import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
+import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
 import net.darktree.redbits.blocks.vision.VisionSensorNetwork;
 import net.darktree.redbits.blocks.vision.VisionSensorTracker;
+import net.darktree.redbits.config.RedBitsConfig;
 import net.darktree.redbits.utils.ColorProvider;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -24,8 +21,8 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -45,8 +42,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
 
 public class RedBits implements ModInitializer, ClientModInitializer {
 
@@ -101,65 +96,43 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 
 	@Override
 	public void onInitialize() {
+
 		if(RedBits.CONFIG.other.inverted_redstone_torch) {
 			registerBlock("inverted_redstone_torch", INVERTED_REDSTONE_TORCH);
 			registerBlock("inverted_redstone_wall_torch", INVERTED_REDSTONE_WALL_TORCH);
 			registerItem("inverted_redstone_torch", new WallStandingBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, SETTINGS));
 		}
-		if(RedBits.CONFIG.gates.two_way_repeater) {
-			register("two_way_repeater", TWO_WAY_REPEATER);
-		}
-		if(RedBits.CONFIG.gates.t_flip_flop) {
-			register("t_flip_flop", T_FLIP_FLOP);
-		}
-		if(RedBits.CONFIG.gates.inverter) {
-			register("inverter", INVERTER);
-		}
-		if(RedBits.CONFIG.gates.detector) {
-			register("detector", DETECTOR);
-		}
-		if(RedBits.CONFIG.gates.latch) {
-			register("latch", LATCH);
-		}
+
 		if(RedBits.CONFIG.other.redstone_emitter) {
-			register("emitter", REDSTONE_EMITTER);
+			register("emitter", REDSTONE_EMITTER, true);
 			registerStat(INTERACT_WITH_REDSTONE_EMITTER);
 		}
-		if(RedBits.CONFIG.other.shaded_redstone_lamp) {
-			register("redstone_lamp", REDSTONE_LAMP);
-		}
-		if(RedBits.CONFIG.buttons.large_button) {
-			register("oak_large_button", OAK_LARGE_BUTTON);
-			register("spruce_large_button", SPRUCE_LARGE_BUTTON);
-			register("birch_large_button", BIRCH_LARGE_BUTTON);
-			register("jungle_large_button", JUNGLE_LARGE_BUTTON);
-			register("acacia_large_button", ACACIA_LARGE_BUTTON);
-			register("dark_oak_large_button", DARK_OAK_LARGE_BUTTON);
-			register("crimson_large_button", CRIMSON_LARGE_BUTTON);
-			register("warped_large_button", WARPED_LARGE_BUTTON);
-			register("stone_large_button", STONE_LARGE_BUTTON);
-			register("polished_blackstone_large_button", POLISHED_BLACKSTONE_LARGE_BUTTON);
-		}
-		if(RedBits.CONFIG.pressure_plates.obsidian) {
-			register("obsidian_pressure_plate", OBSIDIAN_PRESSURE_PLATE);
-		}
-		if(RedBits.CONFIG.pressure_plates.crying_obsidian) {
-			register("crying_obsidian_pressure_plate", CRYING_OBSIDIAN_PRESSURE_PLATE);
-		}
-		if(RedBits.CONFIG.pressure_plates.end_stone) {
-			register("end_stone_pressure_plate", END_STONE_PRESSURE_PLATE);
-		}
-		if(RedBits.CONFIG.pressure_plates.basalt) {
-			register("basalt_pressure_plate", BASALT_PRESSURE_PLATE);
-		}
-		if(RedBits.CONFIG.other.RGB_lamp) {
-			register("rgb_lamp", RGB_LAMP);
-		}
-		if(RedBits.CONFIG.gates.timer) {
-			register("timer", TIMER);
-		}
+
+		register("two_way_repeater", TWO_WAY_REPEATER, RedBits.CONFIG.gates.two_way_repeater);
+		register("t_flip_flop", T_FLIP_FLOP, RedBits.CONFIG.gates.t_flip_flop);
+		register("inverter", INVERTER, RedBits.CONFIG.gates.inverter);
+		register("detector", DETECTOR, RedBits.CONFIG.gates.detector);
+		register("latch", LATCH, RedBits.CONFIG.gates.latch);
+		register("redstone_lamp", REDSTONE_LAMP, RedBits.CONFIG.other.shaded_redstone_lamp);
+		register("oak_large_button", OAK_LARGE_BUTTON, RedBits.CONFIG.other.large_button);
+		register("spruce_large_button", SPRUCE_LARGE_BUTTON, RedBits.CONFIG.other.large_button);
+		register("birch_large_button", BIRCH_LARGE_BUTTON, RedBits.CONFIG.other.large_button);
+		register("jungle_large_button", JUNGLE_LARGE_BUTTON, RedBits.CONFIG.other.large_button);
+		register("acacia_large_button", ACACIA_LARGE_BUTTON, RedBits.CONFIG.other.large_button);
+		register("dark_oak_large_button", DARK_OAK_LARGE_BUTTON, RedBits.CONFIG.other.large_button);
+		register("crimson_large_button", CRIMSON_LARGE_BUTTON, RedBits.CONFIG.other.large_button);
+		register("warped_large_button", WARPED_LARGE_BUTTON, RedBits.CONFIG.other.large_button);
+		register("stone_large_button", STONE_LARGE_BUTTON, RedBits.CONFIG.other.large_button);
+		register("polished_blackstone_large_button", POLISHED_BLACKSTONE_LARGE_BUTTON, RedBits.CONFIG.other.large_button);
+		register("obsidian_pressure_plate", OBSIDIAN_PRESSURE_PLATE, RedBits.CONFIG.pressure_plates.obsidian);
+		register("crying_obsidian_pressure_plate", CRYING_OBSIDIAN_PRESSURE_PLATE, RedBits.CONFIG.pressure_plates.crying_obsidian);
+		register("end_stone_pressure_plate", END_STONE_PRESSURE_PLATE, RedBits.CONFIG.pressure_plates.end_stone);
+		register("basalt_pressure_plate", BASALT_PRESSURE_PLATE, RedBits.CONFIG.pressure_plates.basalt);
+		register("rgb_lamp", RGB_LAMP, RedBits.CONFIG.other.rgb_lamp);
+		register("timer", TIMER, RedBits.CONFIG.gates.timer);
+
 		if(RedBits.CONFIG.other.vision_sensor) {
-			register("vision_sensor", VISION_SENSOR);
+			register("vision_sensor", VISION_SENSOR, true);
 			registerStat(INTERACT_WITH_SIGHT_SENSOR);
 			VisionSensorNetwork.init();
 		}
@@ -168,14 +141,7 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		cutout(INVERTER);
-		cutout(T_FLIP_FLOP);
-		cutout(DETECTOR);
-		cutout(LATCH);
-		cutout(TWO_WAY_REPEATER);
-		cutout(INVERTED_REDSTONE_TORCH);
-		cutout(INVERTED_REDSTONE_WALL_TORCH);
-		cutout(TIMER);
+		cutout(INVERTER, T_FLIP_FLOP, DETECTOR, LATCH, TWO_WAY_REPEATER, INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, TIMER);
 		ColorProviderRegistry.ITEM.register( (stack, tintIndex) -> RedstoneWireBlock.getWireColor(1), REDSTONE_EMITTER );
 		ColorProviderRegistry.BLOCK.register( (state, view, pos, tintIndex) -> RedstoneWireBlock.getWireColor( state.get( EmitterBlock.POWER ) ), REDSTONE_EMITTER );
 		ColorProviderRegistry.ITEM.register( (stack, tintIndex) -> ColorProvider.getColor(0), RGB_LAMP );
@@ -192,9 +158,13 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		Registry.register(Registry.ITEM, new Identifier( NAMESPACE, name ), item);
 	}
 
-	private void register( String name, Block block ) {
-		registerBlock( name, block );
-		registerItem( name, new BlockItem( block, SETTINGS ) );
+	private void register( String name, Block block, boolean flag ) {
+		if( flag ) {
+			registerBlock(name, block);
+			registerItem(name, new BlockItem(block, SETTINGS));
+		}else{
+			LOGGER.info( "Registration of: '" + name + "' skipped!" );
+		}
 	}
 
 	private void registerStat( Identifier id ) {
@@ -203,8 +173,8 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 	}
 
 	@Environment(EnvType.CLIENT)
-	private void cutout( Block block ) {
-		BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
+	private void cutout( Block... blocks ) {
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), blocks);
 	}
 
 }

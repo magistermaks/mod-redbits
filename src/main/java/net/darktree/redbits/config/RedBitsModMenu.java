@@ -9,8 +9,10 @@ import net.minecraft.client.gui.screen.Screen;
 
 @Environment(EnvType.CLIENT)
 public class RedBitsModMenu implements ModMenuApi {
+
 	@Override
 	public ConfigScreenFactory<?> getModConfigScreenFactory() {
 		return parent -> (Screen) AutoConfig.getConfigScreen(RedBitsConfig.class, parent).get();
 	}
+
 }
