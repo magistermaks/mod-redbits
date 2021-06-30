@@ -1,6 +1,13 @@
 package net.darktree.redbits;
 
 import net.darktree.redbits.blocks.*;
+import net.darktree.redbits.config.*;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
 import net.darktree.redbits.blocks.vision.VisionSensorNetwork;
 import net.darktree.redbits.blocks.vision.VisionSensorTracker;
@@ -44,6 +51,7 @@ import java.util.stream.Collectors;
 public class RedBits implements ModInitializer, ClientModInitializer {
 
 	public static final Logger LOGGER = LogManager.getLogger("RedBits");
+	public static final RedBitsConfig CONFIG = AutoConfig.register(RedBitsConfig.class, PartitioningSerializer.wrap(GsonConfigSerializer::new)).getConfig();
 	public static final Item.Settings SETTINGS = new Item.Settings().group(ItemGroup.REDSTONE);
 	public static final String NAMESPACE = "redbits";
 
@@ -93,39 +101,69 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 
 	@Override
 	public void onInitialize() {
-		registerBlock("inverted_redstone_torch", INVERTED_REDSTONE_TORCH);
-		registerBlock("inverted_redstone_wall_torch", INVERTED_REDSTONE_WALL_TORCH);
-		registerItem("inverted_redstone_torch", new WallStandingBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, SETTINGS));
-		register("two_way_repeater", TWO_WAY_REPEATER);
-		register("t_flip_flop", T_FLIP_FLOP);
-		register("inverter", INVERTER);
-		register("detector", DETECTOR);
-		register("latch", LATCH);
-		register("emitter", REDSTONE_EMITTER);
-		register("redstone_lamp", REDSTONE_LAMP);
-		register("oak_large_button", OAK_LARGE_BUTTON);
-		register("spruce_large_button", SPRUCE_LARGE_BUTTON);
-		register("birch_large_button", BIRCH_LARGE_BUTTON);
-		register("jungle_large_button", JUNGLE_LARGE_BUTTON);
-		register("acacia_large_button", ACACIA_LARGE_BUTTON);
-		register("dark_oak_large_button", DARK_OAK_LARGE_BUTTON);
-		register("crimson_large_button", CRIMSON_LARGE_BUTTON);
-		register("warped_large_button", WARPED_LARGE_BUTTON);
-		register("stone_large_button", STONE_LARGE_BUTTON);
-		register("polished_blackstone_large_button", POLISHED_BLACKSTONE_LARGE_BUTTON);
-		register("obsidian_pressure_plate", OBSIDIAN_PRESSURE_PLATE);
-		register("crying_obsidian_pressure_plate", CRYING_OBSIDIAN_PRESSURE_PLATE);
-		register("end_stone_pressure_plate", END_STONE_PRESSURE_PLATE);
-		register("basalt_pressure_plate", BASALT_PRESSURE_PLATE);
-		register("rgb_lamp", RGB_LAMP);
-		register("timer", TIMER);
-		register("vision_sensor", VISION_SENSOR);
+		if(RedBits.CONFIG.other.inverted_redstone_torch) {
+			registerBlock("inverted_redstone_torch", INVERTED_REDSTONE_TORCH);
+			registerBlock("inverted_redstone_wall_torch", INVERTED_REDSTONE_WALL_TORCH);
+			registerItem("inverted_redstone_torch", new WallStandingBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, SETTINGS));
+		}
+		if(RedBits.CONFIG.gates.two_way_repeater) {
+			register("two_way_repeater", TWO_WAY_REPEATER);
+		}
+		if(RedBits.CONFIG.gates.t_flip_flop) {
+			register("t_flip_flop", T_FLIP_FLOP);
+		}
+		if(RedBits.CONFIG.gates.inverter) {
+			register("inverter", INVERTER);
+		}
+		if(RedBits.CONFIG.gates.detector) {
+			register("detector", DETECTOR);
+		}
+		if(RedBits.CONFIG.gates.latch) {
+			register("latch", LATCH);
+		}
+		if(RedBits.CONFIG.other.redstone_emitter) {
+			register("emitter", REDSTONE_EMITTER);
+			registerStat(INTERACT_WITH_REDSTONE_EMITTER);
+		}
+		if(RedBits.CONFIG.other.shaded_redstone_lamp) {
+			register("redstone_lamp", REDSTONE_LAMP);
+		}
+		if(RedBits.CONFIG.buttons.large_button) {
+			register("oak_large_button", OAK_LARGE_BUTTON);
+			register("spruce_large_button", SPRUCE_LARGE_BUTTON);
+			register("birch_large_button", BIRCH_LARGE_BUTTON);
+			register("jungle_large_button", JUNGLE_LARGE_BUTTON);
+			register("acacia_large_button", ACACIA_LARGE_BUTTON);
+			register("dark_oak_large_button", DARK_OAK_LARGE_BUTTON);
+			register("crimson_large_button", CRIMSON_LARGE_BUTTON);
+			register("warped_large_button", WARPED_LARGE_BUTTON);
+			register("stone_large_button", STONE_LARGE_BUTTON);
+			register("polished_blackstone_large_button", POLISHED_BLACKSTONE_LARGE_BUTTON);
+		}
+		if(RedBits.CONFIG.pressure_plates.obsidian) {
+			register("obsidian_pressure_plate", OBSIDIAN_PRESSURE_PLATE);
+		}
+		if(RedBits.CONFIG.pressure_plates.crying_obsidian) {
+			register("crying_obsidian_pressure_plate", CRYING_OBSIDIAN_PRESSURE_PLATE);
+		}
+		if(RedBits.CONFIG.pressure_plates.end_stone) {
+			register("end_stone_pressure_plate", END_STONE_PRESSURE_PLATE);
+		}
+		if(RedBits.CONFIG.pressure_plates.basalt) {
+			register("basalt_pressure_plate", BASALT_PRESSURE_PLATE);
+		}
+		if(RedBits.CONFIG.other.RGB_lamp) {
+			register("rgb_lamp", RGB_LAMP);
+		}
+		if(RedBits.CONFIG.gates.timer) {
+			register("timer", TIMER);
+		}
+		if(RedBits.CONFIG.other.vision_sensor) {
+			register("vision_sensor", VISION_SENSOR);
+			registerStat(INTERACT_WITH_SIGHT_SENSOR);
+			VisionSensorNetwork.init();
+		}
 
-		// Register statistics
-		registerStat(INTERACT_WITH_SIGHT_SENSOR);
-		registerStat(INTERACT_WITH_REDSTONE_EMITTER);
-
-		VisionSensorNetwork.init();
 	}
 
 	@Override
