@@ -30,6 +30,8 @@
     "block.redbits.polished_blackstone_large_button": "Duży wypolerowany czarnitowy przycisk",
     "stat.redbits.interact_with_sight_sensor": "Wyzwolone czujnik wzroku",
     "stat.redbits.interact_with_redstone_emitter": "Dostrojone emitery",
-    "message.redbits.power_level": "Energia: %s"
+    "message.redbits.power_level": "Energia: %s",
+    "text.autoconfig.redbits.title": "Konfiguracja Red Bits",
+    "text.autoconfig.redbits.option.vision_distance": "Zasięg czujnika wzroku"
 }
 

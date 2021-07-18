@@ -1,9 +1,13 @@
 package net.darktree.redbits;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
 import net.darktree.redbits.blocks.vision.VisionSensorNetwork;
 import net.darktree.redbits.blocks.vision.VisionSensorTracker;
+import net.darktree.redbits.config.Settings;
 import net.darktree.redbits.utils.ColorProvider;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -38,12 +42,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
 
 public class RedBits implements ModInitializer, ClientModInitializer {
 
 	public static final Logger LOGGER = LogManager.getLogger("RedBits");
+	public static final Settings CONFIG = AutoConfig.register(Settings.class, GsonConfigSerializer::new).getConfig();
 	public static final Item.Settings SETTINGS = new Item.Settings().group(ItemGroup.REDSTONE);
 	public static final String NAMESPACE = "redbits";
 

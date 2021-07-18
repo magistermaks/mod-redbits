@@ -11,6 +11,7 @@ import net.oskarstrom.dashloader.blockstate.property.DashProperty;
 
 @DashObject(ColorProperty.class)
 public class DashColorProperty implements DashProperty {
+    
     @Serialize(order = 0)
     public final String name;
 
@@ -27,4 +28,5 @@ public class DashColorProperty implements DashProperty {
     public ColorProperty toUndash(DashRegistry registry) {
         return ColorProperty.of(name);
     }
+    
 }

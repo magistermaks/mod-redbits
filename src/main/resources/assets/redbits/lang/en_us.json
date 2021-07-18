@@ -30,6 +30,8 @@
     "block.redbits.polished_blackstone_large_button": "Large Polished Blackstone Button",
     "stat.redbits.interact_with_sight_sensor": "Sight Sensors Triggered",
     "stat.redbits.interact_with_redstone_emitter": "Redstone Emitters Adjusted",
-    "message.redbits.power_level": "Power: %s"
+    "message.redbits.power_level": "Power: %s",
+    "text.autoconfig.redbits.title": "Red Bits Configuration",
+    "text.autoconfig.redbits.option.vision_distance": "Max Vision Sensor Distance"
 }
 

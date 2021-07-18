@@ -30,7 +30,7 @@ public class VisionSensorNetwork {
 
             BlockState state = player.world.getBlockState(pos);
             if( state.getBlock() == RedBits.VISION_SENSOR ) {
-                if (player.getPos().distanceTo(new Vec3d(pos.getX(), pos.getY(), pos.getZ())) < 130.0) {
+                if (player.getPos().distanceTo(new Vec3d(pos.getX(), pos.getY(), pos.getZ())) < (RedBits.CONFIG.vision_distance + 2.0f)) {
                     if (((VisionSensorBlock) RedBits.VISION_SENSOR).activate(state, player.world, pos)) {
                         player.incrementStat(RedBits.INTERACT_WITH_SIGHT_SENSOR);
                         return;

@@ -11,32 +11,50 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+
+	// DashLoader
 	maven {
 		url "https://oskarstrom.net/maven"
 		content {
 			includeGroup "net.oskarstrom"
 		}
 	}
+
+	// Cloth Config
+	maven {
+		url "https://maven.shedaniel.me/"
+	}
+
+	// ModMenu (Archive)
+	maven {
+		name = 'TerraformersMC Archive'
+		url = 'https://raw.githubusercontent.com/TerraformersMC/Archive/main/releases/'
+	}
+
 }
 
 dependencies {
-	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	// Fabric API. This is technically optional, but you probably want it anyway.
+	// ModMenu
+	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+	// Fabric API
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-modImplementation ('net.oskarstrom:DashLoader:2.1-dev4') {
-	exclude group: 'net.fabricmc.fabric-api'
+	// Cloth Config
+	modImplementation "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}"
+
+	// DashLoader
+	modImplementation "net.oskarstrom:DashLoader:${project.dash_version}"
 }
 
-}
-
-tasks.withType(JavaCompile).configureEach {
-	it.options.encoding = "UTF-8"
-	it.options.release = 16
+tasks.withType(JavaCompile) {
+	options.encoding = "UTF-8"
+	options.release = 16
 }
 
 java {
