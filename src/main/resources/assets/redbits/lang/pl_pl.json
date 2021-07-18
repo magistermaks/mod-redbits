@@ -32,6 +32,8 @@
     "stat.redbits.interact_with_redstone_emitter": "Dostrojone emitery",
     "message.redbits.power_level": "Energia: %s",
     "text.autoconfig.redbits.title": "Konfiguracja Red Bits",
-    "text.autoconfig.redbits.option.vision_distance": "Zasięg czujnika wzroku"
+    "text.autoconfig.redbits.option.vision_distance": "Zasięg czujnika wzroku",
+    "text.autoconfig.redbits.option.disable_burnout": "Wyłacz wypalanie się pochodni redstone",
+    "text.autoconfig.redbits.option.better_jukebox": "Włacz dodatkowe funkcje szafy grającej"
 }
 

@@ -45,8 +45,10 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
             boolean power = world.isReceivingRedstonePower( pos );
             if( power ) {
                 if( !state.get(POWERED) && state.get(JukeboxBlock.HAS_RECORD) ) {
-                    world.syncWorldEvent(1010, pos, 0);
-                    world.getBlockTickScheduler().schedule(pos, this, 1);
+                    if( RedBits.CONFIG.better_jukebox ) {
+                        world.syncWorldEvent(1010, pos, 0);
+                        world.getBlockTickScheduler().schedule(pos, this, 1);
+                    }
                 }
             }
 
@@ -60,7 +62,9 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         JukeboxBlockEntity jukeboxBlockEntity = (JukeboxBlockEntity) world.getBlockEntity( pos );
         if( jukeboxBlockEntity != null ) {
-            world.syncWorldEvent(1010, pos, Item.getRawId(jukeboxBlockEntity.getRecord().getItem()));
+            if( RedBits.CONFIG.better_jukebox ) {
+                world.syncWorldEvent(1010, pos, Item.getRawId(jukeboxBlockEntity.getRecord().getItem()));
+            }
         }else{
             RedBits.LOGGER.warn( "Unable to trigger sound event, as the given Jukebox don't have a BlockEntity attached!" );
         }

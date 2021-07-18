@@ -32,6 +32,8 @@
     "stat.redbits.interact_with_redstone_emitter": "Redstone Emitters Adjusted",
     "message.redbits.power_level": "Power: %s",
     "text.autoconfig.redbits.title": "Red Bits Configuration",
-    "text.autoconfig.redbits.option.vision_distance": "Max Vision Sensor Distance"
+    "text.autoconfig.redbits.option.vision_distance": "Max Vision Sensor Distance",
+    "text.autoconfig.redbits.option.disable_burnout": "Disable Redstone Torch Burnout",
+    "text.autoconfig.redbits.option.better_jukebox": "Enable special Jukebox extensions"
 }
 

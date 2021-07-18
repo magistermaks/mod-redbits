@@ -1,5 +1,6 @@
 package net.darktree.redbits.mixin;
 
+import net.darktree.redbits.RedBits;
 import net.minecraft.block.RedstoneTorchBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -13,7 +14,7 @@ abstract public class RedstoneTorchBlockMixin {
 
     @Inject(at = @At("HEAD"), method = "isBurnedOut(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Z)Z", cancellable = true)
     private static void isBurnedOut(World world, BlockPos pos, boolean addNew, CallbackInfoReturnable<Boolean> info) {
-        info.setReturnValue( false );
+        if( RedBits.CONFIG.disable_burnout ) info.setReturnValue( false );
     }
 
 }
