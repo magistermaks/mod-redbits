@@ -44,6 +44,10 @@
     - Added block tags and statistics
 
 1.9.0 <2021/05/28>
-	- Updated to minecraft 1.17
-	- Removed Power Observers	
+    - Updated to minecraft 1.17
+    - Removed Power Observers
+
+1.10.0
+    - DashLoader support (alphaqu)
+    - Added basic config (T0paz)
 

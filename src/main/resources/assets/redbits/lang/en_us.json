@@ -34,6 +34,6 @@
     "text.autoconfig.redbits.title": "Red Bits Configuration",
     "text.autoconfig.redbits.option.vision_distance": "Max Vision Sensor Distance",
     "text.autoconfig.redbits.option.disable_burnout": "Disable Redstone Torch Burnout",
-    "text.autoconfig.redbits.option.better_jukebox": "Enable special Jukebox extensions"
+    "text.autoconfig.redbits.option.better_jukebox": "Enable Special Jukebox Extensions"
 }
 
