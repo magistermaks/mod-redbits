@@ -51,3 +51,6 @@
     - DashLoader support (alphaqu)
     - Added basic config (T0paz)
 
+1.11.0
+    - Added new config option
+    - Fixed one config bug

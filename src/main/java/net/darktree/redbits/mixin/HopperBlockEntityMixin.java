@@ -1,5 +1,6 @@
 package net.darktree.redbits.mixin;
 
+import net.darktree.redbits.RedBits;
 import net.darktree.redbits.utils.CampfireInventory;
 import net.darktree.redbits.utils.JukeboxInventory;
 import net.minecraft.block.BlockState;
@@ -22,11 +23,11 @@ abstract public class HopperBlockEntityMixin {
         BlockPos pos = new BlockPos( x, y, z );
         BlockState state = world.getBlockState(pos);
 
-        if( state.getBlock() == Blocks.JUKEBOX ) {
+        if( RedBits.CONFIG.jukebox_integration && state.getBlock() == Blocks.JUKEBOX ) {
             info.setReturnValue( new JukeboxInventory( world, pos ) );
         }
 
-        if( state.getBlock() instanceof CampfireBlock) {
+        if( RedBits.CONFIG.campfire_integration && state.getBlock() instanceof CampfireBlock ) {
             info.setReturnValue( new CampfireInventory( world, pos ) );
         }
 

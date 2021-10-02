@@ -2,7 +2,6 @@ package net.darktree.redbits.mixin;
 
 import net.darktree.redbits.RedBits;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.item.Item;
 import net.minecraft.server.world.ServerWorld;
@@ -10,10 +9,8 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -45,7 +42,7 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
             boolean power = world.isReceivingRedstonePower( pos );
             if( power ) {
                 if( !state.get(POWERED) && state.get(JukeboxBlock.HAS_RECORD) ) {
-                    if( RedBits.CONFIG.better_jukebox ) {
+                    if( RedBits.CONFIG.jukebox_integration) {
                         world.syncWorldEvent(1010, pos, 0);
                         world.getBlockTickScheduler().schedule(pos, this, 1);
                     }
@@ -62,7 +59,7 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         JukeboxBlockEntity jukeboxBlockEntity = (JukeboxBlockEntity) world.getBlockEntity( pos );
         if( jukeboxBlockEntity != null ) {
-            if( RedBits.CONFIG.better_jukebox ) {
+            if( RedBits.CONFIG.jukebox_integration) {
                 world.syncWorldEvent(1010, pos, Item.getRawId(jukeboxBlockEntity.getRecord().getItem()));
             }
         }else{
