@@ -47,10 +47,10 @@
     - Updated to minecraft 1.17
     - Removed Power Observers
 
-1.10.0
+1.10.0 <2021/07/26>
     - DashLoader support (alphaqu)
     - Added basic config (T0paz)
 
-1.11.0
+1.10.1 <2021/10/04>
     - Added new config option
     - Fixed one config bug
