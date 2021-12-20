@@ -70,7 +70,7 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
             world.setBlockState(pos, state.with(POWER, TwoWayPower.NONE), 2);
         }else if( !locked ) {
             world.setBlockState(pos, state.with(POWER, getPower(world, pos, state, TwoWayPower.NONE).getDirection()), 2);
-            world.getBlockTickScheduler().schedule(pos, this, this.getUpdateDelayInternal(), TickPriority.VERY_HIGH);
+            world.createAndScheduleBlockTick(pos, this, this.getUpdateDelayInternal(), TickPriority.VERY_HIGH);
         }
     }
 
@@ -94,7 +94,7 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
                 tickPriority = TickPriority.VERY_HIGH;
             }
 
-            world.getBlockTickScheduler().schedule(pos, this, this.getUpdateDelayInternal(), tickPriority);
+            world.createAndScheduleBlockTick(pos, this, this.getUpdateDelayInternal(), tickPriority);
         }
     }
 
@@ -106,7 +106,7 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         if (this.hasPower(world, pos, state, state.get(POWER))) {
-            world.getBlockTickScheduler().schedule(pos, this, 1);
+            world.createAndScheduleBlockTick(pos, this, 1);
         }
     }
 

@@ -46,7 +46,7 @@ public class TimerBlock extends FlipFlopBlock {
     protected void updatePowered(World world, BlockPos pos, BlockState state) {
         if( hasPower(world, pos, state) ) {
             if( !state.get(INPUT) ) {
-                world.getBlockTickScheduler().schedule(pos, this, getUpdateDelayInternal(state), TickPriority.HIGH);
+                world.createAndScheduleBlockTick(pos, this, getUpdateDelayInternal(state), TickPriority.HIGH);
             }
         }else{
             world.setBlockState(pos, state.with(INPUT, false), 2 );
@@ -62,7 +62,7 @@ public class TimerBlock extends FlipFlopBlock {
                 world.setBlockState(pos, state.with(INPUT, true), 2 );
             }
 
-            world.getBlockTickScheduler().schedule(pos, this, (int) Math.pow( 2, state.get(DELAY) ), TickPriority.HIGH);
+            world.createAndScheduleBlockTick(pos, this, (int) Math.pow( 2, state.get(DELAY) ), TickPriority.HIGH);
         }else{
             world.setBlockState(pos, state.with(INPUT, false).with(POWERED, false), 2 );
         }

@@ -10,6 +10,7 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldEvents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -43,8 +44,8 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
             if( power ) {
                 if( !state.get(POWERED) && state.get(JukeboxBlock.HAS_RECORD) ) {
                     if( RedBits.CONFIG.jukebox_integration) {
-                        world.syncWorldEvent(1010, pos, 0);
-                        world.getBlockTickScheduler().schedule(pos, this, 1);
+                        world.syncWorldEvent(WorldEvents.MUSIC_DISC_PLAYED, pos, 0);
+                        world.createAndScheduleBlockTick(pos, this, 1);
                     }
                 }
             }
@@ -60,7 +61,7 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
         JukeboxBlockEntity jukeboxBlockEntity = (JukeboxBlockEntity) world.getBlockEntity( pos );
         if( jukeboxBlockEntity != null ) {
             if( RedBits.CONFIG.jukebox_integration) {
-                world.syncWorldEvent(1010, pos, Item.getRawId(jukeboxBlockEntity.getRecord().getItem()));
+                world.syncWorldEvent(WorldEvents.MUSIC_DISC_PLAYED, pos, Item.getRawId(jukeboxBlockEntity.getRecord().getItem()));
             }
         }else{
             RedBits.LOGGER.warn( "Unable to trigger sound event, as the given Jukebox don't have a BlockEntity attached!" );

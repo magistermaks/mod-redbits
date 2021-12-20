@@ -75,6 +75,8 @@ public class JukeboxInventory extends SimpleInventory implements SidedInventory 
         if( empty && !world.isClient() ) {
             world.syncWorldEvent(1010, pos, 0);
         }
+
+        world.createAndScheduleBlockTick(this.pos, Blocks.JUKEBOX, 1);
     }
 
     public ItemStack getStack() {

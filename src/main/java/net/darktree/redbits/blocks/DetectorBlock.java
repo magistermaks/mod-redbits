@@ -57,7 +57,7 @@ public class DetectorBlock extends FlipFlopBlock {
             return;
         }
 
-        world.getBlockTickScheduler().schedule(pos, this, this.getUpdateDelayInternal(state), TickPriority.VERY_HIGH);
+        world.createAndScheduleBlockTick(pos, this, this.getUpdateDelayInternal(state), TickPriority.VERY_HIGH);
     }
 
 }

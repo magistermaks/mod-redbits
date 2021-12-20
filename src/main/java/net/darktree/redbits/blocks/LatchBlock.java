@@ -67,7 +67,7 @@ public class LatchBlock extends AbstractRedstoneGate {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         if (this.hasPower(world, pos, state, state.get(POWER).other())) {
-            world.getBlockTickScheduler().schedule(pos, this, 1);
+            world.createAndScheduleBlockTick(pos, this, 1);
         }
     }
 
@@ -87,8 +87,7 @@ public class LatchBlock extends AbstractRedstoneGate {
         boolean block = this.hasPower(world, pos, state, state.get(POWER).other());
 
         if( block && !world.getBlockTickScheduler().isTicking(pos, this) ) {
-            TickPriority tickPriority = TickPriority.HIGH;
-            world.getBlockTickScheduler().schedule(pos, this, this.getUpdateDelayInternal(), tickPriority);
+            world.createAndScheduleBlockTick(pos, this, this.getUpdateDelayInternal(), TickPriority.HIGH);
         }
     }
 

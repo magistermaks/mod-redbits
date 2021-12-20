@@ -78,7 +78,7 @@ public class FlipFlopBlock extends AbstractRedstoneGateBlock implements Redstone
                 tickPriority = TickPriority.VERY_HIGH;
             }
 
-            world.getBlockTickScheduler().schedule(pos, this, this.getUpdateDelayInternal(state), tickPriority);
+            world.createAndScheduleBlockTick(pos, this, this.getUpdateDelayInternal(state), tickPriority);
         }
     }
 
@@ -91,7 +91,7 @@ public class FlipFlopBlock extends AbstractRedstoneGateBlock implements Redstone
         } else if( !power ) {
             world.setBlockState(pos, state.with(INPUT, true).with(POWERED, !state.get(POWERED)), 2);
             if (!block) {
-                world.getBlockTickScheduler().schedule(pos, this, this.getUpdateDelayInternal(state), TickPriority.VERY_HIGH);
+                world.createAndScheduleBlockTick(pos, this, this.getUpdateDelayInternal(state), TickPriority.VERY_HIGH);
             }
         }
     }

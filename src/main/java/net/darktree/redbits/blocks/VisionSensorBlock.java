@@ -25,8 +25,8 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable {
 
     public boolean activate( BlockState state, World world, BlockPos pos ) {
         if( !state.get(POWERED) ) {
-            if( !world.getBlockTickScheduler().isScheduled(pos, this) ) {
-                world.getBlockTickScheduler().schedule(pos, this, 2);
+            if( !world.getBlockTickScheduler().isTicking(pos, this) ) {
+                world.createAndScheduleBlockTick(pos, this, 2);
                 world.setBlockState(pos, state.with(POWERED, true));
             }
             return true;
@@ -67,7 +67,7 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable {
 
     @Override
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-        world.getBlockTickScheduler().schedule(pos, this, 2);
+        world.createAndScheduleBlockTick(pos, this, 2);
     }
 
 }

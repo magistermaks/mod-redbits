@@ -29,16 +29,11 @@
   "depends": {
     "fabricloader": "*",
     "fabric": "*",
-    "minecraft": "1.17.x"
+    "minecraft": "1.18.x"
   },
   "authors": [
     "magistermaks"
   ],
-  "custom": {
-    "dashloader:customobject": [
-      "net.darktree.redbits.dashloader.DashColorProperty"
-    ]
-  },
   "contributors": [
     "WarAndroid",
     "ChloeDawn",
