@@ -1,5 +1,53 @@
-1.0.0 <2020/08/22>
-    - Initial version
+
+1.11.0
+    - Updated to minecraft 1.18
+
+1.10.1 <2021/10/04>
+    - Added new config option
+    - Fixed one config bug
+
+1.10.0 <2021/07/26>
+    - DashLoader support (alphaqu)
+    - Added basic config (T0paz)
+
+1.9.0 <2021/05/28>
+    - Updated to minecraft 1.17
+    - Removed Power Observers
+
+1.8.0 <2021/03/18>
+    - Updated mod icon
+    - Fixed one translation error (mug12)
+    - Added block tags and statistics
+
+1.7.0 <2021/01/15>
+    - Small code improvements
+    - Fixed potential compatibility issues (ChloeDawn)
+    - Added Sight Sensors
+
+1.6.0 <2021/01/03>
+    - Small code improvements
+    - Added hotbar info when clicking on Emitters
+    - Droppers can now put items into Campfires
+
+1.5.0 <2020/12/07>
+    - Small changes
+    - Added Power Observers
+    - Added Timers
+
+1.4.0 <2020/11/27>
+    - Fixed crash caused by redstone latch
+    - Fixed rendering issues on certain graphics cards
+    - Fixed NullPointerExceptions in connectsTo
+
+1.3.0 <2020/10/26>
+    - Added Color Redstone Lamps
+    - Removed one unused asset
+    - Removed custom dispenser behaviour to better adhere to vanilla convention
+
+1.2.0 <2020/09/23>
+    - Fixed minor translation error
+    - Fixed Inverted Redstone Torch lighting bug
+    - Fixed mixin configuration bug
 
 1.1.0 <2020/08/25>
     - Jukeboxes now interact with hoppers, droppers and dispensers
@@ -8,49 +56,5 @@
     - Added Redstone Latch
     - Added tooltips to pressure plates
 
-1.2.0 <2020/09/23>
-    - Fixed minor translation error
-    - Fixed Inverted Redstone Torch lighting bug
-    - Fixed mixin configuration bug
-
-1.3.0 <2020/10/26>
-    - Added Color Redstone Lamps
-    - Removed one unused asset
-    - Removed custom dispenser behaviour to better adhere to vanilla convention
-
-1.4.0 <2020/11/27>
-    - Fixed crash caused by redstone latch
-    - Fixed rendering issues on certain graphics cards
-    - Fixed NullPointerExceptions in connectsTo
-
-1.5.0 <2020/12/07>
-    - Small changes
-    - Added Power Observers
-    - Added Timers
-
-1.6.0 <2021/01/03>
-    - Small code improvements
-    - Added hotbar info when clicking on Emitters
-    - Droppers can now put items into Campfires
-
-1.7.0 <2021/01/15>
-    - Small code improvements
-    - Fixed potential compatibility issues (ChloeDawn)
-    - Added Sight Sensors
-
-1.8.0 <2021/03/18>
-    - Updated mod icon
-    - Fixed one translation error (mug12)
-    - Added block tags and statistics
-
-1.9.0 <2021/05/28>
-    - Updated to minecraft 1.17
-    - Removed Power Observers
-
-1.10.0 <2021/07/26>
-    - DashLoader support (alphaqu)
-    - Added basic config (T0paz)
-
-1.10.1 <2021/10/04>
-    - Added new config option
-    - Fixed one config bug
+1.0.0 <2020/08/22>
+    - Initial version
