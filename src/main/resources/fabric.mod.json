@@ -29,7 +29,8 @@
   "depends": {
     "fabricloader": "*",
     "fabric": "*",
-    "minecraft": "1.18.x"
+    "minecraft": "1.18.x",
+    "interference": ">=1.0.0"
   },
   "authors": [
     "magistermaks"

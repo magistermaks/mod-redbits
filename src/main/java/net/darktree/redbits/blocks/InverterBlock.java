@@ -1,6 +1,6 @@
 package net.darktree.redbits.blocks;
 
-import net.darktree.redbits.utils.RedstoneConnectable;
+import net.darktree.interference.api.RedstoneConnectable;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.AbstractRedstoneGateBlock;

@@ -2,7 +2,7 @@ package net.darktree.redbits;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
+import net.darktree.interference.MessageInjector;
 import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
 import net.darktree.redbits.blocks.vision.VisionSensorNetwork;
@@ -21,8 +21,8 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -147,6 +147,14 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		ColorProviderRegistry.BLOCK.register( (state, view, pos, tintIndex) -> ColorProvider.getColor(state.get(AnalogLampBlock.POWER)), RGB_LAMP );
 
 		VisionSensorTracker.init();
+
+		// nothing to see here
+		MessageInjector.supply("SSdtIHRoZSBtYW4gd2hvIGFycmFuZ2VzIHRoZSBibG9ja3Mh");
+		MessageInjector.supply("UGlyYWN5IGlzIGFsbCBhYm91dCBicmFuZGluZyE=");
+		MessageInjector.supply("QW5kIHdoYXQgY2FuIHlvdSBkbywgbXkgZWZmZW1pbmF0ZSBmZWxsb3c/");
+		MessageInjector.supply("Q2hlY2sgb3V0IFNlcXVlbnNhIFByb2dyYW1taW5nIExhbmd1YWdlIQ==");
+		MessageInjector.supply("WW91IGtub3cgdGhlIHJ1bGVzIGFuZCBzbyBkbyBJIQ==");
+		MessageInjector.supply("Q2hlY2sgb3V0IERhc2hMb2FkZXIh");
 	}
 
 	private void registerBlock( String name, Block block ) {

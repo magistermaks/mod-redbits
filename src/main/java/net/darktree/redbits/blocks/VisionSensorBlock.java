@@ -1,6 +1,6 @@
 package net.darktree.redbits.blocks;
 
-import net.darktree.redbits.utils.RedstoneConnectable;
+import net.darktree.interference.api.RedstoneConnectable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;

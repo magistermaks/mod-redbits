@@ -6,11 +6,9 @@
   "mixins": [
     "HopperBlockEntityMixin",
     "JukeboxBlockMixin",
-    "RedstoneTorchBlockMixin",
-    "RedstoneWireBlockMixin"
+    "RedstoneTorchBlockMixin"
   ],
   "client": [
-    "MessageProviderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
