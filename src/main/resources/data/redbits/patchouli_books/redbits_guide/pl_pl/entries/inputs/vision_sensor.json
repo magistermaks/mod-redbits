@@ -1,12 +1,12 @@
 {
-	"name": "Sight Sensor",
+	"name": "Płyta naciskowa",
 	"icon": "redbits:vision_sensor",
 	"category": "redbits:inputs",
 	"read_by_default": true,
 	"pages": [
 		{
 			"type": "patchouli:text",
-			"text": "Activated by players looking at it, emits a short redstone pulse. Maximum activation distance is 128 blocks by default."
+			"text": "Aktywowany przez wzrok graczy, emituje krótki impuls redstone. Maksymalna odległość aktywacji to domyślnie 128 bloków."
 		},
 		{
 			"type": "patchouli:crafting",

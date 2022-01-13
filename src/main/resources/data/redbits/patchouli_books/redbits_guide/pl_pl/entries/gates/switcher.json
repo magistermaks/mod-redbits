@@ -1,12 +1,12 @@
 {
-	"name": "Switcher Gate",
+	"name": "Przerzutnik",
 	"icon": "redbits:t_flip_flop",
 	"category": "redbits:gates",
 	"read_by_default": true,
 	"pages": [
 		{
 			"type": "patchouli:text",
-			"text": "Works like a redstone lever that can be switched by powering it (it can also be switched by clicking on it)."
+			"text": "Działa jak dźwignia którą można przełączyć zasilając ją. (można ją również przełączyć, klikając na blok). "
 		},
 		{
 			"type": "patchouli:crafting",

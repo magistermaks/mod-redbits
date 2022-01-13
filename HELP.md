@@ -15,7 +15,7 @@ and in the falling mode it triggers when input turns off.
 The mode can be toggled be clicking on the gate.
 
 **Switcher**  
-Works like a redstone leaver that can be switched by powering it (it can also be switched by clicking
+Works like a redstone lever that can be switched by powering it (it can also be switched by clicking
 on it).
 
 **Inverter**  
@@ -51,7 +51,7 @@ Those pressure plates are activated in the following conditions:
 
 **Sight Sensor**  
 Activated by players looking at it, emits a short redstone pulse. 
-Maximum activation distance is 128 blocks.
+Maximum activation distance is 128 blocks by default (This can be tweaked in the mod settings).
 
 ## Lamps
 
