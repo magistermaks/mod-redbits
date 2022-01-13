@@ -35,6 +35,7 @@
     "text.autoconfig.redbits.option.vision_distance": "Max Vision Sensor Distance",
     "text.autoconfig.redbits.option.disable_burnout": "Disable Redstone Torch Burnout",
     "text.autoconfig.redbits.option.jukebox_integration": "Enable Jukebox Integration",
-    "text.autoconfig.redbits.option.campfire_integration": "Enable Campfire Extensions"
+    "text.autoconfig.redbits.option.campfire_integration": "Enable Campfire Extensions",
+    "text.patchouli.redbits_guide.landing_text": "Guide for the redstone components added by RedBits, their usages, and recipes."
 }
 
