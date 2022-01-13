@@ -155,6 +155,7 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		MessageInjector.supply("Q2hlY2sgb3V0IFNlcXVlbnNhIFByb2dyYW1taW5nIExhbmd1YWdlIQ==");
 		MessageInjector.supply("WW91IGtub3cgdGhlIHJ1bGVzIGFuZCBzbyBkbyBJIQ==");
 		MessageInjector.supply("Q2hlY2sgb3V0IERhc2hMb2FkZXIh");
+		MessageInjector.supply("VHJ5IHdpdGggUGF0Y2hvdWxpIQ==");
 	}
 
 	private void registerBlock( String name, Block block ) {

@@ -32,6 +32,12 @@
     "minecraft": "1.18.x",
     "interference": ">=1.0.0"
   },
+  "recommends": {
+    "patchouli": "*"
+  },
+  "suggests": {
+    "led": "*"
+  },
   "authors": [
     "magistermaks"
   ],

@@ -36,6 +36,7 @@
     "text.autoconfig.redbits.option.disable_burnout": "Wyłacz wypalanie się pochodni redstone",
     "text.autoconfig.redbits.option.jukebox_integration": "Włacz integracje z szafą grającą",
     "text.autoconfig.redbits.option.campfire_integration": "Włacz integracje z ogniskiem",
+    "text.patchouli.redbits_guide.name": "Przewodnik RedBits",
     "text.patchouli.redbits_guide.landing_text": "Przewodnik po komponentach dodanych w RedBits, ich zastosowaniu, i recepturach."
 }
 
