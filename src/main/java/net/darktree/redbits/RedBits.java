@@ -15,7 +15,10 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
+import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.Entity;
@@ -24,14 +27,23 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.WallStandingBlockItem;
+import net.minecraft.item.*;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTables;
+import net.minecraft.loot.condition.SurvivesExplosionLootCondition;
+import net.minecraft.loot.entry.EmptyEntry;
+import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.entry.LootPoolEntry;
+import net.minecraft.loot.function.LootFunctionTypes;
+import net.minecraft.loot.function.SetNbtLootFunction;
+import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.loot.provider.number.LootNumberProvider;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.stat.StatFormatter;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.property.Properties;
+import net.minecraft.structure.StrongholdGenerator;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -40,6 +52,10 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import vazkii.patchouli.api.PatchouliAPI;
+import vazkii.patchouli.common.book.Book;
+import vazkii.patchouli.common.item.ItemModBook;
+import vazkii.patchouli.common.item.PatchouliItems;
 
 import java.util.function.Predicate;
 
@@ -129,6 +145,32 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		registerStat(INTERACT_WITH_REDSTONE_EMITTER);
 
 		VisionSensorNetwork.init();
+
+		// Check is Patchouli is present in the mod list
+		if( FabricLoader.getInstance().isModLoaded("patchouli") ) {
+			if(CONFIG.add_guide_to_loot_tables) {
+				LOGGER.info("[RED BITS] Detected Patchouli! Adding guide book to loot tables...");
+
+				LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, id, table, setter) -> {
+					if( LootTables.STRONGHOLD_LIBRARY_CHEST.equals(id) || LootTables.VILLAGE_CARTOGRAPHER_CHEST.equals(id) || LootTables.VILLAGE_TEMPLE_CHEST.equals(id) ) {
+
+						final NbtCompound tag = new NbtCompound();
+						tag.putString("patchouli:book", "redbits:guide");
+
+						LootPool builder = FabricLootPoolBuilder.builder()
+								.rolls(ConstantLootNumberProvider.create(1))
+								.withEntry(ItemEntry.builder(PatchouliItems.BOOK).weight(4).build())
+								.withEntry(EmptyEntry.Serializer().weight(10).build())
+								.withFunction(SetNbtLootFunction.builder(tag).build())
+								.build();
+
+						table.withPool(builder);
+					}
+				});
+			}else{
+				LOGGER.warn("[RED BITS] Detected Patchouli, but loot table extensions where disabled! Skipping!");
+			}
+		}
 	}
 
 	@Override

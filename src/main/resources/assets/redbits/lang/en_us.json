@@ -36,7 +36,7 @@
     "text.autoconfig.redbits.option.disable_burnout": "Disable Redstone Torch Burnout",
     "text.autoconfig.redbits.option.jukebox_integration": "Enable Jukebox Integration",
     "text.autoconfig.redbits.option.campfire_integration": "Enable Campfire Extensions",
-    "text.patchouli.redbits_guide.name": "RedBits Guide",
-    "text.patchouli.redbits_guide.landing_text": "Guide for the redstone components added by RedBits, their usages, and recipes."
+    "text.patchouli.redbits.guide.name": "RedBits Guide",
+    "text.patchouli.redbits.guide.text": "Guide for the redstone components added by RedBits, their usages, and recipes."
 }
 

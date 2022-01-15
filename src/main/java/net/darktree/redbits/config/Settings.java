@@ -10,5 +10,6 @@ public class Settings implements ConfigData {
 	public boolean disable_burnout = true;
 	public boolean jukebox_integration = true;
 	public boolean campfire_integration = true;
+	public boolean add_guide_to_loot_tables = true;
 
 }
