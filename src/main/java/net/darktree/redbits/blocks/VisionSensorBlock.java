@@ -1,12 +1,15 @@
 package net.darktree.redbits.blocks;
 
+import net.darktree.interference.api.LookAtEvent;
 import net.darktree.interference.api.RedstoneConnectable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
@@ -14,7 +17,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class VisionSensorBlock extends Block implements RedstoneConnectable {
+public class VisionSensorBlock extends Block implements RedstoneConnectable, LookAtEvent {
 
     public static final BooleanProperty POWERED = Properties.POWERED;
 
@@ -23,16 +26,13 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable {
         setDefaultState( this.stateManager.getDefaultState().with(POWERED, false) );
     }
 
-    public boolean activate( BlockState state, World world, BlockPos pos ) {
+    public void onLookAtStart(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if( !state.get(POWERED) ) {
-            if( !world.getBlockTickScheduler().isTicking(pos, this) ) {
+            if( !world.getBlockTickScheduler().isQueued(pos, this) ) {
                 world.createAndScheduleBlockTick(pos, this, 2);
                 world.setBlockState(pos, state.with(POWERED, true));
             }
-            return true;
         }
-
-        return false;
     }
 
     @Override

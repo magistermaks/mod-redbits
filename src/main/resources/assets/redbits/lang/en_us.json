@@ -32,7 +32,7 @@
     "stat.redbits.interact_with_redstone_emitter": "Redstone Emitters Adjusted",
     "message.redbits.power_level": "Power: %s",
     "text.autoconfig.redbits.title": "Red Bits Configuration",
-    "text.autoconfig.redbits.option.vision_distance": "Max Vision Sensor Distance",
+    "text.autoconfig.redbits.option.add_guide_to_loot_tables": "Add Guide Book To Loot Tables",
     "text.autoconfig.redbits.option.disable_burnout": "Disable Redstone Torch Burnout",
     "text.autoconfig.redbits.option.jukebox_integration": "Enable Jukebox Integration",
     "text.autoconfig.redbits.option.campfire_integration": "Enable Campfire Extensions",

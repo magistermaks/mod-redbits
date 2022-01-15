@@ -2,11 +2,10 @@ package net.darktree.redbits;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import net.darktree.interference.LootInjector;
 import net.darktree.interference.MessageInjector;
 import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
-import net.darktree.redbits.blocks.vision.VisionSensorNetwork;
-import net.darktree.redbits.blocks.vision.VisionSensorTracker;
 import net.darktree.redbits.config.Settings;
 import net.darktree.redbits.utils.ColorProvider;
 import net.fabricmc.api.ClientModInitializer;
@@ -15,8 +14,6 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
@@ -28,22 +25,12 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTables;
-import net.minecraft.loot.condition.SurvivesExplosionLootCondition;
-import net.minecraft.loot.entry.EmptyEntry;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LootPoolEntry;
-import net.minecraft.loot.function.LootFunctionTypes;
-import net.minecraft.loot.function.SetNbtLootFunction;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.loot.provider.number.LootNumberProvider;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.stat.StatFormatter;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.property.Properties;
-import net.minecraft.structure.StrongholdGenerator;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -52,9 +39,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.common.book.Book;
-import vazkii.patchouli.common.item.ItemModBook;
 import vazkii.patchouli.common.item.PatchouliItems;
 
 import java.util.function.Predicate;
@@ -144,32 +128,26 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		registerStat(INTERACT_WITH_SIGHT_SENSOR);
 		registerStat(INTERACT_WITH_REDSTONE_EMITTER);
 
-		VisionSensorNetwork.init();
-
 		// Check is Patchouli is present in the mod list
 		if( FabricLoader.getInstance().isModLoaded("patchouli") ) {
-			if(CONFIG.add_guide_to_loot_tables) {
-				LOGGER.info("[RED BITS] Detected Patchouli! Adding guide book to loot tables...");
+			initializePatchouliCompatibility();
+		}
+	}
 
-				LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, id, table, setter) -> {
-					if( LootTables.STRONGHOLD_LIBRARY_CHEST.equals(id) || LootTables.VILLAGE_CARTOGRAPHER_CHEST.equals(id) || LootTables.VILLAGE_TEMPLE_CHEST.equals(id) ) {
+	private void initializePatchouliCompatibility() {
+		if(CONFIG.add_guide_to_loot_tables) {
+			LOGGER.info("RedBits detected Patchouli! Adding guide book to loot tables...");
 
-						final NbtCompound tag = new NbtCompound();
-						tag.putString("patchouli:book", "redbits:guide");
+			NbtCompound tag = new NbtCompound();
+			tag.putString("patchouli:book", "redbits:guide");
+			ItemStack stack = new ItemStack(PatchouliItems.BOOK);
+			stack.setNbt(tag);
 
-						LootPool builder = FabricLootPoolBuilder.builder()
-								.rolls(ConstantLootNumberProvider.create(1))
-								.withEntry(ItemEntry.builder(PatchouliItems.BOOK).weight(4).build())
-								.withEntry(EmptyEntry.Serializer().weight(10).build())
-								.withFunction(SetNbtLootFunction.builder(tag).build())
-								.build();
-
-						table.withPool(builder);
-					}
-				});
-			}else{
-				LOGGER.warn("[RED BITS] Detected Patchouli, but loot table extensions where disabled! Skipping!");
-			}
+			LootInjector.injectEntry(LootTables.STRONGHOLD_LIBRARY_CHEST, stack, 30);
+			LootInjector.injectEntry(LootTables.SPAWN_BONUS_CHEST, stack, 80);
+			LootInjector.injectEntry(LootTables.VILLAGE_CARTOGRAPHER_CHEST, stack, 30);
+		}else{
+			LOGGER.warn("RedBits detected Patchouli, but loot table extensions where disabled! Skipping!");
 		}
 	}
 
@@ -188,16 +166,14 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		ColorProviderRegistry.ITEM.register( (stack, tintIndex) -> ColorProvider.getColor(0), RGB_LAMP );
 		ColorProviderRegistry.BLOCK.register( (state, view, pos, tintIndex) -> ColorProvider.getColor(state.get(AnalogLampBlock.POWER)), RGB_LAMP );
 
-		VisionSensorTracker.init();
-
 		// nothing to see here
-		MessageInjector.supply("SSdtIHRoZSBtYW4gd2hvIGFycmFuZ2VzIHRoZSBibG9ja3Mh");
-		MessageInjector.supply("UGlyYWN5IGlzIGFsbCBhYm91dCBicmFuZGluZyE=");
-		MessageInjector.supply("QW5kIHdoYXQgY2FuIHlvdSBkbywgbXkgZWZmZW1pbmF0ZSBmZWxsb3c/");
-		MessageInjector.supply("Q2hlY2sgb3V0IFNlcXVlbnNhIFByb2dyYW1taW5nIExhbmd1YWdlIQ==");
-		MessageInjector.supply("WW91IGtub3cgdGhlIHJ1bGVzIGFuZCBzbyBkbyBJIQ==");
-		MessageInjector.supply("Q2hlY2sgb3V0IERhc2hMb2FkZXIh");
-		MessageInjector.supply("VHJ5IHdpdGggUGF0Y2hvdWxpIQ==");
+		MessageInjector.inject("SSdtIHRoZSBtYW4gd2hvIGFycmFuZ2VzIHRoZSBibG9ja3Mh");
+		MessageInjector.inject("UGlyYWN5IGlzIGFsbCBhYm91dCBicmFuZGluZyE=");
+		MessageInjector.inject("QW5kIHdoYXQgY2FuIHlvdSBkbywgbXkgZWZmZW1pbmF0ZSBmZWxsb3c/");
+		MessageInjector.inject("Q2hlY2sgb3V0IFNlcXVlbnNhIFByb2dyYW1taW5nIExhbmd1YWdlIQ==");
+		MessageInjector.inject("WW91IGtub3cgdGhlIHJ1bGVzIGFuZCBzbyBkbyBJIQ==");
+		MessageInjector.inject("Q2hlY2sgb3V0IERhc2hMb2FkZXIh");
+		MessageInjector.inject("VHJ5IHdpdGggUGF0Y2hvdWxpIQ==");
 	}
 
 	private void registerBlock( String name, Block block ) {
