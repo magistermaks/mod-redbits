@@ -1,5 +1,10 @@
 # RedBits help page
 
+> **NOTE:** As of RedBits 1.12.0 a **build-in guide book** is included in the mod if 
+> [Patchouli Fabric](https://www.curseforge.com/minecraft/mc-mods/patchouli-fabric) is also present, it can be found under the "miscellaneous"
+> creative tab OR in naturally generated chests in stronghold libraries, 
+> cartographer village houses and in the "Bonus Chest".
+
 ## Recipes
 
 All recipes are available in game, in the "crafting book", 
