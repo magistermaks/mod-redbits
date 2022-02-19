@@ -7,6 +7,7 @@ import net.darktree.interference.MessageInjector;
 import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
 import net.darktree.redbits.config.Settings;
+import net.darktree.redbits.entity.EmitterMinecartEntity;
 import net.darktree.redbits.utils.ColorProvider;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -14,12 +15,21 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.MinecartEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.VillagerEntity;
@@ -89,16 +99,24 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 	public final static Block VISION_SENSOR = new VisionSensorBlock( AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F).solidBlock( (BlockState state, BlockView world, BlockPos pos) -> true ) );
 	public final static Block INVERTED_REDSTONE_TORCH = new InvertedRedstoneTorchBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().breakInstantly().luminance( (n) -> n.get(Properties.LIT) ? 7 : 0 ).sounds(BlockSoundGroup.WOOD));
 	public final static Block INVERTED_REDSTONE_WALL_TORCH = new WallInvertedRedstoneTorchBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().breakInstantly().luminance( (n) -> n.get(Properties.LIT) ? 7 : 0 ).sounds(BlockSoundGroup.WOOD));
+	public final static Item EMITTER_MINECART_ITEM = new MinecartItem(EmitterMinecartEntity.EMITTER, new Item.Settings().maxCount(1).group(ItemGroup.TRANSPORTATION));
 
 	// Statistics
 	public static final Identifier INTERACT_WITH_SIGHT_SENSOR = new Identifier(NAMESPACE, "interact_with_sight_sensor");
 	public static final Identifier INTERACT_WITH_REDSTONE_EMITTER = new Identifier(NAMESPACE, "interact_with_redstone_emitter");
+
+	// Entities, Java why can't I do it normally? Generics are a pain worse than templates
+	public static final EntityType<EmitterMinecartEntity> EMITTER_MINECART = (EntityType<EmitterMinecartEntity>) (Object) FabricEntityTypeBuilder
+			.create(SpawnGroup.MISC, EmitterMinecartEntity::new)
+			.dimensions(EntityDimensions.fixed(0.98f, 0.7f))
+			.build();
 
 	@Override
 	public void onInitialize() {
 		registerBlock("inverted_redstone_torch", INVERTED_REDSTONE_TORCH);
 		registerBlock("inverted_redstone_wall_torch", INVERTED_REDSTONE_WALL_TORCH);
 		registerItem("inverted_redstone_torch", new WallStandingBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, SETTINGS));
+		registerItem("emitter_minecart", EMITTER_MINECART_ITEM);
 		register("two_way_repeater", TWO_WAY_REPEATER);
 		register("t_flip_flop", T_FLIP_FLOP);
 		register("inverter", INVERTER);
@@ -127,6 +145,10 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		// Register statistics
 		registerStat(INTERACT_WITH_SIGHT_SENSOR);
 		registerStat(INTERACT_WITH_REDSTONE_EMITTER);
+
+		// Register custom minecart
+		Registry.register(Registry.ENTITY_TYPE, new Identifier(NAMESPACE, "emitter_minecart"), EMITTER_MINECART);
+		MinecartComparatorLogicRegistry.register(EMITTER_MINECART, (minecart, state, pos) -> minecart.getPower());
 
 		// Check is Patchouli is present in the mod list
 		if( FabricLoader.getInstance().isModLoaded("patchouli") ) {
@@ -165,6 +187,8 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		ColorProviderRegistry.BLOCK.register( (state, view, pos, tintIndex) -> RedstoneWireBlock.getWireColor( state.get( EmitterBlock.POWER ) ), REDSTONE_EMITTER );
 		ColorProviderRegistry.ITEM.register( (stack, tintIndex) -> ColorProvider.getColor(0), RGB_LAMP );
 		ColorProviderRegistry.BLOCK.register( (state, view, pos, tintIndex) -> ColorProvider.getColor(state.get(AnalogLampBlock.POWER)), RGB_LAMP );
+
+		EntityRendererRegistry.register(EMITTER_MINECART, ctx -> new MinecartEntityRenderer(ctx, EntityModelLayers.TNT_MINECART));
 
 		// nothing to see here
 		MessageInjector.inject("SSdtIHRoZSBtYW4gd2hvIGFycmFuZ2VzIHRoZSBibG9ja3Mh");

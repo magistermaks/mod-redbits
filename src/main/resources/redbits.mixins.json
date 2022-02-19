@@ -4,6 +4,8 @@
   "package": "net.darktree.redbits.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "AbstractMinecartEntityMixin",
+    "AbstractMinecartEntityTypeExtensionMixin",
     "HopperBlockEntityMixin",
     "JukeboxBlockMixin",
     "RedstoneTorchBlockMixin"

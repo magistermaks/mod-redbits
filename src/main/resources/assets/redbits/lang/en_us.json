@@ -28,9 +28,13 @@
     "block.redbits.warped_large_button": "Large Warped Button",
     "block.redbits.stone_large_button": "Large Stone Button",
     "block.redbits.polished_blackstone_large_button": "Large Polished Blackstone Button",
+    "item.redbits.emitter_minecart": "Minecart with Redstone Emitter",
+
     "stat.redbits.interact_with_sight_sensor": "Sight Sensors Triggered",
     "stat.redbits.interact_with_redstone_emitter": "Redstone Emitters Adjusted",
+
     "message.redbits.power_level": "Power: %s",
+
     "text.autoconfig.redbits.title": "Red Bits Configuration",
     "text.autoconfig.redbits.option.add_guide_to_loot_tables": "Add Guide Book To Loot Tables",
     "text.autoconfig.redbits.option.disable_burnout": "Disable Redstone Torch Burnout",
