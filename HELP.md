@@ -77,4 +77,8 @@ replacement for using cauldrons and composters in circuits.
 **Inverted Redstone Torch**  
 Redstone torch that doesn't invert the signal.
 
+**Emitter Minecart**
+A Minecart with the Redstone Emitter block inside, emits the expected comparator signal when on detector rails, 
+similarity to Minecarts with Chests, Furnaces, Hoppers etc.
+
 > This help page may not be 100% accurate.
