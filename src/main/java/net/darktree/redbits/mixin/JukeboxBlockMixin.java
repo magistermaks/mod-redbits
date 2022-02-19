@@ -64,7 +64,7 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
                 world.syncWorldEvent(WorldEvents.MUSIC_DISC_PLAYED, pos, Item.getRawId(jukeboxBlockEntity.getRecord().getItem()));
             }
         }else{
-            RedBits.LOGGER.warn( "Unable to trigger sound event, as the given Jukebox don't have a BlockEntity attached!" );
+            RedBits.LOGGER.warn( "Unable to trigger sound event, as the given Jukebox doesn't have a BlockEntity attached!" );
         }
     }
 

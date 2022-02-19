@@ -1,4 +1,8 @@
 
+1.13.0
+    - Fixed invalid power lever of Sight Sensors
+    - Dropped Log4j dependency
+
 1.12.0 <18/1/2022>
     - Fixed Sight Sensors triggering when placed
     - Added Patchouli support

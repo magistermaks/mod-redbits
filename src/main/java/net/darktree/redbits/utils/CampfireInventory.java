@@ -37,7 +37,7 @@ public class CampfireInventory extends SimpleInventory implements SidedInventory
 
     public CampfireBlockEntity getCampfireEntity() {
         CampfireBlockEntity entity = (CampfireBlockEntity) world.getBlockEntity(pos);
-        if( entity == null ) throw new RuntimeException( "[RedBits] Jukebox inventory is not attached to Jukebox block entity!" );
+        if( entity == null ) throw new RuntimeException( "[RedBits] Campfire inventory is not attached to Campfire block entity!" );
         return entity;
     }
 

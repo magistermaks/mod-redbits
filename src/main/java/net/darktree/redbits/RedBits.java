@@ -37,15 +37,15 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vazkii.patchouli.common.item.PatchouliItems;
 
 import java.util.function.Predicate;
 
 public class RedBits implements ModInitializer, ClientModInitializer {
 
-	public static final Logger LOGGER = LogManager.getLogger("RedBits");
+	public static final Logger LOGGER = LoggerFactory.getLogger("RedBits");
 	public static final Settings CONFIG = AutoConfig.register(Settings.class, GsonConfigSerializer::new).getConfig();
 	public static final Item.Settings SETTINGS = new Item.Settings().group(ItemGroup.REDSTONE);
 	public static final String NAMESPACE = "redbits";

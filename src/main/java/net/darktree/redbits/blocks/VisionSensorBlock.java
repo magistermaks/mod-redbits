@@ -29,8 +29,8 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable, Loo
     public void onLookAtStart(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if( !state.get(POWERED) ) {
             if( !world.getBlockTickScheduler().isQueued(pos, this) ) {
-                world.createAndScheduleBlockTick(pos, this, 2);
                 world.setBlockState(pos, state.with(POWERED, true));
+                world.createAndScheduleBlockTick(pos, this, 2);
             }
         }
     }
@@ -43,11 +43,6 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable, Loo
     @Override
     public boolean connectsTo(BlockState state, Direction direction) {
         return true;
-    }
-
-    @Override
-    public int getStrongRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-        return state.getWeakRedstonePower(world, pos, direction);
     }
 
     @Override

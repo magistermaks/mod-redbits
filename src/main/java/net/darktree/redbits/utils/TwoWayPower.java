@@ -23,12 +23,11 @@ public enum TwoWayPower implements StringIdentifiable {
     }
 
     public Direction.AxisDirection asAxisDirection() {
-        switch ( this ) {
-            case FRONT: return Direction.AxisDirection.POSITIVE;
-            case BACK: return Direction.AxisDirection.NEGATIVE;
-        }
-
-        return null;
+        return switch (this) {
+            case FRONT -> Direction.AxisDirection.POSITIVE;
+            case BACK -> Direction.AxisDirection.NEGATIVE;
+            default -> null;
+        };
     }
 
     public String asString() {
