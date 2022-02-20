@@ -27,7 +27,7 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable, Loo
     }
 
     public void onLookAtStart(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if( !state.get(POWERED) ) {
+        if( !state.get(POWERED) && !world.isClient ) {
             if( !world.getBlockTickScheduler().isQueued(pos, this) ) {
                 world.setBlockState(pos, state.with(POWERED, true));
                 world.createAndScheduleBlockTick(pos, this, 2);

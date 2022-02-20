@@ -2,9 +2,7 @@
 	"credit": "Made with Blockbench by magistermaks",
 	"ambientocclusion": false,
 	"textures": {
-		"torch": "block/redstone_torch",
 		"base": "block/smooth_stone",
-		"top": "block/repeater",
 		"particle": "#top"
 	},
 	"elements": [

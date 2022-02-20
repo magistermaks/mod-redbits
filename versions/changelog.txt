@@ -4,7 +4,7 @@
     - Fixed invalid power level emitted by Sight Sensors
     - Fixed Sight Sensors being activated by spectators
     - Dropped Log4j dependency
-    - Optimized most assets
+    - Optimized assets
 
 1.12.0 <18/1/2022>
     - Fixed Sight Sensors triggering when placed
