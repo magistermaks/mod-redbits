@@ -3,7 +3,6 @@ package net.darktree.redbits.blocks;
 import net.darktree.interference.api.LookAtEvent;
 import net.darktree.interference.api.RedstoneConnectable;
 import net.darktree.redbits.RedBits;
-import net.darktree.redbits.network.C2SLookAtPacket;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
