@@ -1,8 +1,7 @@
 
 1.13.0
     - Added Minecarts with Redstone Emitters
-    - Fixed invalid power level emitted by Sight Sensors
-    - Fixed Sight Sensors being activated by spectators
+    - Bugfixes and improvements to Sight Sensors
     - Dropped Log4j dependency
     - Optimized assets
 

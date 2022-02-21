@@ -17,7 +17,7 @@
       "net.darktree.redbits.RedBits"
     ],
     "client": [
-      "net.darktree.redbits.RedBits"
+      "net.darktree.redbits.RedBitsClient"
     ],
     "modmenu": [
       "net.darktree.redbits.config.Menu"

@@ -8,6 +8,7 @@ import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
 import net.darktree.redbits.config.Settings;
 import net.darktree.redbits.entity.EmitterMinecartEntity;
+import net.darktree.redbits.network.C2SLookAtPacket;
 import net.darktree.redbits.utils.ColorProvider;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -17,15 +18,11 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.MinecartEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -53,7 +50,7 @@ import vazkii.patchouli.common.item.PatchouliItems;
 
 import java.util.function.Predicate;
 
-public class RedBits implements ModInitializer, ClientModInitializer {
+public class RedBits implements ModInitializer {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger("RedBits");
 	public static final Settings CONFIG = AutoConfig.register(Settings.class, GsonConfigSerializer::new).getConfig();
@@ -111,6 +108,9 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 			.dimensions(EntityDimensions.fixed(0.98f, 0.7f))
 			.build();
 
+	// Network
+	public static final C2SLookAtPacket LOOK_AT_PACKET = new C2SLookAtPacket(new Identifier(NAMESPACE, "look_at"));
+
 	@Override
 	public void onInitialize() {
 		registerBlock("inverted_redstone_torch", INVERTED_REDSTONE_TORCH);
@@ -150,6 +150,9 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(NAMESPACE, "emitter_minecart"), EMITTER_MINECART);
 		MinecartComparatorLogicRegistry.register(EMITTER_MINECART, (minecart, state, pos) -> minecart.getPower());
 
+		// Network
+		LOOK_AT_PACKET.register();
+
 		// Check is Patchouli is present in the mod list
 		if( FabricLoader.getInstance().isModLoaded("patchouli") ) {
 			initializePatchouliCompatibility();
@@ -173,33 +176,6 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 		}
 	}
 
-	@Override
-	public void onInitializeClient() {
-		cutout(INVERTER);
-		cutout(T_FLIP_FLOP);
-		cutout(DETECTOR);
-		cutout(LATCH);
-		cutout(TWO_WAY_REPEATER);
-		cutout(INVERTED_REDSTONE_TORCH);
-		cutout(INVERTED_REDSTONE_WALL_TORCH);
-		cutout(TIMER);
-		ColorProviderRegistry.ITEM.register( (stack, tintIndex) -> RedstoneWireBlock.getWireColor(1), REDSTONE_EMITTER );
-		ColorProviderRegistry.BLOCK.register( (state, view, pos, tintIndex) -> RedstoneWireBlock.getWireColor( state.get( EmitterBlock.POWER ) ), REDSTONE_EMITTER );
-		ColorProviderRegistry.ITEM.register( (stack, tintIndex) -> ColorProvider.getColor(0), RGB_LAMP );
-		ColorProviderRegistry.BLOCK.register( (state, view, pos, tintIndex) -> ColorProvider.getColor(state.get(AnalogLampBlock.POWER)), RGB_LAMP );
-
-		EntityRendererRegistry.register(EMITTER_MINECART, ctx -> new MinecartEntityRenderer(ctx, EntityModelLayers.TNT_MINECART));
-
-		// nothing to see here
-		MessageInjector.inject("SSdtIHRoZSBtYW4gd2hvIGFycmFuZ2VzIHRoZSBibG9ja3Mh");
-		MessageInjector.inject("UGlyYWN5IGlzIGFsbCBhYm91dCBicmFuZGluZyE=");
-		MessageInjector.inject("QW5kIHdoYXQgY2FuIHlvdSBkbywgbXkgZWZmZW1pbmF0ZSBmZWxsb3c/");
-		MessageInjector.inject("Q2hlY2sgb3V0IFNlcXVlbnNhIFByb2dyYW1taW5nIExhbmd1YWdlIQ==");
-		MessageInjector.inject("WW91IGtub3cgdGhlIHJ1bGVzIGFuZCBzbyBkbyBJIQ==");
-		MessageInjector.inject("Q2hlY2sgb3V0IERhc2hMb2FkZXIh");
-		MessageInjector.inject("VHJ5IHdpdGggUGF0Y2hvdWxpIQ==");
-	}
-
 	private void registerBlock( String name, Block block ) {
 		Registry.register(Registry.BLOCK, new Identifier( NAMESPACE, name ), block);
 	}
@@ -216,11 +192,6 @@ public class RedBits implements ModInitializer, ClientModInitializer {
 	private void registerStat( Identifier id ) {
 		Registry.register(Registry.CUSTOM_STAT, id, id);
 		Stats.CUSTOM.getOrCreateStat(id, StatFormatter.DEFAULT);
-	}
-
-	@Environment(EnvType.CLIENT)
-	private void cutout( Block block ) {
-		BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
 	}
 
 }

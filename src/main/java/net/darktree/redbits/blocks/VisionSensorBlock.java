@@ -2,6 +2,8 @@ package net.darktree.redbits.blocks;
 
 import net.darktree.interference.api.LookAtEvent;
 import net.darktree.interference.api.RedstoneConnectable;
+import net.darktree.redbits.RedBits;
+import net.darktree.redbits.network.C2SLookAtPacket;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,12 +28,22 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable, Loo
         setDefaultState( this.stateManager.getDefaultState().with(POWERED, false) );
     }
 
-    public void onLookAtStart(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if( !state.get(POWERED) && !world.isClient ) {
-            if( !world.getBlockTickScheduler().isQueued(pos, this) ) {
+	public static void trigger(World world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+
+        if (!state.get(POWERED)) {
+            Block self = state.getBlock();
+
+            if (!world.getBlockTickScheduler().isQueued(pos, self)) {
                 world.setBlockState(pos, state.with(POWERED, true));
-                world.createAndScheduleBlockTick(pos, this, 2);
+                world.createAndScheduleBlockTick(pos, self, 2);
             }
+        }
+	}
+
+	public void onLookAtStart(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if( world.isClient ) {
+            RedBits.LOOK_AT_PACKET.send(pos);
         }
     }
 
