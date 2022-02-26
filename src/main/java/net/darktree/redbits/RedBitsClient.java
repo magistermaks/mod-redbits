@@ -44,6 +44,7 @@ public class RedBitsClient implements ClientModInitializer {
 		MessageInjector.inject("WW91IGtub3cgdGhlIHJ1bGVzIGFuZCBzbyBkbyBJIQ==");
 		MessageInjector.inject("Q2hlY2sgb3V0IERhc2hMb2FkZXIh");
 		MessageInjector.inject("VHJ5IHdpdGggUGF0Y2hvdWxpIQ==");
+		MessageInjector.inject("SmViYcSHIFB1dGluYSE=");
 	}
 
 	@Environment(EnvType.CLIENT)

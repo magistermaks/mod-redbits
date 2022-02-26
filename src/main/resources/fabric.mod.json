@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "redbits",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "name": "Red Bits",
   "description": "Vanilla style redstone additions and improvements!",
   "icon": "assets/redbits/icon.png",
