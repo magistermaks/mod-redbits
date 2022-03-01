@@ -1,4 +1,7 @@
 
+1.13.1 <2022/03/01>
+	- Updated to minecraft 1.18.2
+
 1.13.0 <2022/02/28>
     - Added Minecarts with Redstone Emitters
     - Bugfixes and improvements to Sight Sensors
