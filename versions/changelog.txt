@@ -1,4 +1,7 @@
 
+1.13.2 <2022/03/13>
+    - Fixed issue #10
+
 1.13.1 <2022/03/01>
 	- Updated to minecraft 1.18.2
 
