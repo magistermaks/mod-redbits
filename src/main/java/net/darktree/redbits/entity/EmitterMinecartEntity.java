@@ -11,6 +11,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -52,11 +53,8 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 	}
 
 	@Override
-	public void dropItems(DamageSource source) {
-		super.dropItems(source);
-		if (!source.isExplosive() && this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
-			this.dropItem(RedBits.REDSTONE_EMITTER);
-		}
+	public Item getItem() {
+		return RedBits.EMITTER_MINECART_ITEM;
 	}
 
 	@Override

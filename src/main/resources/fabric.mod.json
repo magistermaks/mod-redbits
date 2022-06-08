@@ -11,6 +11,7 @@
     "sources": "https://github.com/magistermaks/mod-redbits",
     "issues": "https://github.com/magistermaks/mod-redbits/issues"
   },
+  "accessWidener": "redbits.accesswidener",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -29,7 +30,7 @@
   "depends": {
     "fabricloader": "*",
     "fabric": "*",
-    "minecraft": "1.18.x",
+    "minecraft": "1.19.x",
     "interference": "1.4.x"
   },
   "recommends": {

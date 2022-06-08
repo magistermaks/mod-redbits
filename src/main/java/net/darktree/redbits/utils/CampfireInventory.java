@@ -35,7 +35,7 @@ public class CampfireInventory extends SimpleInventory implements SidedInventory
         return new int[] {0, 1, 2, 3};
     }
 
-    public CampfireBlockEntity getCampfireEntity() {
+    private CampfireBlockEntity getCampfireEntity() {
         CampfireBlockEntity entity = (CampfireBlockEntity) world.getBlockEntity(pos);
         if( entity == null ) throw new RuntimeException( "[RedBits] Campfire inventory is not attached to Campfire block entity!" );
         return entity;
@@ -100,7 +100,7 @@ public class CampfireInventory extends SimpleInventory implements SidedInventory
     public void setStack(int slot, ItemStack stack) {
         CampfireBlockEntity entity = getCampfireEntity();
         Optional<CampfireCookingRecipe> recipe = entity.getRecipeFor( stack );
-        recipe.ifPresent(cookingRecipe -> getCampfireEntity().addItem(stack, cookingRecipe.getCookTime()));
+        recipe.ifPresent(cookingRecipe -> getCampfireEntity().addItem(null, stack, cookingRecipe.getCookTime()));
     }
 
 }

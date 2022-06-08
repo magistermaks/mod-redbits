@@ -9,7 +9,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -47,7 +47,7 @@ public class EmitterBlock extends Block {
 
         if (player != null) {
             player.incrementStat(RedBits.INTERACT_WITH_REDSTONE_EMITTER);
-            player.sendMessage(new TranslatableText("message.redbits.power_level", power), true);
+            player.sendMessage(Text.translatable("message.redbits.power_level", power), true);
         }
         
         return power;

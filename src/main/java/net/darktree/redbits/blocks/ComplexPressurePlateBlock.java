@@ -4,7 +4,6 @@ import net.minecraft.block.PressurePlateBlock;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -33,6 +32,6 @@ public class ComplexPressurePlateBlock extends PressurePlateBlock {
 
     @Override
     public void appendTooltip(ItemStack stack, BlockView world, List<Text> tooltip, TooltipContext options) {
-        tooltip.add( new TranslatableText( this.getTranslationKey() + ".tooltip" ).formatted( Formatting.GRAY ) );
+        tooltip.add( Text.translatable( this.getTranslationKey() + ".tooltip" ).formatted( Formatting.GRAY ) );
     }
 }
