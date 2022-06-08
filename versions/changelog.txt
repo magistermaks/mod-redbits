@@ -1,4 +1,8 @@
 
+1.13.3 <2022/05/08>
+	- Updated Interference API
+	- Fixed server-side performance issue caused by Interference API
+
 1.13.2 <2022/03/13>
     - Fixed issue #10
 

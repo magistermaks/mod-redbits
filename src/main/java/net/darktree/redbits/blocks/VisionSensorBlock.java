@@ -41,9 +41,7 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable, Loo
 	}
 
 	public void onLookAtStart(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if( world.isClient ) {
-            RedBits.LOOK_AT_PACKET.send(pos);
-        }
+        RedBits.LOOK_AT_PACKET.send(pos);
     }
 
     @Override

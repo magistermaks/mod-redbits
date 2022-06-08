@@ -32,6 +32,8 @@ repositories {
 		url 'https://maven.blamejared.com'
 	}
 
+	mavenLocal()
+
 }
 
 loom {
