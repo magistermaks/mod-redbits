@@ -37,7 +37,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import vazkii.patchouli.common.item.PatchouliItems;
+import vazkii.patchouli.common.item.PatchouliItems;
 
 import java.util.function.Predicate;
 
@@ -152,16 +152,16 @@ public class RedBits implements ModInitializer {
 
 	private void initializePatchouliCompatibility() {
 		if(CONFIG.add_guide_to_loot_tables) {
-//			LOGGER.info("RedBits detected Patchouli! Adding guide book to loot tables...");
-//
-//			NbtCompound tag = new NbtCompound();
-//			tag.putString("patchouli:book", "redbits:guide");
-//			ItemStack stack = new ItemStack(PatchouliItems.BOOK);
-//			stack.setNbt(tag);
-//
-//			LootInjector.injectEntry(LootTables.STRONGHOLD_LIBRARY_CHEST, stack, 30);
-//			LootInjector.injectEntry(LootTables.SPAWN_BONUS_CHEST, stack, 80);
-//			LootInjector.injectEntry(LootTables.VILLAGE_CARTOGRAPHER_CHEST, stack, 30);
+			LOGGER.info("RedBits detected Patchouli! Adding guide book to loot tables...");
+
+			NbtCompound tag = new NbtCompound();
+			tag.putString("patchouli:book", "redbits:guide");
+			ItemStack stack = new ItemStack(PatchouliItems.BOOK);
+			stack.setNbt(tag);
+
+			LootInjector.injectEntry(LootTables.STRONGHOLD_LIBRARY_CHEST, stack, 30);
+			LootInjector.injectEntry(LootTables.SPAWN_BONUS_CHEST, stack, 80);
+			LootInjector.injectEntry(LootTables.VILLAGE_CARTOGRAPHER_CHEST, stack, 30);
 		}else{
 			LOGGER.warn("RedBits detected Patchouli, but loot table extensions where disabled! Skipping!");
 		}

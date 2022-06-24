@@ -56,8 +56,8 @@ dependencies {
 	// Cloth Config
 	include( modImplementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") ) exclude group: 'net.fabricmc.fabric-api'
 
-	// Patchouli (no 1.19 version yet)
-	// modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}-FABRIC"
+	// Patchouli
+	modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}-FABRIC"
 
 	// Interference API
 	modImplementation "net.darktree:interference:${project.interference_version}"
