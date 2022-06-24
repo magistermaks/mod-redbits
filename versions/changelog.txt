@@ -1,4 +1,7 @@
 
+1.14.0 <2022/06/24>
+    - Updated to minecraft 1.19.0
+
 1.13.3 <2022/05/08>
 	- Updated Interference API
 	- Fixed server-side performance issue caused by Interference API
