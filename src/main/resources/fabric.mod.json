@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "redbits",
-  "version": "1.13.3",
+  "version": "1.13.4",
   "name": "Red Bits",
   "description": "Vanilla style redstone additions and improvements!",
   "icon": "assets/redbits/icon.png",
@@ -30,7 +30,7 @@
     "fabricloader": "*",
     "fabric": "*",
     "minecraft": "1.18.x",
-    "interference": "1.4.x"
+    "interference": ["1.4.x", "1.5.x"]
   },
   "recommends": {
     "patchouli": "*"

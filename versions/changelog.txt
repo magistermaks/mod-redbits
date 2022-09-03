@@ -1,4 +1,8 @@
 
+1.13.4 <2022/09/03>
+	- Updated Interference API
+	- Now Interference API 1.5.x should be supported
+
 1.13.3 <2022/05/08>
 	- Updated Interference API
 	- Fixed server-side performance issue caused by Interference API
