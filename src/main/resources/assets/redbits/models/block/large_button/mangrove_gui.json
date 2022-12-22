@@ -1,0 +1,6 @@
+{
+  "parent": "redbits:block/large_button/base/gui",
+  "textures": {
+    "texture": "minecraft:block/mangrove_planks"
+  }
+}

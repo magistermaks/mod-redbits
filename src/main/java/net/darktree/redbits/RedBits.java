@@ -61,6 +61,7 @@ public class RedBits implements ModInitializer {
 	public final static Block JUNGLE_LARGE_BUTTON = new LargeButtonBlock( true, AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
 	public final static Block ACACIA_LARGE_BUTTON = new LargeButtonBlock( true, AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
 	public final static Block DARK_OAK_LARGE_BUTTON = new LargeButtonBlock( true, AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
+	public final static Block MANGROVE_LARGE_BUTTON = new LargeButtonBlock( true, AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
 	public final static Block CRIMSON_LARGE_BUTTON = new LargeButtonBlock( true, AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
 	public final static Block WARPED_LARGE_BUTTON = new LargeButtonBlock( true, AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
 	public final static Block STONE_LARGE_BUTTON = new LargeButtonBlock( false, AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F));
@@ -121,6 +122,7 @@ public class RedBits implements ModInitializer {
 		register("jungle_large_button", JUNGLE_LARGE_BUTTON);
 		register("acacia_large_button", ACACIA_LARGE_BUTTON);
 		register("dark_oak_large_button", DARK_OAK_LARGE_BUTTON);
+		register("mangrove_large_button", MANGROVE_LARGE_BUTTON);
 		register("crimson_large_button", CRIMSON_LARGE_BUTTON);
 		register("warped_large_button", WARPED_LARGE_BUTTON);
 		register("stone_large_button", STONE_LARGE_BUTTON);

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:mangrove_button"
+    }
+  },
+  "result": {
+    "item": "redbits:mangrove_large_button"
+  }
+}
