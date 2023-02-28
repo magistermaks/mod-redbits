@@ -8,7 +8,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
-public class LargeButtonBlock extends AbstractButtonBlock {
+public class LargeButtonBlock extends ButtonBlock {
 
     public static final VoxelShape LARGE_CEILING_SHAPE = Block.createCuboidShape(4.0D, 14.0D, 4.0D, 12.0D, 16.0D, 12.0D);
     public static final VoxelShape LARGE_FLOOR_SHAPE = Block.createCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 2.0D, 12.0D);
@@ -23,18 +23,14 @@ public class LargeButtonBlock extends AbstractButtonBlock {
     public static final VoxelShape LARGE_WEST_PRESSED_SHAPE = Block.createCuboidShape(15.0D, 4.0D, 4.0D, 16.0D, 12.0D, 12.0D);
     public static final VoxelShape LARGE_EAST_PRESSED_SHAPE = Block.createCuboidShape(0.0D, 4.0D, 4.0D, 1.0D, 12.0D, 12.0D);
 
-    public final boolean is_wooden;
-
     public LargeButtonBlock(boolean wooden, AbstractBlock.Settings settings) {
-        super(wooden, settings);
-        this.is_wooden = wooden;
+        super(settings, 20, wooden, getSound(wooden, true), getSound(wooden, false));
     }
 
-    @Override
-    protected SoundEvent getClickSound(boolean powered) {
-        if( is_wooden ) {
+    private static SoundEvent getSound(boolean wooden, boolean powered) {
+        if (wooden) {
             return powered ? SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_ON : SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_OFF;
-        }else{
+        } else {
             return powered ? SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON : SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF;
         }
     }

@@ -23,7 +23,7 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable, Loo
 
     public VisionSensorBlock(Settings settings) {
         super(settings);
-        setDefaultState( this.stateManager.getDefaultState().with(POWERED, false) );
+        setDefaultState(this.stateManager.getDefaultState().with(POWERED, false));
     }
 
 	public static void trigger(World world, BlockPos pos) {
@@ -34,7 +34,7 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable, Loo
 
             if (!world.getBlockTickScheduler().isQueued(pos, self)) {
                 world.setBlockState(pos, state.with(POWERED, true));
-                world.createAndScheduleBlockTick(pos, self, 2);
+                world.scheduleBlockTick(pos, self, 2);
             }
         }
 	}
@@ -70,7 +70,7 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable, Loo
 
     @Override
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-        world.createAndScheduleBlockTick(pos, this, 2);
+        world.scheduleBlockTick(pos, this, 2);
     }
 
 }

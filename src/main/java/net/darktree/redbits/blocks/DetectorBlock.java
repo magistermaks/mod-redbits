@@ -14,7 +14,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.TickPriority;
+import net.minecraft.world.tick.TickPriority;
 import net.minecraft.world.World;
 
 public class DetectorBlock extends FlipFlopBlock {
@@ -56,7 +56,7 @@ public class DetectorBlock extends FlipFlopBlock {
             return;
         }
 
-        world.createAndScheduleBlockTick(pos, this, this.getUpdateDelayInternal(state), TickPriority.VERY_HIGH);
+        world.scheduleBlockTick(pos, this, this.getUpdateDelayInternal(state), TickPriority.VERY_HIGH);
     }
 
 }

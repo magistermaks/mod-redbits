@@ -31,7 +31,7 @@
     "fabricloader": "*",
     "fabric": "*",
     "minecraft": "1.19.x",
-    "interference": "1.4.x"
+    "interference": "1.6.x"
   },
   "recommends": {
     "patchouli": "*"

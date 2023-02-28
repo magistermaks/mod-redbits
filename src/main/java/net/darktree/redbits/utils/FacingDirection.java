@@ -29,11 +29,11 @@ public enum FacingDirection implements StringIdentifiable {
         return asBoolean() ? BACK : FRONT;
     }
 
-    public static FacingDirection from( boolean facing ) {
+    public static FacingDirection from(boolean facing) {
         return facing ? FRONT : BACK;
     }
 
-    public static FacingDirection from( Direction.AxisDirection facing ) {
+    public static FacingDirection from(Direction.AxisDirection facing) {
         return facing == Direction.AxisDirection.POSITIVE ? FRONT : BACK;
     }
 

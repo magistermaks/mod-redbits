@@ -34,7 +34,7 @@ public class JukeboxInventory extends SimpleInventory implements SidedInventory 
     }
 
     public static boolean isMusicDisc( ItemStack stack ) {
-        if( stack.getCount() != 1 || stack.isEmpty() ) return false;
+        if (stack.getCount() != 1 || stack.isEmpty()) return false;
         return stack.getItem() instanceof MusicDiscItem;
     }
 
@@ -45,19 +45,19 @@ public class JukeboxInventory extends SimpleInventory implements SidedInventory 
 
     public BlockState getJukebox() {
         BlockState bs = world.getBlockState(pos);
-        if( bs.getBlock() != Blocks.JUKEBOX ) throw new RuntimeException( "[RedBits] Jukebox inventory is not attached to Jukebox block!" );
+        if(bs.getBlock() != Blocks.JUKEBOX) throw new RuntimeException("[RedBits] Jukebox inventory is not attached to Jukebox block!");
         return bs;
     }
 
     public JukeboxBlockEntity getJukeboxEntity() {
         JukeboxBlockEntity entity = (JukeboxBlockEntity) world.getBlockEntity(pos);
-        if( entity == null ) throw new RuntimeException( "[RedBits] Jukebox inventory is not attached to Jukebox block entity!" );
+        if( entity == null ) throw new RuntimeException("[RedBits] Jukebox inventory is not attached to Jukebox block entity!");
         return entity;
     }
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, Direction dir) {
-        if( isMusicDisc(stack) ) {
+        if (isMusicDisc(stack)) {
             return !getJukebox().get(JukeboxBlock.HAS_RECORD);
         }
         return false;
@@ -70,9 +70,9 @@ public class JukeboxInventory extends SimpleInventory implements SidedInventory 
 
     public void markDirty() {
         boolean empty = this.isEmpty();
-        world.setBlockState( pos, getJukebox().with( JukeboxBlock.HAS_RECORD, !empty ), 3 );
+        world.setBlockState(pos, getJukebox().with( JukeboxBlock.HAS_RECORD, !empty ), 3);
 
-        if( empty && !world.isClient() ) {
+        if (empty && !world.isClient()) {
             world.syncWorldEvent(1010, pos, 0);
         }
     }
@@ -109,7 +109,7 @@ public class JukeboxInventory extends SimpleInventory implements SidedInventory 
 
     public List<ItemStack> toList() {
         List<ItemStack> l = new ArrayList<>();
-        l.add( getStack() );
+        l.add(getStack());
         return l;
     }
 

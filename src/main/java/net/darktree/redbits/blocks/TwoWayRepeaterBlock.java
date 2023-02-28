@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.TickPriority;
+import net.minecraft.world.tick.TickPriority;
 import net.minecraft.world.World;
 
 public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
@@ -35,16 +35,16 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
 
         if (power == TwoWayPower.NONE) {
             TwoWayPowerUnit a = getPower( world, pos, state, TwoWayPower.FRONT );
-            if ( a.getPower() > 0 ) return a;
+            if (a.getPower() > 0) return a;
             TwoWayPowerUnit b =  getPower( world, pos, state, TwoWayPower.BACK );
-            if ( b.getPower() > 0 ) return b;
+            if (b.getPower() > 0) return b;
             return new TwoWayPowerUnit( TwoWayPower.NONE, 0 );
         }
 
-        Direction direction = Direction.from( state.get(AXIS), power.asAxisDirection() );
-        BlockPos blockPos = pos.offset( direction );
+        Direction direction = Direction.from(state.get(AXIS), power.asAxisDirection());
+        BlockPos blockPos = pos.offset(direction);
 
-        return new TwoWayPowerUnit( power, getInputPower( world, blockPos, direction ) );
+        return new TwoWayPowerUnit(power, getInputPower(world, blockPos, direction));
     }
 
     @Override
@@ -63,19 +63,19 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
         TwoWayPowerUnit block = getPower(world, pos, state, power);
         boolean locked = power != TwoWayPower.NONE;
 
-        if( !locked && block.getPower() > 0 && block.getDirection() != power ) {
+        if (!locked && block.getPower() > 0 && block.getDirection() != power) {
             world.setBlockState(pos, state.with(POWER, block.getDirection()), 2);
-        }else if( block.getPower() == 0 ) {
+        }else if(block.getPower() == 0) {
             world.setBlockState(pos, state.with(POWER, TwoWayPower.NONE), 2);
-        }else if( !locked ) {
+        }else if(!locked) {
             world.setBlockState(pos, state.with(POWER, getPower(world, pos, state, TwoWayPower.NONE).getDirection()), 2);
-            world.createAndScheduleBlockTick(pos, this, this.getUpdateDelayInternal(), TickPriority.VERY_HIGH);
+            world.scheduleBlockTick(pos, this, this.getUpdateDelayInternal(), TickPriority.VERY_HIGH);
         }
     }
 
     @Override
     public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-        if( state.get(POWER) == TwoWayPower.NONE ) {
+        if (state.get(POWER) == TwoWayPower.NONE) {
             return 0;
         } else {
             return state.get(AXIS) == direction.getAxis() && state.get(POWER).isAligned( direction.getDirection() ) ? 15 : 0;
@@ -93,7 +93,7 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
                 tickPriority = TickPriority.VERY_HIGH;
             }
 
-            world.createAndScheduleBlockTick(pos, this, this.getUpdateDelayInternal(), tickPriority);
+            world.scheduleBlockTick(pos, this, this.getUpdateDelayInternal(), tickPriority);
         }
     }
 
@@ -105,7 +105,7 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         if (this.hasPower(world, pos, state, state.get(POWER))) {
-            world.createAndScheduleBlockTick(pos, this, 1);
+            world.scheduleBlockTick(pos, this, 1);
         }
     }
 

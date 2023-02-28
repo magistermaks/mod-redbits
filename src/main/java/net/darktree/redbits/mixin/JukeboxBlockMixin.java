@@ -38,19 +38,19 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
 
     @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
-        if( !world.isClient ) {
+        if (!world.isClient) {
             boolean power = world.isReceivingRedstonePower( pos );
-            if( power ) {
-                if( !state.get(POWERED) && state.get(JukeboxBlock.HAS_RECORD) ) {
-                    if( RedBits.CONFIG.jukebox_integration) {
+            if (power) {
+                if (!state.get(POWERED) && state.get(JukeboxBlock.HAS_RECORD)) {
+                    if (RedBits.CONFIG.jukebox_integration) {
                         world.syncWorldEvent(WorldEvents.MUSIC_DISC_PLAYED, pos, 0);
-                        world.createAndScheduleBlockTick(pos, this, 1);
+                        world.scheduleBlockTick(pos, this, 1);
                     }
                 }
             }
 
-            if( state.get(POWERED) != power ) {
-                world.setBlockState( pos, state.with(POWERED, power) );
+            if (state.get(POWERED) != power) {
+                world.setBlockState(pos, state.with(POWERED, power));
             }
         }
     }
@@ -58,12 +58,12 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         JukeboxBlockEntity jukeboxBlockEntity = (JukeboxBlockEntity) world.getBlockEntity( pos );
-        if( jukeboxBlockEntity != null ) {
-            if( RedBits.CONFIG.jukebox_integration) {
+        if (jukeboxBlockEntity != null) {
+            if (RedBits.CONFIG.jukebox_integration) {
                 world.syncWorldEvent(WorldEvents.MUSIC_DISC_PLAYED, pos, Item.getRawId(jukeboxBlockEntity.getRecord().getItem()));
             }
-        }else{
-            RedBits.LOGGER.warn( "Unable to trigger sound event, as the given Jukebox doesn't have a BlockEntity attached!" );
+        } else {
+            RedBits.LOGGER.warn("Unable to trigger sound event, as the given Jukebox doesn't have a BlockEntity attached!");
         }
     }
 

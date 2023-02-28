@@ -28,25 +28,25 @@ public class ColorProvider {
             make( 0xF9FFFE, "white" )
     };
 
-    private static int make( int baseColor, String name ) {
-        int r = Math.min( ((baseColor >> 16) & 0xFF) + BASE, 0xFF );
-        int g = Math.min( ((baseColor >> 8) & 0xFF) + BASE, 0xFF );
-        int b = Math.min( (baseColor & 0xFF) + BASE, 0xFF );
+    private static int make(int baseColor, String name) {
+        int r = Math.min(((baseColor >> 16) & 0xFF) + BASE, 0xFF);
+        int g = Math.min(((baseColor >> 8) & 0xFF) + BASE, 0xFF);
+        int b = Math.min((baseColor & 0xFF) + BASE, 0xFF);
 
         NAMES.add(name);
         return (r << 16) + (g << 8) + b;
     }
 
     public static int getColor( int index ) {
-        if( index < 0 ) return 0;
-        if( index > 15 ) return 0;
+        if (index < 0) return 0;
+        if (index > 15) return 0;
 
         return COLORS[index];
     }
 
     public static String getColorName( int index ) {
-        if( index < 0 ) return "invalid";
-        if( index > 15 ) return "invalid";
+        if (index < 0) return "invalid";
+        if (index > 15) return "invalid";
 
         return NAMES.get(index);
     }

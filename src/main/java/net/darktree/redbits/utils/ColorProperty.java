@@ -11,22 +11,22 @@ public class ColorProperty extends IntProperty {
     }
 
     public static ColorProperty of( String name ) {
-        return new ColorProperty( name );
+        return new ColorProperty(name);
     }
 
     public Optional<Integer> parse(String name) {
         int index = ColorProvider.fromColorName( name );
 
-        if( index == -1 ) {
+        if(index == -1) {
             return Optional.empty();
         }else{
             // no need to check for range as there always will be only `ColorProvider.COUNT` colors
-            return Optional.of( index );
+            return Optional.of(index);
         }
     }
 
     public String name(Integer integer) {
-        return ColorProvider.getColorName( integer );
+        return ColorProvider.getColorName(integer);
     }
 
 }

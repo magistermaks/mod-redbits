@@ -3,6 +3,7 @@ package net.darktree.redbits.blocks;
 import net.minecraft.block.PressurePlateBlock;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -15,23 +16,23 @@ import java.util.List;
 public class ComplexPressurePlateBlock extends PressurePlateBlock {
 
     public interface CollisionCondition {
-        boolean call( World world, Box box );
+        boolean call(World world, Box box);
     }
 
     private final CollisionCondition collisionCondition;
 
     public ComplexPressurePlateBlock(CollisionCondition condition, Settings settings) {
-        super(null, settings);
+        super(null, settings, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_ON);
         this.collisionCondition = condition;
     }
 
     @Override
     protected int getRedstoneOutput(World world, BlockPos pos) {
-        return collisionCondition.call( world, BOX.offset(pos) ) ? 15 : 0;
+        return collisionCondition.call(world, BOX.offset(pos)) ? 15 : 0;
     }
 
     @Override
     public void appendTooltip(ItemStack stack, BlockView world, List<Text> tooltip, TooltipContext options) {
-        tooltip.add( Text.translatable( this.getTranslationKey() + ".tooltip" ).formatted( Formatting.GRAY ) );
+        tooltip.add(Text.translatable(this.getTranslationKey() + ".tooltip").formatted(Formatting.GRAY));
     }
 }
