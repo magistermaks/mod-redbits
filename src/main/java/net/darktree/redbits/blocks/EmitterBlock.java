@@ -14,6 +14,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EmitterBlock extends Block {
@@ -32,16 +33,19 @@ public class EmitterBlock extends Block {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if(player == null || player.getAbilities().allowModifyWorld) {
+        if (player == null || player.getAbilities().allowModifyWorld) {
             int power = interact(player, world, pos, state.get(POWER));
             world.setBlockState(pos, state.with(POWER, power));
             return ActionResult.SUCCESS;
         }
-        return super.onUse( state, world, pos, player, hand, hit );
+        return super.onUse(state, world, pos, player, hand, hit);
     }
 
     public static int interact(PlayerEntity player, World world, BlockPos pos, int power) {
-        power = power < 15 ? power + 1 : 0;
+        power = power + (player != null && player.isSneaking() ? -1 : 1);
+
+        if (power < 0) power = 15;
+        if (power > 15) power = 0;
 
         world.playSound(null, pos, SoundEvents.BLOCK_COMPARATOR_CLICK, SoundCategory.BLOCKS, 1.0f, 0.7f);
 
