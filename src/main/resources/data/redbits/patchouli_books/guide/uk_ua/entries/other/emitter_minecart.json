@@ -1,0 +1,17 @@
+{
+	"name": "Вагонетка з випром.",
+	"icon": "redbits:emitter_minecart",
+	"category": "redbits:other",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Випромінює сигнал, коли знаходиться на детекторних рейках. Силу сигналу можна регулювати клацаючи по вагонетці."
+		},
+		{
+			"title": "Вагонетка з випром.",
+			"type": "patchouli:crafting",
+			"recipe": "redbits:emitter_minecart"
+		}
+	]
+}

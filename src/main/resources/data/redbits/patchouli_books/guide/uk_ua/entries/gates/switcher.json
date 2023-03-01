@@ -1,0 +1,16 @@
+{
+	"name": "Перемикач",
+	"icon": "redbits:t_flip_flop",
+	"category": "redbits:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Працює як редстоуновий важіль, який можна перемикати натискаючи на нього."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:t_flip_flop"
+		}
+	]
+}
