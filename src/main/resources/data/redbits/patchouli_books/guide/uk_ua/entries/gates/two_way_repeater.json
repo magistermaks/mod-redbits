@@ -1,0 +1,17 @@
+{
+	"name": "Двопоток. повторювач",
+	"icon": "redbits:two_way_repeater",
+	"category": "redbits:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Працює як ванільний повторювач, але не має контролю часу (затримка завжди дорівнює 1 редстоуновому тіку). Дозволяє сигналам проходити в обох напрямках."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:two_way_repeater",
+			"title": "Двопоток. повторювач"
+		}
+	]
+}

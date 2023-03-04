@@ -1,0 +1,16 @@
+{
+	"name": "Клямка",
+	"icon": "redbits:latch",
+	"category": "redbits:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Має два виходи, один з яких завжди активний, а інший неактивний. Стан вентиля можна перемкнути натиснувши на нього або під'єднавши живлення з неактивної сторони."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:latch"
+		}
+	]
+}
