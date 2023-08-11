@@ -5,27 +5,17 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
-archivesBaseName = project.archives_base_name
+archivesBaseName = project.archives_base_name + "-" + "common"
 version = project.mod_version
 group = project.maven_group
 
-sourceSets {
-
-}
-
-loom {
-	runtimeOnlyLog4j = true
-}
-
 dependencies {
-	minecraft "com.mojang:minecraft:${project.base_minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.base_yarn_mappings}:v2"
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	implementation project(path: ":1.19.3", configuration: "namedElements")
-	implementation project(path: ":common", configuration: "namedElements")
-
-	include project(path: ":1.19.3", configuration: "namedElements")
-	include project(path: ":common", configuration: "namedElements")
+	// Fabric API
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
 processResources {

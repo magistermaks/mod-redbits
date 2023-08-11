@@ -1,10 +1,10 @@
 {
 	"schemaVersion": 1,
-	"id": "redbits",
+	"id": "redbits-common",
 	"version": "${version}",
 
-	"name": "Red Bits",
-	"description": "Vanilla style redstone additions and improvements!",
+	"name": "Red Bits Common",
+	"description": "Red Bits Shared Code and Resources",
 
 	"icon": "assets/redbits/icon.png",
 	"license": "MIT",
@@ -12,6 +12,15 @@
 		"homepage": "http://darktree.net/",
 		"sources": "https://github.com/magistermaks/mod-redbits",
 		"issues": "https://github.com/magistermaks/mod-redbits/issues"
+	},
+
+	"custom": {
+		"modmenu": {
+			"badges": ["library"],
+			"parent": {
+				"id": "redbits"
+			}
+		}
 	},
 
 	"environment": "*",

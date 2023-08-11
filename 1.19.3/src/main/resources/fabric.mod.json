@@ -15,9 +15,29 @@
 	},
 
 	"environment": "*",
-	"entrypoints": {},
-	"mixins": [],
-	"depends": {},
+	"entrypoints": {
+		"main": [
+			"net.darktree.redbits.RedBits"
+		],
+		"client": [
+			"net.darktree.redbits.RedBitsClient"
+		],
+		"modmenu": [
+			"net.darktree.redbits.config.Menu"
+		]
+	},
+
+	"mixins": [
+        "redbits.mixins.json"
+	],
+
+	"depends": {
+		"fabricloader": "*",
+		"fabric": "*",
+		"minecraft": "1.19.3",
+		"interference": "1.6.x",
+		"redbits-common": "*"
+	},
 
 	"recommends": {
 		"patchouli": "*"
