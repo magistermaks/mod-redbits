@@ -9,10 +9,6 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
-sourceSets {
-
-}
-
 loom {
 	runtimeOnlyLog4j = true
 }
@@ -21,11 +17,9 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.base_minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.base_yarn_mappings}:v2"
 
-	implementation project(path: ":1.19.3", configuration: "namedElements")
-	implementation project(path: ":common", configuration: "namedElements")
-
+	include project(path: ":1.18.2", configuration: "namedElements")
+	include project(path: ":1.19.2", configuration: "namedElements")
 	include project(path: ":1.19.3", configuration: "namedElements")
-	include project(path: ":common", configuration: "namedElements")
 }
 
 processResources {

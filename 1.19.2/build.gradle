@@ -40,10 +40,6 @@ repositories {
 
 }
 
-runClient {
-
-}
-
 loom {
 	accessWidenerPath = file("src/main/resources/redbits.accesswidener")
 	runtimeOnlyLog4j = true
