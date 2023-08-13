@@ -12,9 +12,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(RedstoneTorchBlock.class)
 abstract public class RedstoneTorchBlockMixin {
 
-    @Inject(at = @At("HEAD"), method = "isBurnedOut(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Z)Z", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "isBurnedOut", cancellable = true)
     private static void isBurnedOut(World world, BlockPos pos, boolean addNew, CallbackInfoReturnable<Boolean> info) {
-        if (RedBits.CONFIG.disable_burnout) info.setReturnValue(false);
+        if (RedBits.CONFIG.disable_burnout) {
+            info.setReturnValue(false);
+        }
     }
 
 }

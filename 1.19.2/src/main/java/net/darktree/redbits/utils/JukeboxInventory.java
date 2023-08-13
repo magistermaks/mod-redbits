@@ -20,131 +20,137 @@ import java.util.stream.Collectors;
 
 public class JukeboxInventory extends SimpleInventory implements SidedInventory {
 
-    private final WorldAccess world;
-    private final BlockPos pos;
+	private final WorldAccess world;
+	private final BlockPos pos;
 
-    public JukeboxInventory( WorldAccess world, BlockPos pos ) {
-        super(1);
-        this.world = world;
-        this.pos = pos;
-    }
+	public JukeboxInventory(WorldAccess world, BlockPos pos) {
+		super(1);
+		this.world = world;
+		this.pos = pos;
+	}
 
-    public int getMaxCountPerStack() {
-        return 1;
-    }
+	public int getMaxCountPerStack() {
+		return 1;
+	}
 
-    public static boolean isMusicDisc( ItemStack stack ) {
-        if (stack.getCount() != 1 || stack.isEmpty()) return false;
-        return stack.getItem() instanceof MusicDiscItem;
-    }
+	public static boolean isMusicDisc(ItemStack stack) {
+		if (stack.getCount() != 1 || stack.isEmpty()) return false;
+		return stack.getItem() instanceof MusicDiscItem;
+	}
 
-    @Override
-    public int[] getAvailableSlots(Direction side) {
-        return new int[] {0};
-    }
+	@Override
+	public int[] getAvailableSlots(Direction side) {
+		return new int[]{0};
+	}
 
-    public BlockState getJukebox() {
-        BlockState bs = world.getBlockState(pos);
-        if(bs.getBlock() != Blocks.JUKEBOX) throw new RuntimeException("[RedBits] Jukebox inventory is not attached to Jukebox block!");
-        return bs;
-    }
+	public BlockState getJukebox() {
+		BlockState bs = world.getBlockState(pos);
 
-    public JukeboxBlockEntity getJukeboxEntity() {
-        JukeboxBlockEntity entity = (JukeboxBlockEntity) world.getBlockEntity(pos);
-        if( entity == null ) throw new RuntimeException("[RedBits] Jukebox inventory is not attached to Jukebox block entity!");
-        return entity;
-    }
+		if (bs.getBlock() != Blocks.JUKEBOX) {
+			throw new RuntimeException("Jukebox inventory is not attached to Jukebox block!");
+		}
+		return bs;
+	}
 
-    @Override
-    public boolean canInsert(int slot, ItemStack stack, Direction dir) {
-        if (isMusicDisc(stack)) {
-            return !getJukebox().get(JukeboxBlock.HAS_RECORD);
-        }
-        return false;
-    }
+	public JukeboxBlockEntity getJukeboxEntity() {
+		JukeboxBlockEntity entity = (JukeboxBlockEntity) world.getBlockEntity(pos);
 
-    @Override
-    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        return getJukebox().get(JukeboxBlock.HAS_RECORD) && dir == Direction.DOWN;
-    }
+		if (entity == null) {
+			throw new RuntimeException("Jukebox inventory is not attached to Jukebox block entity!");
+		}
+		return entity;
+	}
 
-    public void markDirty() {
-        boolean empty = this.isEmpty();
-        world.setBlockState(pos, getJukebox().with( JukeboxBlock.HAS_RECORD, !empty ), 3);
+	@Override
+	public boolean canInsert(int slot, ItemStack stack, Direction dir) {
+		if (isMusicDisc(stack)) {
+			return !getJukebox().get(JukeboxBlock.HAS_RECORD);
+		}
+		return false;
+	}
 
-        if (empty && !world.isClient()) {
-            world.syncWorldEvent(1010, pos, 0);
-        }
-    }
+	@Override
+	public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+		return getJukebox().get(JukeboxBlock.HAS_RECORD) && dir == Direction.DOWN;
+	}
 
-    public ItemStack getStack() {
-        return getJukeboxEntity().getRecord();
-    }
+	public void markDirty() {
+		boolean empty = this.isEmpty();
+		world.setBlockState(pos, getJukebox().with(JukeboxBlock.HAS_RECORD, !empty), 3);
 
-    public void setStack(ItemStack stack) {
-        getJukeboxEntity().setRecord( stack );
-        this.markDirty();
-    }
+		if (empty && !world.isClient()) {
+			world.syncWorldEvent(1010, pos, 0);
+		}
+	}
 
-    public ItemStack getStack(int slot) {
-        return getStack();
-    }
+	public ItemStack getStack() {
+		return getJukeboxEntity().getRecord();
+	}
 
-    public void clear() {
-        getJukeboxEntity().clear();
-        this.markDirty();
-    }
+	public void setStack(ItemStack stack) {
+		getJukeboxEntity().setRecord(stack);
+		this.markDirty();
+	}
 
-    public void provideRecipeInputs(RecipeMatcher finder) {
-        finder.addInput(getStack());
-    }
+	public ItemStack getStack(int slot) {
+		return getStack();
+	}
 
-    public String toString() {
-        return toList().stream().filter((itemStack) -> !itemStack.isEmpty()).collect(Collectors.toList()).toString();
-    }
+	public void clear() {
+		getJukeboxEntity().clear();
+		this.markDirty();
+	}
 
-    public boolean isEmpty() {
-        return getStack().isEmpty();
-    }
+	public void provideRecipeInputs(RecipeMatcher finder) {
+		finder.addInput(getStack());
+	}
 
-    public List<ItemStack> toList() {
-        List<ItemStack> l = new ArrayList<>();
-        l.add(getStack());
-        return l;
-    }
+	public String toString() {
+		return toList().stream().filter((itemStack) -> !itemStack.isEmpty()).collect(Collectors.toList()).toString();
+	}
 
-    public List<ItemStack> clearToList() {
-        List<ItemStack> list = toList();
-        this.clear();
-        return list;
-    }
+	public boolean isEmpty() {
+		return getStack().isEmpty();
+	}
 
-    public ItemStack removeStack(int slot, int amount) {
-        ItemStack itemStack = Inventories.splitStack(toList(), slot, amount);
-        if (!itemStack.isEmpty()) {
-            this.markDirty();
-        }
+	public List<ItemStack> toList() {
+		List<ItemStack> l = new ArrayList<>();
+		l.add(getStack());
+		return l;
+	}
 
-        return itemStack;
-    }
+	public List<ItemStack> clearToList() {
+		List<ItemStack> list = toList();
+		this.clear();
+		return list;
+	}
 
-    public boolean canInsert(ItemStack stack) {
-        return canInsert( 1, stack, null );
-    }
+	public ItemStack removeStack(int slot, int amount) {
+		ItemStack itemStack = Inventories.splitStack(toList(), slot, amount);
+		if (!itemStack.isEmpty()) {
+			this.markDirty();
+		}
 
-    public ItemStack removeStack(int slot) {
-        ItemStack itemStack = getStack();
-        if (itemStack.isEmpty()) {
-            return ItemStack.EMPTY;
-        } else {
-            setStack(ItemStack.EMPTY);
-            return itemStack;
-        }
-    }
+		return itemStack;
+	}
 
-    public void setStack(int slot, ItemStack stack) {
-        this.setStack(stack);
-        this.markDirty();
-    }
+	public boolean canInsert(ItemStack stack) {
+		return canInsert(1, stack, null);
+	}
+
+	public ItemStack removeStack(int slot) {
+		ItemStack itemStack = getStack();
+		if (itemStack.isEmpty()) {
+			return ItemStack.EMPTY;
+		} else {
+			setStack(ItemStack.EMPTY);
+			return itemStack;
+		}
+	}
+
+	public void setStack(int slot, ItemStack stack) {
+		this.setStack(stack);
+		this.markDirty();
+	}
 
 }

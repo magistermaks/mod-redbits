@@ -17,89 +17,97 @@ import java.util.stream.Collectors;
 
 public class CampfireInventory extends SimpleInventory implements SidedInventory {
 
-    private final WorldAccess world;
-    private final BlockPos pos;
+	private final WorldAccess world;
+	private final BlockPos pos;
 
-    public CampfireInventory(WorldAccess world, BlockPos pos ) {
-        super(4);
-        this.world = world;
-        this.pos = pos;
-    }
+	public CampfireInventory(WorldAccess world, BlockPos pos) {
+		super(4);
+		this.world = world;
+		this.pos = pos;
+	}
 
-    public int getMaxCountPerStack() {
-        return 1;
-    }
+	public int getMaxCountPerStack() {
+		return 1;
+	}
 
-    @Override
-    public int[] getAvailableSlots(Direction side) {
-        return new int[] {0, 1, 2, 3};
-    }
+	@Override
+	public int[] getAvailableSlots(Direction side) {
+		return new int[]{0, 1, 2, 3};
+	}
 
-    private CampfireBlockEntity getCampfireEntity() {
-        CampfireBlockEntity entity = (CampfireBlockEntity) world.getBlockEntity(pos);
-        if( entity == null ) throw new RuntimeException( "[RedBits] Campfire inventory is not attached to Campfire block entity!" );
-        return entity;
-    }
+	private CampfireBlockEntity getCampfireEntity() {
+		CampfireBlockEntity entity = (CampfireBlockEntity) world.getBlockEntity(pos);
 
-    @Override
-    public boolean canInsert(int slot, ItemStack stack, Direction dir) {
-        if( stack.getCount() != 1 || stack.isEmpty() || !getCampfireEntity().getItemsBeingCooked().get(slot).isEmpty() ) return false;
-        return getCampfireEntity().getRecipeFor( stack ).isPresent();
-    }
+		if (entity == null) {
+			throw new RuntimeException("[RedBits] Campfire inventory is not attached to Campfire block entity!");
+		}
 
-    @Override
-    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        return false;
-    }
+		return entity;
+	}
 
-    public ItemStack getStack(int slot) {
-        return getCampfireEntity().getItemsBeingCooked().get(slot);
-    }
+	@Override
+	public boolean canInsert(int slot, ItemStack stack, Direction dir) {
+		if (stack.getCount() != 1 || stack.isEmpty() || !getCampfireEntity().getItemsBeingCooked().get(slot).isEmpty()) {
+			return false;
+		}
 
-    public void clear() {
-        getCampfireEntity().clear();
-        this.markDirty();
-    }
+		return getCampfireEntity().getRecipeFor(stack).isPresent();
+	}
 
-    public String toString() {
-        return toList().stream().filter((itemStack) -> !itemStack.isEmpty()).collect(Collectors.toList()).toString();
-    }
+	@Override
+	public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+		return false;
+	}
 
-    public boolean isEmpty() {
-        return false;
-    }
+	public ItemStack getStack(int slot) {
+		return getCampfireEntity().getItemsBeingCooked().get(slot);
+	}
 
-    public List<ItemStack> toList() {
-        return new ArrayList<>( getCampfireEntity().getItemsBeingCooked() );
-    }
+	public void clear() {
+		getCampfireEntity().clear();
+		this.markDirty();
+	}
 
-    public List<ItemStack> clearToList() {
-        List<ItemStack> list = toList();
-        this.clear();
-        return list;
-    }
+	public String toString() {
+		return toList().stream().filter((itemStack) -> !itemStack.isEmpty()).collect(Collectors.toList()).toString();
+	}
 
-    public ItemStack removeStack(int slot, int amount) {
-        ItemStack itemStack = Inventories.splitStack(toList(), slot, amount);
-        if (!itemStack.isEmpty()) {
-            this.markDirty();
-        }
+	public boolean isEmpty() {
+		return false;
+	}
 
-        return itemStack;
-    }
+	public List<ItemStack> toList() {
+		return new ArrayList<>(getCampfireEntity().getItemsBeingCooked());
+	}
 
-    public boolean canInsert(ItemStack stack) {
-        if( stack.getCount() != 1 || stack.isEmpty() ) return false;
-        return getCampfireEntity().getRecipeFor( stack ).isPresent();
-    }
+	public List<ItemStack> clearToList() {
+		List<ItemStack> list = toList();
+		this.clear();
+		return list;
+	}
 
-    public ItemStack removeStack(int slot) {
-        return ItemStack.EMPTY;
-    }
+	public ItemStack removeStack(int slot, int amount) {
+		ItemStack itemStack = Inventories.splitStack(toList(), slot, amount);
+		if (!itemStack.isEmpty()) {
+			this.markDirty();
+		}
 
-    public void setStack(int slot, ItemStack stack) {
-        Optional<CampfireCookingRecipe> recipe = getCampfireEntity().getRecipeFor(stack);
-        recipe.ifPresent(cookingRecipe -> getCampfireEntity().addItem(stack, cookingRecipe.getCookTime()));
-    }
+		return itemStack;
+	}
+
+	public boolean canInsert(ItemStack stack) {
+		if (stack.getCount() != 1 || stack.isEmpty()) return false;
+		return getCampfireEntity().getRecipeFor(stack).isPresent();
+	}
+
+	public ItemStack removeStack(int slot) {
+		return ItemStack.EMPTY;
+	}
+
+	public void setStack(int slot, ItemStack stack) {
+		CampfireBlockEntity entity = getCampfireEntity();
+		Optional<CampfireCookingRecipe> recipe = entity.getRecipeFor(stack);
+		recipe.ifPresent(cookingRecipe -> getCampfireEntity().addItem(stack, cookingRecipe.getCookTime()));
+	}
 
 }

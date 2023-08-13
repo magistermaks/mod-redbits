@@ -15,24 +15,25 @@ import java.util.List;
 
 public class ComplexPressurePlateBlock extends PressurePlateBlock {
 
-    public interface CollisionCondition {
-        boolean call(World world, Box box);
-    }
+	@FunctionalInterface
+	public interface CollisionCondition {
+		boolean call(World world, Box box);
+	}
 
-    private final CollisionCondition collisionCondition;
+	private final CollisionCondition collisionCondition;
 
-    public ComplexPressurePlateBlock(CollisionCondition condition, Settings settings) {
-        super(null, settings, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_ON);
-        this.collisionCondition = condition;
-    }
+	public ComplexPressurePlateBlock(CollisionCondition condition, Settings settings) {
+		super(null, settings, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_ON);
+		this.collisionCondition = condition;
+	}
 
-    @Override
-    protected int getRedstoneOutput(World world, BlockPos pos) {
-        return collisionCondition.call(world, BOX.offset(pos)) ? 15 : 0;
-    }
+	@Override
+	protected int getRedstoneOutput(World world, BlockPos pos) {
+		return collisionCondition.call(world, BOX.offset(pos)) ? 15 : 0;
+	}
 
-    @Override
-    public void appendTooltip(ItemStack stack, BlockView world, List<Text> tooltip, TooltipContext options) {
-        tooltip.add(Text.translatable(this.getTranslationKey() + ".tooltip").formatted(Formatting.GRAY));
-    }
+	@Override
+	public void appendTooltip(ItemStack stack, BlockView world, List<Text> tooltip, TooltipContext options) {
+		tooltip.add(Text.translatable(this.getTranslationKey() + ".tooltip").formatted(Formatting.GRAY));
+	}
 }

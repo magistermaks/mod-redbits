@@ -10,43 +10,44 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
+@SuppressWarnings("deprecation")
 public class AnalogLampBlock extends Block {
-    public static final ColorProperty POWER = ColorProperty.of("color");
+	public static final ColorProperty POWER = ColorProperty.of("color");
 
-    public AnalogLampBlock(Settings settings) {
-        super(settings);
-        this.setDefaultState(this.getDefaultState().with(POWER, 0));
-    }
+	public AnalogLampBlock(Settings settings) {
+		super(settings);
+		this.setDefaultState(this.getDefaultState().with(POWER, 0));
+	}
 
-    @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(POWER, ctx.getWorld().getReceivedRedstonePower(ctx.getBlockPos()));
-    }
+	@Override
+	public BlockState getPlacementState(ItemPlacementContext ctx) {
+		return this.getDefaultState().with(POWER, ctx.getWorld().getReceivedRedstonePower(ctx.getBlockPos()));
+	}
 
-    @Override
-    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
-        if (!world.isClient) {
-            int power = world.getReceivedRedstonePower(pos);
+	@Override
+	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
+		if (!world.isClient) {
+			int power = world.getReceivedRedstonePower(pos);
 
-            if (state.get(POWER) != power) {
-                world.setBlockState(pos, state.with(POWER, power), 2);
-            }
-        }
-    }
+			if (state.get(POWER) != power) {
+				world.setBlockState(pos, state.with(POWER, power), 2);
+			}
+		}
+	}
 
-    @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        int power = world.getReceivedRedstonePower(pos);
+	@Override
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+		int power = world.getReceivedRedstonePower(pos);
 
-        if (state.get(POWER) != power) {
-            world.setBlockState(pos, state.with(POWER, power), 2);
-        }
+		if (state.get(POWER) != power) {
+			world.setBlockState(pos, state.with(POWER, power), 2);
+		}
 
-    }
+	}
 
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(POWER);
-    }
+	@Override
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		builder.add(POWER);
+	}
 
 }

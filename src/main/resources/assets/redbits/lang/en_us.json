@@ -42,6 +42,12 @@
     "text.autoconfig.redbits.option.jukebox_integration": "Enable Jukebox Integration",
     "text.autoconfig.redbits.option.campfire_integration": "Enable Campfire Extensions",
     "text.patchouli.redbits.guide.name": "RedBits Guide",
-    "text.patchouli.redbits.guide.text": "Guide for the redstone components added by RedBits, their usages, and recipes."
+    "text.patchouli.redbits.guide.text": "Guide for the redstone components added by RedBits, their usages, and recipes.",
+
+    "sound.redbits.detector_click": "Detector Clicks",
+    "sound.redbits.emitter_click": "Emitter Clicks",
+    "sound.redbits.flip_flop_click": "Switcher Clicks",
+    "sound.redbits.latch_click": "Latch Clicks",
+    "sound.redbits.timer_click": "Timer Clicks"
 }
 

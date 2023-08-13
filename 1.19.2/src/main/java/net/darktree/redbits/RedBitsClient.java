@@ -29,12 +29,12 @@ public class RedBitsClient implements ClientModInitializer {
 		cutout(RedBits.INVERTED_REDSTONE_WALL_TORCH);
 		cutout(RedBits.TIMER);
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> RedstoneWireBlock.getWireColor(1), RedBits.REDSTONE_EMITTER);
-		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> RedstoneWireBlock.getWireColor( state.get( EmitterBlock.POWER ) ), RedBits.REDSTONE_EMITTER);
+		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> RedstoneWireBlock.getWireColor(state.get(EmitterBlock.POWER)), RedBits.REDSTONE_EMITTER);
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> ColorProvider.getColor(0), RedBits.RGB_LAMP);
 		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> ColorProvider.getColor(state.get(AnalogLampBlock.POWER)), RedBits.RGB_LAMP);
 
 		// minecart renderer
-		EntityRendererRegistry.register(RedBits.EMITTER_MINECART, ctx -> new MinecartEntityRenderer(ctx, EntityModelLayers.TNT_MINECART));
+		EntityRendererRegistry.register(RedBits.EMITTER_MINECART, ctx -> new MinecartEntityRenderer<>(ctx, EntityModelLayers.TNT_MINECART));
 
 		// nothing to see here
 		MessageInjector.inject("SSdtIHRoZSBtYW4gd2hvIGFycmFuZ2VzIHRoZSBibG9ja3Mh");
@@ -48,7 +48,7 @@ public class RedBitsClient implements ClientModInitializer {
 	}
 
 	@Environment(EnvType.CLIENT)
-	private void cutout( Block block ) {
+	private void cutout(Block block) {
 		BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
 	}
 

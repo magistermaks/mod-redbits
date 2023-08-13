@@ -29,7 +29,7 @@ public class C2SLookAtPacket {
 	}
 
 	private void apply(PlayerEntity player, BlockPos pos) {
-		if( player != null && player.world != null ) {
+		if (player != null && player.world != null) {
 			World world = player.world;
 
 			if (world.isChunkLoaded(pos) && player.getBlockPos().isWithinDistance(pos, 130)) {

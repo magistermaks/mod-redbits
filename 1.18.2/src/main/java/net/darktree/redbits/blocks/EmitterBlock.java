@@ -18,54 +18,56 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+@SuppressWarnings("deprecation")
 public class EmitterBlock extends Block {
 
-    public static final IntProperty POWER = Properties.POWER;
+	public static final IntProperty POWER = Properties.POWER;
 
-    public EmitterBlock( Settings settings ) {
-        super( settings );
-        this.setDefaultState( this.stateManager.getDefaultState().with(POWER, 1) );
-    }
+	public EmitterBlock(Settings settings) {
+		super(settings);
+		this.setDefaultState(this.stateManager.getDefaultState().with(POWER, 1));
+	}
 
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(POWER);
-    }
+	@Override
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		builder.add(POWER);
+	}
 
-    @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (player == null || player.getAbilities().allowModifyWorld) {
-            int power = interact(player, world, pos, state.get(POWER));
-            world.setBlockState(pos, state.with(POWER, power));
-            return ActionResult.SUCCESS;
-        }
-        return super.onUse(state, world, pos, player, hand, hit);
-    }
+	@Override
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		if (player == null || player.getAbilities().allowModifyWorld) {
+			int power = interact(player, world, pos, state.get(POWER));
+			world.setBlockState(pos, state.with(POWER, power));
+			return ActionResult.SUCCESS;
+		}
+		return super.onUse(state, world, pos, player, hand, hit);
+	}
 
-    public static int interact(PlayerEntity player, World world, BlockPos pos, int power) {
-        power = power + (player != null && player.isSneaking() ? -1 : 1);
+	public static int interact(PlayerEntity player, World world, BlockPos pos, int power) {
+		boolean decrement = player != null && player.isSneaking();
+		power = power + (decrement ? -1 : 1);
 
-        if (power < 0) power = 15;
-        if (power > 15) power = 0;
+		if (power < 0) power = 15;
+		if (power > 15) power = 0;
 
-        world.playSound(null, pos, SoundEvents.BLOCK_COMPARATOR_CLICK, SoundCategory.BLOCKS, 1.0f, 0.7f);
+		AbstractRedstoneGate.playClickSound(world, pos, RedBits.EMITTER_CLICK, decrement);
 
-        if (player != null) {
-            player.incrementStat(RedBits.INTERACT_WITH_REDSTONE_EMITTER);
-            player.sendMessage(new TranslatableText("message.redbits.power_level", power), true);
-        }
-        
-        return power;
-    }
+		if (player != null) {
+			player.incrementStat(RedBits.INTERACT_WITH_REDSTONE_EMITTER);
+			player.sendMessage(new TranslatableText("message.redbits.power_level", power), true);
+		}
 
-    @Override
-    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-        return Math.max( state.get(POWER), world.getReceivedRedstonePower( pos ) );
-    }
+		return power;
+	}
 
-    @Override
-    public boolean hasComparatorOutput(BlockState state) {
-        return true;
-    }
+	@Override
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+		return Math.max(state.get(POWER), world.getReceivedRedstonePower(pos));
+	}
+
+	@Override
+	public boolean hasComparatorOutput(BlockState state) {
+		return true;
+	}
 
 }

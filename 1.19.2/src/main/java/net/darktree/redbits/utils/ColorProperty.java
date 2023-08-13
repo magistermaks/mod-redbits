@@ -6,27 +6,27 @@ import java.util.Optional;
 
 public class ColorProperty extends IntProperty {
 
-    protected ColorProperty(String name) {
-        super(name, 0, ColorProvider.COUNT);
-    }
+	protected ColorProperty(String name) {
+		super(name, 0, ColorProvider.COUNT);
+	}
 
-    public static ColorProperty of( String name ) {
-        return new ColorProperty(name);
-    }
+	public static ColorProperty of(String name) {
+		return new ColorProperty(name);
+	}
 
-    public Optional<Integer> parse(String name) {
-        int index = ColorProvider.fromColorName( name );
+	public Optional<Integer> parse(String name) {
+		int index = ColorProvider.fromColorName(name);
 
-        if(index == -1) {
-            return Optional.empty();
-        }else{
-            // no need to check for range as there always will be only `ColorProvider.COUNT` colors
-            return Optional.of(index);
-        }
-    }
+		if (index == -1) {
+			return Optional.empty();
+		} else {
+			// no need to check for range as there always will be only `ColorProvider.COUNT` colors
+			return Optional.of(index);
+		}
+	}
 
-    public String name(Integer integer) {
-        return ColorProvider.getColorName(integer);
-    }
+	public String name(Integer integer) {
+		return ColorProvider.getColorName(integer);
+	}
 
 }

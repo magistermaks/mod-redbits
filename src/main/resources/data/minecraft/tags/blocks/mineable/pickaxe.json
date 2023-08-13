@@ -1,6 +1,7 @@
 {
   "values": [
     "redbits:emitter",
-    "redbits:vision_sensor"
+    "redbits:vision_sensor",
+    "#redbits:large_stone_buttons"
   ]
 }
