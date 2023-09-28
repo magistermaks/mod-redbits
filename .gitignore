@@ -1,2 +1,11 @@
 .idea
 RedBits.iml
+/1.19.3/.gradle/
+/1.19.3/build/
+/1.19.3/run/
+/common/.gradle/
+/common/build/
+/common/run/
+.gradle/
+build/
+run/

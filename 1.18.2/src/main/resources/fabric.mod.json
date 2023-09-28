@@ -1,0 +1,60 @@
+{
+	"schemaVersion": 1,
+	"id": "redbits",
+	"version": "${version}",
+
+	"name": "Red Bits",
+	"description": "Vanilla style redstone additions and improvements!",
+
+	"icon": "assets/redbits/icon.png",
+	"license": "MIT",
+	"contact": {
+		"homepage": "http://darktree.net/",
+		"sources": "https://github.com/magistermaks/mod-redbits",
+		"issues": "https://github.com/magistermaks/mod-redbits/issues"
+	},
+
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.darktree.redbits.RedBits"
+		],
+		"client": [
+			"net.darktree.redbits.RedBitsClient"
+		],
+		"modmenu": [
+			"net.darktree.redbits.config.Menu"
+		]
+	},
+
+	"mixins": [
+        "redbits.mixins.json"
+	],
+
+	"depends": {
+		"fabricloader": "*",
+		"fabric": "*",
+		"minecraft": ["1.18.0", "1.18.1", "1.18.2"],
+		"interference": "1.4.x",
+		"redbits-common": "*"
+	},
+
+	"recommends": {
+		"patchouli": "*"
+	},
+
+	"suggests": {
+		"led": "*"
+	},
+
+	"authors": [
+		"magistermaks"
+	],
+
+	"contributors": [
+		"WarAndroid",
+		"ChloeDawn",
+		"alphaqu",
+		"T0paz"
+	]
+}

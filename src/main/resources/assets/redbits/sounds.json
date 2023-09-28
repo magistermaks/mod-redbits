@@ -1,0 +1,32 @@
+{
+	"detector_click": {
+		"subtitle": "sound.redbits.detector_click",
+		"sounds": [
+			"minecraft:random/click"
+		]
+	},
+	"emitter_click": {
+		"subtitle": "sound.redbits.emitter_click",
+		"sounds": [
+			"minecraft:random/click"
+		]
+	},
+	"flip_flop_click": {
+		"subtitle": "sound.redbits.flip_flop_click",
+		"sounds": [
+			"minecraft:random/click"
+		]
+	},
+	"latch_click": {
+		"subtitle": "sound.redbits.latch_click",
+		"sounds": [
+			"minecraft:random/click"
+		]
+	},
+	"timer_click": {
+		"subtitle": "sound.redbits.timer_click",
+		"sounds": [
+			"minecraft:random/click"
+		]
+	}
+}

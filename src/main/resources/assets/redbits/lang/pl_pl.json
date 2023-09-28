@@ -15,6 +15,7 @@
     "block.redbits.detector": "Detektor",
     "block.redbits.t_flip_flop": "Przerzutnik",
     "block.redbits.emitter": "Emiter",
+	"block.redbits.bridge": "Mostek",
     "block.redbits.vision_sensor": "Czujnik wzroku",
     "block.redbits.inverter": "Odwracacz",
     "block.redbits.redstone_lamp": "Zacieniona lampa",
@@ -42,6 +43,12 @@
     "text.autoconfig.redbits.option.jukebox_integration": "Włacz integracje z szafą grającą",
     "text.autoconfig.redbits.option.campfire_integration": "Włacz integracje z ogniskiem",
     "text.patchouli.redbits.guide.name": "Przewodnik RedBits",
-    "text.patchouli.redbits.guide.text": "Przewodnik po komponentach dodanych w RedBits, ich zastosowaniu, i recepturach."
+    "text.patchouli.redbits.guide.text": "Przewodnik po komponentach dodanych w RedBits, ich zastosowaniu, i recepturach.",
+
+    "sound.redbits.detector_click": "Detektor klika",
+    "sound.redbits.emitter_click": "Emiter klika",
+    "sound.redbits.flip_flop_click": "Przerzutnik klika",
+    "sound.redbits.latch_click": "Zatrzask klika",
+    "sound.redbits.timer_click": "Chronometr klika"
 }
 
