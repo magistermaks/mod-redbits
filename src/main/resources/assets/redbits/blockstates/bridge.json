@@ -1,0 +1,31 @@
+{
+    "variants": {
+        "x_power=none,z_power=none": {
+            "model": "redbits:block/bridge/none-none"
+        },
+        "x_power=front,z_power=none": {
+            "model": "redbits:block/bridge/front-none"
+        },
+        "x_power=back,z_power=none": {
+            "model": "redbits:block/bridge/back-none"
+        },
+		"x_power=none,z_power=front": {
+            "model": "redbits:block/bridge/none-front"
+        },
+        "x_power=front,z_power=front": {
+            "model": "redbits:block/bridge/front-front"
+        },
+        "x_power=back,z_power=front": {
+            "model": "redbits:block/bridge/back-front"
+        },
+		"x_power=none,z_power=back": {
+            "model": "redbits:block/bridge/none-back"
+        },
+        "x_power=front,z_power=back": {
+            "model": "redbits:block/bridge/front-back"
+        },
+        "x_power=back,z_power=back": {
+            "model": "redbits:block/bridge/back-back"
+        }
+    }
+}

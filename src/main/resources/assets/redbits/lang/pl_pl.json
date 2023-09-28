@@ -15,6 +15,7 @@
     "block.redbits.detector": "Detektor",
     "block.redbits.t_flip_flop": "Przerzutnik",
     "block.redbits.emitter": "Emiter",
+	"block.redbits.bridge": "Mostek",
     "block.redbits.vision_sensor": "Czujnik wzroku",
     "block.redbits.inverter": "Odwracacz",
     "block.redbits.redstone_lamp": "Zacieniona lampa",

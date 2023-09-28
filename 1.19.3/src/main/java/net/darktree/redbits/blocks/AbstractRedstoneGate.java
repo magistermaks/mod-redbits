@@ -33,7 +33,7 @@ public abstract class AbstractRedstoneGate extends Block implements RedstoneConn
 		world.playSound(null, pos, sound, SoundCategory.BLOCKS, 0.3f, pitch ? 0.55f : 0.5f);
 	}
 
-	protected int getInputPower(World world, BlockPos blockPos, Direction direction) {
+	public int getInputPower(World world, BlockPos blockPos, Direction direction) {
 		int i = world.getEmittedRedstonePower(blockPos, direction);
 
 		if (i >= 15) {

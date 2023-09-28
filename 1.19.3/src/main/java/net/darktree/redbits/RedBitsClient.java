@@ -28,6 +28,8 @@ public class RedBitsClient implements ClientModInitializer {
 		cutout(RedBits.INVERTED_REDSTONE_TORCH);
 		cutout(RedBits.INVERTED_REDSTONE_WALL_TORCH);
 		cutout(RedBits.TIMER);
+		cutout(RedBits.BRIDGE);
+
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> RedstoneWireBlock.getWireColor(1), RedBits.REDSTONE_EMITTER);
 		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> RedstoneWireBlock.getWireColor(state.get(EmitterBlock.POWER)), RedBits.REDSTONE_EMITTER);
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> ColorProvider.getColor(0), RedBits.RGB_LAMP);
@@ -45,6 +47,7 @@ public class RedBitsClient implements ClientModInitializer {
 		MessageInjector.inject("Q2hlY2sgb3V0IERhc2hMb2FkZXIh");
 		MessageInjector.inject("VHJ5IHdpdGggUGF0Y2hvdWxpIQ==");
 		MessageInjector.inject("U3RhbmQgd2l0aCBVa3JhaW5lIQ==");
+		MessageInjector.inject("VGhlIG5vYmxlIGJlbmVmYWN0b3JzPyBHb25lLg==");
 	}
 
 	@Environment(EnvType.CLIENT)
