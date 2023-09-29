@@ -98,15 +98,23 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
 
 	@Override
 	protected void updateTarget(World world, BlockPos pos, BlockState state) {
-		Direction direction = Direction.from(state.get(AXIS), Direction.AxisDirection.NEGATIVE).getOpposite();
-		BlockPos blockPos = pos.offset(direction);
-		world.updateNeighbor(blockPos, this, pos);
-		world.updateNeighborsExcept(blockPos, this, direction);
+		Direction forward = Direction.from(state.get(AXIS), Direction.AxisDirection.POSITIVE);
+		Direction backward = forward.getOpposite();
 
-		direction = Direction.from(state.get(AXIS), Direction.AxisDirection.POSITIVE).getOpposite();
-		blockPos = pos.offset(direction);
-		world.updateNeighbor(blockPos, this, pos);
-		world.updateNeighborsExcept(blockPos, this, direction);
+		BlockPos front = pos.offset(forward);
+		BlockPos back = pos.offset(backward);
+
+		// updateNeighbor updates the block NEXT to the gate
+		// and updateNeighborsExcept updates the neighbor of that block EXCEPT for the gate itself
+		world.updateNeighbor(front, this, pos);
+		world.updateNeighborsExcept(front, this, backward);
+
+		// do the same for the oder end of the gate
+		world.updateNeighbor(back, this, pos);
+		world.updateNeighborsExcept(back, this, forward);
+
+		// needed so the gate won't get stuck when there is a switch-back
+		world.updateNeighbor(pos, this, pos);
 	}
 
 }

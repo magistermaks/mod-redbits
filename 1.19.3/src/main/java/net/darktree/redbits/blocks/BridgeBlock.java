@@ -96,10 +96,15 @@ public class BridgeBlock extends AbstractRedstoneGate {
 	@Override
 	protected void updateTarget(World world, BlockPos pos, BlockState state) {
 		for (Direction direction : HORIZONTAL) {
-			BlockPos blockPos = pos.offset(direction);
-			world.updateNeighbor(blockPos, this, pos);
-			world.updateNeighborsExcept(blockPos, this, direction);
+			BlockPos target = pos.offset(direction);
+
+			// does the same thing as TwoWayRepeater's updateTarget but for all four sides
+			world.updateNeighbor(target, this, pos);
+			world.updateNeighborsExcept(target, this, direction.getOpposite());
 		}
+
+		// needed so the gate won't get stuck when there is a switch-back
+		world.updateNeighbor(pos, this, pos);
 	}
 
 	private static class PowerConfig {

@@ -1,0 +1,17 @@
+{
+	"name": "Two Way Repeater Gate",
+	"icon": "redbits:bridge",
+	"category": "redbits:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Works similarly to the $(l:gates/two_way_repeater)Two Way Repeater$(), allows the two signals to pass over each other."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:bridge",
+			"title": "Two Way Repeater"
+		}
+	]
+}

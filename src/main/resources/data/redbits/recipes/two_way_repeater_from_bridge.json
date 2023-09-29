@@ -1,0 +1,12 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "redbits:bridge"
+		}
+	],
+	"result": {
+		"count": 2,
+		"item": "redbits:two_way_repeater"
+	}
+}

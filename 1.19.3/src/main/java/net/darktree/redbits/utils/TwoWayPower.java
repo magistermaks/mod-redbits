@@ -1,7 +1,6 @@
 package net.darktree.redbits.utils;
 
 import net.darktree.redbits.blocks.AbstractRedstoneGate;
-import net.minecraft.block.BlockState;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;

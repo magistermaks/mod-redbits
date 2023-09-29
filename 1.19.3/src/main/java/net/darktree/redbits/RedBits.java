@@ -181,19 +181,25 @@ public class RedBits implements ModInitializer {
 	}
 
 	private void initializePatchouliCompatibility() {
-		if (CONFIG.add_guide_to_loot_tables) {
-			LOGGER.info("RedBits detected Patchouli! Adding guide book to loot tables...");
+		NbtCompound tag = new NbtCompound();
+		tag.putString("patchouli:book", "redbits:guide");
+		ItemStack stack = new ItemStack(PatchouliItems.BOOK);
+		stack.setNbt(tag);
 
-			NbtCompound tag = new NbtCompound();
-			tag.putString("patchouli:book", "redbits:guide");
-			ItemStack stack = new ItemStack(PatchouliItems.BOOK);
-			stack.setNbt(tag);
+		if (CONFIG.add_guide_to_loot_tables) {
+			LOGGER.info("Adding RedBits Patchouli guide book to loot tables...");
 
 			LootInjector.injectEntry(LootTables.STRONGHOLD_LIBRARY_CHEST, stack, 30);
 			LootInjector.injectEntry(LootTables.SPAWN_BONUS_CHEST, stack, 80);
 			LootInjector.injectEntry(LootTables.VILLAGE_CARTOGRAPHER_CHEST, stack, 30);
-		} else {
-			LOGGER.warn("RedBits detected Patchouli, but loot table extensions where disabled! Skipping!");
+		}
+
+		if (CONFIG.add_guide_to_creative_menu) {
+			LOGGER.info("Adding RedBits Patchouli guide book to creative menu...");
+
+			ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> {
+				content.add(stack);
+			});
 		}
 	}
 

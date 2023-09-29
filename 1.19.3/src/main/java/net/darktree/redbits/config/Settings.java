@@ -14,4 +14,7 @@ public class Settings implements ConfigData {
 	@ConfigEntry.Gui.RequiresRestart
 	public boolean add_guide_to_loot_tables = true;
 
+	@ConfigEntry.Gui.RequiresRestart
+	public boolean add_guide_to_creative_menu = true;
+
 }
