@@ -1,9 +1,12 @@
 package net.darktree.redbits.blocks;
 
 import net.darktree.redbits.RedBits;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -64,6 +67,14 @@ public class TimerBlock extends FlipFlopBlock {
 			world.scheduleBlockTick(pos, this, (int) Math.pow(2, state.get(DELAY)), TickPriority.HIGH);
 		} else {
 			world.setBlockState(pos, state.with(INPUT, false).with(POWERED, false), 2);
+		}
+	}
+
+	@Override
+	@Environment(EnvType.CLIENT)
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+		if (state.get(POWERED)) {
+			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING));
 		}
 	}
 

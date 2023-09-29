@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
@@ -103,15 +104,26 @@ public class LatchBlock extends AbstractRedstoneGate {
 
 	@Override
 	protected void updateTarget(World world, BlockPos pos, BlockState state) {
-		Direction direction = Direction.from(state.get(AXIS), Direction.AxisDirection.NEGATIVE).getOpposite();
-		BlockPos blockPos = pos.offset(direction);
-		world.updateNeighbor(blockPos, this, pos);
-		world.updateNeighborsExcept(blockPos, this, direction);
+		Direction forward = Direction.from(state.get(AXIS), Direction.AxisDirection.POSITIVE);
+		Direction backward = forward.getOpposite();
 
-		direction = Direction.from(state.get(AXIS), Direction.AxisDirection.POSITIVE).getOpposite();
-		blockPos = pos.offset(direction);
-		world.updateNeighbor(blockPos, this, pos);
-		world.updateNeighborsExcept(blockPos, this, direction);
+		BlockPos front = pos.offset(forward);
+		BlockPos back = pos.offset(backward);
+
+		// updateNeighbor updates the block NEXT to the gate
+		// and updateNeighborsExcept updates the neighbors of that block EXCEPT for the gate itself
+		world.updateNeighbor(front, this, pos);
+		world.updateNeighborsExcept(front, this, backward);
+
+		// do the same for the other end of the gate
+		world.updateNeighbor(back, this, pos);
+		world.updateNeighborsExcept(back, this, forward);
+	}
+
+	@Override
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+		Direction direction = Direction.from(state.get(AXIS), state.get(POWER).asAxisDirection()).rotateYClockwise();
+		AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, direction);
 	}
 
 }

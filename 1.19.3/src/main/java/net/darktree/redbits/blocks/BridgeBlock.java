@@ -1,10 +1,13 @@
 package net.darktree.redbits.blocks;
 
 import net.darktree.redbits.utils.TwoWayPower;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
@@ -105,6 +108,17 @@ public class BridgeBlock extends AbstractRedstoneGate {
 
 		// needed so the gate won't get stuck when there is a switch-back
 		world.updateNeighbor(pos, this, pos);
+	}
+
+	@Override
+	@Environment(EnvType.CLIENT)
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+		PowerConfig config = CONFIGS[random.nextInt(2)];
+		TwoWayPower power = state.get(config.property);
+
+		if (power != TwoWayPower.NONE) {
+			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, power.asDirection(config.axis));
+		}
 	}
 
 	private static class PowerConfig {

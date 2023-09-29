@@ -1,11 +1,14 @@
 package net.darktree.redbits.blocks;
 
 import net.darktree.redbits.utils.TwoWayPower;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
@@ -105,16 +108,26 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
 		BlockPos back = pos.offset(backward);
 
 		// updateNeighbor updates the block NEXT to the gate
-		// and updateNeighborsExcept updates the neighbor of that block EXCEPT for the gate itself
+		// and updateNeighborsExcept updates the neighbors of that block EXCEPT for the gate itself
 		world.updateNeighbor(front, this, pos);
 		world.updateNeighborsExcept(front, this, backward);
 
-		// do the same for the oder end of the gate
+		// do the same for the other end of the gate
 		world.updateNeighbor(back, this, pos);
 		world.updateNeighborsExcept(back, this, forward);
 
 		// needed so the gate won't get stuck when there is a switch-back
 		world.updateNeighbor(pos, this, pos);
+	}
+
+	@Override
+	@Environment(EnvType.CLIENT)
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+		TwoWayPower power = state.get(POWER);
+
+		if (power != TwoWayPower.NONE) {
+			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, power.asDirection(state.get(AXIS)));
+		}
 	}
 
 }

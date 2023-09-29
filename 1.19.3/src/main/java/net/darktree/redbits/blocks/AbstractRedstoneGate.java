@@ -3,10 +3,12 @@ package net.darktree.redbits.blocks;
 import net.darktree.interference.api.RedstoneConnectable;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -97,4 +99,16 @@ public abstract class AbstractRedstoneGate extends Block implements RedstoneConn
 		}
 	}
 
+	public static void spawnSimpleParticles(ParticleEffect effect, World world, BlockPos pos, Random random, Direction facing) {
+		if (random.nextBoolean()) {
+			return;
+		}
+
+		double d = (double) pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.2;
+		double e = (double) pos.getY() + 0.4 + (random.nextDouble() - 0.5) * 0.2;
+		double f = (double) pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.2;
+		double h = (-5.0 / 16) * (float) facing.getOffsetX();
+		double i = (-5.0 / 16) * (float) facing.getOffsetZ();
+		world.addParticle(effect, d + h, e, f + i, 0.0D, 0.0D, 0.0D);
+	}
 }
