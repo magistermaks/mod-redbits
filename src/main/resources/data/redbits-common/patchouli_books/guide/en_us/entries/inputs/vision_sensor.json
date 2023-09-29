@@ -1,0 +1,16 @@
+{
+	"name": "Sight Sensor",
+	"icon": "redbits:vision_sensor",
+	"category": "redbits-common:inputs",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Activated by players looking at it, emits a short redstone pulse. Maximum activation distance is 128 blocks by default."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:vision_sensor"
+		}
+	]
+}

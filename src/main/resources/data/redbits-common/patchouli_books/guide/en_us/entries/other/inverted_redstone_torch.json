@@ -1,0 +1,17 @@
+{
+	"name": "Inverted Torch",
+	"icon": "redbits:inverted_redstone_torch",
+	"category": "redbits-common:other",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Redstone torch that doesn't invert the signal."
+		},
+		{
+			"title": "Inverted Torch",
+			"type": "patchouli:crafting",
+			"recipe": "redbits:inverted_redstone_torch"
+		}
+	]
+}

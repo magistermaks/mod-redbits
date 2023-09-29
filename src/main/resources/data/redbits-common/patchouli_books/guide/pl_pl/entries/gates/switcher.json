@@ -1,0 +1,16 @@
+{
+	"name": "Przerzutnik",
+	"icon": "redbits:t_flip_flop",
+	"category": "redbits-common:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Działa jak dźwignia którą można przełączyć zasilając ją. (można ją również przełączyć, klikając na blok). "
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:t_flip_flop"
+		}
+	]
+}

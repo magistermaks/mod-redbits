@@ -182,7 +182,7 @@ public class RedBits implements ModInitializer {
 
 	private void initializePatchouliCompatibility() {
 		NbtCompound tag = new NbtCompound();
-		tag.putString("patchouli:book", "redbits:guide");
+		tag.putString("patchouli:book", "redbits-common:guide");
 		ItemStack stack = new ItemStack(PatchouliItems.BOOK);
 		stack.setNbt(tag);
 

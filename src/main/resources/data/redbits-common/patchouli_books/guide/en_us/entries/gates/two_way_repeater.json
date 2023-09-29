@@ -1,0 +1,17 @@
+{
+	"name": "Two Way Repeater Gate",
+	"icon": "redbits:two_way_repeater",
+	"category": "redbits-common:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Works like vanilla repeater but doesn't have timing control, (delay is always equal 1 redstone tick) and allows signals to pass in both directions."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:two_way_repeater",
+			"title": "Two Way Repeater"
+		}
+	]
+}

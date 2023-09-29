@@ -39,6 +39,7 @@
 
     "text.autoconfig.redbits.title": "Red Bits Configuration",
     "text.autoconfig.redbits.option.add_guide_to_loot_tables": "Add Guide Book To Loot Tables",
+    "text.autoconfig.redbits.option.add_guide_to_creative_menu": "Add Guide Book To Creative Menu",
     "text.autoconfig.redbits.option.disable_burnout": "Disable Redstone Torch Burnout",
     "text.autoconfig.redbits.option.jukebox_integration": "Enable Jukebox Integration",
     "text.autoconfig.redbits.option.campfire_integration": "Enable Campfire Extensions",

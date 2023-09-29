@@ -1,0 +1,16 @@
+{
+	"name": "Zacieniona lampa",
+	"icon": "redbits:redstone_lamp",
+	"category": "redbits-common:other",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Działa jak zwykłą lampa redstone, ale nie emituje światła. Z tego powodu idealnie nadaje się do migających kontrolek i dużych wyświetlaczy, ponieważ wpływ aktywacji tych lamp na wydajność jest znacznie mniejszy."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:shaded_redstone_lamp"
+		}
+	]
+}

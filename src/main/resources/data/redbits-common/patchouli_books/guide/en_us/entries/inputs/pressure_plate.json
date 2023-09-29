@@ -1,0 +1,40 @@
+{
+	"name": "Pressure Plates",
+	"icon": "redbits:obsidian_pressure_plate",
+	"category": "redbits-common:inputs",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Those pressure plates are activated only by certain mobs, see following pages for recipes and usages."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:obsidian_pressure_plate",
+			"text": "Obsidian pressure plates are activated by players.",
+			"title": "Obsidian"
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:crying_obsidian_pressure_plate",
+			"text": "Crying obsidian pressure plates are activated by hostile mobs.",
+			"title": "Crying Obsidian"
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:basalt_pressure_plate",
+			"text": "Basalt pressure plates are activated by tamed animals.",
+			"title": "Basalt"
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:end_stone_pressure_plate",
+			"text": "End Stone pressure plates are activated by villagers.",
+			"title": "End Stone"
+		},
+		{
+			"type": "patchouli:empty",
+			"draw_filler": false
+		}
+	]
+}

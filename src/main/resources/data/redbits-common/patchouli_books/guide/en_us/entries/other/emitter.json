@@ -1,0 +1,16 @@
+{
+	"name": "Redstone Emitter",
+	"icon": "redbits:emitter",
+	"category": "redbits-common:other",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Emits comparator signal whose strength can be regulated by clicking on the block, replacement for using cauldrons and composters in circuits."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:emitter"
+		}
+	]
+}
