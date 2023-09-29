@@ -123,7 +123,7 @@ public class LatchBlock extends AbstractRedstoneGate {
 	@Override
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 		Direction direction = Direction.from(state.get(AXIS), state.get(POWER).asAxisDirection()).rotateYClockwise();
-		AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, direction);
+		AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, direction, false);
 	}
 
 }

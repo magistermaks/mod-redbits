@@ -1,0 +1,95 @@
+{
+	"variants": {
+		"facing=west,power=0,powered=true": {
+			"model": "redbits:block/projector/on-off",
+			"y": 270
+		},
+		"facing=west,power=1,powered=true": {
+			"model": "redbits:block/projector/on-on",
+			"y": 270
+		},
+		"facing=west,power=2,powered=true": {
+			"model": "redbits:block/projector/on-on",
+			"y": 270
+		},
+		"facing=south,power=0,powered=true": {
+			"model": "redbits:block/projector/on-off",
+			"y": 180
+		},
+		"facing=south,power=1,powered=true": {
+			"model": "redbits:block/projector/on-on",
+			"y": 180
+		},
+		"facing=south,power=2,powered=true": {
+			"model": "redbits:block/projector/on-on",
+			"y": 180
+		},
+		"facing=north,power=0,powered=true": {
+			"model": "redbits:block/projector/on-off"
+		},
+		"facing=north,power=1,powered=true": {
+			"model": "redbits:block/projector/on-on"
+		},
+		"facing=north,power=2,powered=true": {
+			"model": "redbits:block/projector/on-on"
+		},
+		"facing=east,power=0,powered=true": {
+			"model": "redbits:block/projector/on-off",
+			"y": 90
+		},
+		"facing=east,power=1,powered=true": {
+			"model": "redbits:block/projector/on-on",
+			"y": 90
+		},
+		"facing=east,power=2,powered=true": {
+			"model": "redbits:block/projector/on-on",
+			"y": 90
+		},
+
+		"facing=west,power=0,powered=false": {
+			"model": "redbits:block/projector/off-off",
+			"y": 270
+		},
+		"facing=west,power=1,powered=false": {
+			"model": "redbits:block/projector/off-on",
+			"y": 270
+		},
+		"facing=west,power=2,powered=false": {
+			"model": "redbits:block/projector/off-on",
+			"y": 270
+		},
+		"facing=south,power=0,powered=false": {
+			"model": "redbits:block/projector/off-off",
+			"y": 180
+		},
+		"facing=south,power=1,powered=false": {
+			"model": "redbits:block/projector/off-on",
+			"y": 180
+		},
+		"facing=south,power=2,powered=false": {
+			"model": "redbits:block/projector/off-on",
+			"y": 180
+		},
+		"facing=north,power=0,powered=false": {
+			"model": "redbits:block/projector/off-off"
+		},
+		"facing=north,power=1,powered=false": {
+			"model": "redbits:block/projector/off-on"
+		},
+		"facing=north,power=2,powered=false": {
+			"model": "redbits:block/projector/off-on"
+		},
+		"facing=east,power=0,powered=false": {
+			"model": "redbits:block/projector/off-off",
+			"y": 90
+		},
+		"facing=east,power=1,powered=false": {
+			"model": "redbits:block/projector/off-on",
+			"y": 90
+		},
+		"facing=east,power=2,powered=false": {
+			"model": "redbits:block/projector/off-on",
+			"y": 90
+		}
+	}
+}

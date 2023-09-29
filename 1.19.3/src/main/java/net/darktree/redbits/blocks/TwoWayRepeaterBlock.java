@@ -126,7 +126,7 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
 		TwoWayPower power = state.get(POWER);
 
 		if (power != TwoWayPower.NONE) {
-			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, power.asDirection(state.get(AXIS)));
+			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, power.asDirection(state.get(AXIS)), false);
 		}
 	}
 

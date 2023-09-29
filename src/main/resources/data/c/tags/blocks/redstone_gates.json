@@ -8,6 +8,7 @@
         "redbits:detector",
         "redbits:latch",
         "redbits:timer",
-        "redbits:bridge"
+        "redbits:bridge",
+        "redbits:projector"
     ]
 }

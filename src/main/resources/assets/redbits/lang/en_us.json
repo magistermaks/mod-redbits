@@ -16,6 +16,7 @@
     "block.redbits.t_flip_flop": "Redstone Switcher",
     "block.redbits.emitter": "Redstone Emitter",
 	"block.redbits.bridge": "Redstone Bridge",
+    "block.redbits.projector": "Redstone Projector",
     "block.redbits.vision_sensor": "Sight Sensor",
     "block.redbits.inverter": "Redstone Inverter",
     "block.redbits.redstone_lamp": "Shaded Redstone Lamp",

@@ -1,0 +1,9 @@
+{
+	"credit": "Made with Blockbench by magistermaks",
+	"parent": "redbits:block/projector/base",
+	"textures": {
+		"torch": "redbits:block/crystal",
+		"top": "redbits:block/projector_off"
+	}
+}
+

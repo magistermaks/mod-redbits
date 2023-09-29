@@ -4,6 +4,7 @@ import net.darktree.interference.api.RedstoneConnectable;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -99,7 +100,7 @@ public abstract class AbstractRedstoneGate extends Block implements RedstoneConn
 		}
 	}
 
-	public static void spawnSimpleParticles(ParticleEffect effect, World world, BlockPos pos, Random random, Direction facing) {
+	public static void spawnSimpleParticles(ParticleEffect effect, World world, BlockPos pos, Random random, Direction facing, boolean server) {
 		if (random.nextBoolean()) {
 			return;
 		}
@@ -109,6 +110,11 @@ public abstract class AbstractRedstoneGate extends Block implements RedstoneConn
 		double f = (double) pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.2;
 		double h = (-5.0 / 16) * (float) facing.getOffsetX();
 		double i = (-5.0 / 16) * (float) facing.getOffsetZ();
-		world.addParticle(effect, d + h, e, f + i, 0.0D, 0.0D, 0.0D);
+
+		if (!server) {
+			world.addParticle(effect, d + h, e, f + i, 0, 0, 0);
+		} else if (world instanceof ServerWorld serverWorld) {
+			serverWorld.spawnParticles(effect, d + h, e, f + i, 1, 0, 0, 0, 0);
+		}
 	}
 }

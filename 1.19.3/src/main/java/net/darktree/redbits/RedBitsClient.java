@@ -29,6 +29,7 @@ public class RedBitsClient implements ClientModInitializer {
 		cutout(RedBits.INVERTED_REDSTONE_WALL_TORCH);
 		cutout(RedBits.TIMER);
 		cutout(RedBits.BRIDGE);
+		cutout(RedBits.PROJECTOR);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> RedstoneWireBlock.getWireColor(1), RedBits.REDSTONE_EMITTER);
 		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> RedstoneWireBlock.getWireColor(state.get(EmitterBlock.POWER)), RedBits.REDSTONE_EMITTER);
