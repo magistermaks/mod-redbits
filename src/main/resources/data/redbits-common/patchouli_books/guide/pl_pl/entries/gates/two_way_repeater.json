@@ -6,7 +6,7 @@
 	"pages": [
 		{
 			"type": "patchouli:text",
-			"text": "Działa jak repeater, ale nie ma kontroli czasu (opóźnienie jest zawsze równe 1 tikowi redstone) i umożliwia przekazywanie sygnałów w obu kierunkach. "
+			"text": "Działa jak zwykły przekaźnik, ale nie ma kontroli czasu (opóźnienie jest zawsze równe 1 tikowi redstone) i umożliwia przekazywanie sygnałów w obu kierunkach. "
 		},
 		{
 			"type": "patchouli:crafting",

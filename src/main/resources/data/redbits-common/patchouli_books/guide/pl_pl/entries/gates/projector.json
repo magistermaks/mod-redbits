@@ -1,12 +1,12 @@
 {
-	"name": "Projector Gate",
+	"name": "Projector",
 	"icon": "redbits:projector",
 	"category": "redbits-common:gates",
 	"read_by_default": true,
 	"pages": [
 		{
 			"type": "patchouli:text",
-			"text": "TODO"
+			"text": "Działa jak odbiornik i nadajnik redstone; para projektorów może być używana do komunikacji bezprzewodowej.$(br)Pierwsza brama, gdy jest zasilana, wysyła moc do przodu na odległość która $(t:1 poziom mocy czerwonego kamienia - 1 blok do przodu)zależy od siły sygnału wejściowego$(/t); gdy ta projekcja się zazębi z inną bramą projekcyjną to ta z kolei aktywuje się i generuje sygnał wyjściowy."
 		},
 		{
 			"type": "patchouli:crafting",

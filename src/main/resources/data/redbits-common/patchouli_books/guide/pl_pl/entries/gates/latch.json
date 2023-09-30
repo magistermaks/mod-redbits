@@ -6,7 +6,7 @@
 	"pages": [
 		{
 			"type": "patchouli:text",
-			"text": "Posiada dwa wyjścia, z których jedno jest zawsze aktywne, a drugie nieaktywne, stan ten można odwrócić klikając blok lub zasilając stronę nieaktywną."
+			"text": "Posiada dwa wyjścia, z których jedno jest zawsze aktywne, a drugie nieaktywne, stan ten można odwrócić klikając na blok lub zasilając stronę nieaktywną."
 		},
 		{
 			"type": "patchouli:crafting",

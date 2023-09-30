@@ -6,7 +6,7 @@
 	"pages": [
 		{
 			"type": "patchouli:text",
-			"text": "Działa podobnie co $(l:gates/two_way_repeater)Dwukierunkowy przekaźnik$(), pozwala dwóm sygnałom się wyminąć."
+			"text": "Działa podobnie jak $(l:gates/two_way_repeater)Dwukierunkowy przekaźnik$(). Pozwala dwóm sygnałom się wyminąć."
 		},
 		{
 			"type": "patchouli:crafting",

@@ -9,3 +9,4 @@ RedBits.iml
 .gradle/
 build/
 run/
+versions/*.jar
