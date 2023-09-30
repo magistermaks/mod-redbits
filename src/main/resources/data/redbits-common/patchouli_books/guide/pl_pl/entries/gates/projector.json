@@ -1,5 +1,5 @@
 {
-	"name": "Projector",
+	"name": "Projektor",
 	"icon": "redbits:projector",
 	"category": "redbits-common:gates",
 	"read_by_default": true,
@@ -11,7 +11,7 @@
 		{
 			"type": "patchouli:crafting",
 			"recipe": "redbits:projector",
-			"title": "Projector"
+			"title": "Projektor"
 		}
 	]
 }

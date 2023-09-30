@@ -90,6 +90,8 @@ public class RedBits implements ModInitializer {
 	public final static Block TWO_WAY_REPEATER = new TwoWayRepeaterBlock(AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().sounds(BlockSoundGroup.WOOD));
 	public final static Block LATCH = new LatchBlock(AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().sounds(BlockSoundGroup.WOOD));
 	public final static Block TIMER = new TimerBlock(AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().sounds(BlockSoundGroup.WOOD));
+	public final static Block BRIDGE = new BridgeBlock(AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().sounds(BlockSoundGroup.WOOD));
+	public final static Block PROJECTOR = new ProjectorBlock(AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().sounds(BlockSoundGroup.WOOD));
 
 	// Pressure Plates
 	public final static Block OBSIDIAN_PRESSURE_PLATE = new ComplexPressurePlateBlock(COLLISION_CONDITION_PLAYERS, AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().noCollision().strength(0.5F));
@@ -132,6 +134,8 @@ public class RedBits implements ModInitializer {
 		register("detector", DETECTOR, gates);
 		register("latch", LATCH, gates);
 		register("timer", TIMER, gates);
+		register("bridge", BRIDGE, gates);
+		register("projector", PROJECTOR, gates);
 
 		register("emitter", REDSTONE_EMITTER, cubes);
 		register("vision_sensor", VISION_SENSOR, cubes);
@@ -174,19 +178,17 @@ public class RedBits implements ModInitializer {
 	}
 
 	private void initializePatchouliCompatibility() {
+		NbtCompound tag = new NbtCompound();
+		tag.putString("patchouli:book", "redbits-common:guide");
+		ItemStack stack = new ItemStack(PatchouliItems.BOOK);
+		stack.setNbt(tag);
+
 		if (CONFIG.add_guide_to_loot_tables) {
-			LOGGER.info("RedBits detected Patchouli! Adding guide book to loot tables...");
+			LOGGER.info("Adding RedBits Patchouli guide book to loot tables...");
 
-			NbtCompound tag = new NbtCompound();
-			tag.putString("patchouli:book", "redbits:guide");
-			ItemStack stack = new ItemStack(PatchouliItems.BOOK);
-			stack.setNbt(tag);
-
-			LootInjector.injectEntry(LootTables.STRONGHOLD_LIBRARY_CHEST, stack, 30);
-			LootInjector.injectEntry(LootTables.SPAWN_BONUS_CHEST, stack, 80);
-			LootInjector.injectEntry(LootTables.VILLAGE_CARTOGRAPHER_CHEST, stack, 30);
-		} else {
-			LOGGER.warn("RedBits detected Patchouli, but loot table extensions where disabled! Skipping!");
+			LootInjector.injectEntry(LootTables.STRONGHOLD_LIBRARY_CHEST, stack, 40);
+			LootInjector.injectEntry(LootTables.SPAWN_BONUS_CHEST, stack, 90);
+			LootInjector.injectEntry(LootTables.VILLAGE_CARTOGRAPHER_CHEST, stack, 35);
 		}
 	}
 

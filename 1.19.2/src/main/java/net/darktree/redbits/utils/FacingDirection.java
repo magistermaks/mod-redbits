@@ -4,13 +4,15 @@ import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.Direction;
 
 public enum FacingDirection implements StringIdentifiable {
-	FRONT("front"),
-	BACK("back");
+	FRONT("front", Direction.AxisDirection.POSITIVE),
+	BACK("back", Direction.AxisDirection.NEGATIVE);
 
 	private final String name;
+	private final Direction.AxisDirection direction;
 
-	FacingDirection(String name) {
+	FacingDirection(String name, Direction.AxisDirection direction) {
 		this.name = name;
+		this.direction = direction;
 	}
 
 	public String toString() {
@@ -18,7 +20,7 @@ public enum FacingDirection implements StringIdentifiable {
 	}
 
 	public Direction.AxisDirection asAxisDirection() {
-		return asBoolean() ? Direction.AxisDirection.POSITIVE : Direction.AxisDirection.NEGATIVE;
+		return direction;
 	}
 
 	public boolean asBoolean() {

@@ -191,9 +191,9 @@ public class RedBits implements ModInitializer {
 		if (CONFIG.add_guide_to_loot_tables) {
 			LOGGER.info("Adding RedBits Patchouli guide book to loot tables...");
 
-			LootInjector.injectEntry(LootTables.STRONGHOLD_LIBRARY_CHEST, stack, 30);
-			LootInjector.injectEntry(LootTables.SPAWN_BONUS_CHEST, stack, 80);
-			LootInjector.injectEntry(LootTables.VILLAGE_CARTOGRAPHER_CHEST, stack, 30);
+			LootInjector.injectEntry(LootTables.STRONGHOLD_LIBRARY_CHEST, stack, 40);
+			LootInjector.injectEntry(LootTables.SPAWN_BONUS_CHEST, stack, 90);
+			LootInjector.injectEntry(LootTables.VILLAGE_CARTOGRAPHER_CHEST, stack, 35);
 		}
 
 		if (CONFIG.add_guide_to_creative_menu) {
