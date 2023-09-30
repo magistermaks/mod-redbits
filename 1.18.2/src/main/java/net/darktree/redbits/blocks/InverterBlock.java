@@ -51,13 +51,7 @@ public class InverterBlock extends AbstractRedstoneGateBlock implements Redstone
 	@Environment(EnvType.CLIENT)
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 		if (!state.get(POWERED)) {
-			Direction direction = state.get(FACING);
-			double d = (double) pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 0.2D;
-			double e = (double) pos.getY() + 0.4D + (random.nextDouble() - 0.5D) * 0.2D;
-			double f = (double) pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 0.2D;
-			double h = (-5.0F / 16) * (float) direction.getOffsetX();
-			double i = (-5.0F / 16) * (float) direction.getOffsetZ();
-			world.addParticle(DustParticleEffect.DEFAULT, d + h, e, f + i, 0.0D, 0.0D, 0.0D);
+			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING), false);
 		}
 	}
 

@@ -1,12 +1,13 @@
 package net.darktree.redbits.blocks;
 
 import net.darktree.redbits.RedBits;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
@@ -14,8 +15,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
 import net.minecraft.world.TickPriority;
+import net.minecraft.world.World;
 
 import java.util.Random;
 
@@ -67,6 +68,14 @@ public class TimerBlock extends FlipFlopBlock {
 			world.createAndScheduleBlockTick(pos, this, (int) Math.pow(2, state.get(DELAY)), TickPriority.HIGH);
 		} else {
 			world.setBlockState(pos, state.with(INPUT, false).with(POWERED, false), 2);
+		}
+	}
+
+	@Override
+	@Environment(EnvType.CLIENT)
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+		if (state.get(POWERED)) {
+			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING), false);
 		}
 	}
 

@@ -8,9 +8,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
@@ -19,12 +18,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-
-import java.util.Random;
-
 import net.minecraft.world.BlockView;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class LatchBlock extends AbstractRedstoneGate {
@@ -107,15 +105,26 @@ public class LatchBlock extends AbstractRedstoneGate {
 
 	@Override
 	protected void updateTarget(World world, BlockPos pos, BlockState state) {
-		Direction direction = Direction.from(state.get(AXIS), Direction.AxisDirection.NEGATIVE).getOpposite();
-		BlockPos blockPos = pos.offset(direction);
-		world.updateNeighbor(blockPos, this, pos);
-		world.updateNeighborsExcept(blockPos, this, direction);
+		Direction forward = Direction.from(state.get(AXIS), Direction.AxisDirection.POSITIVE);
+		Direction backward = forward.getOpposite();
 
-		direction = Direction.from(state.get(AXIS), Direction.AxisDirection.POSITIVE).getOpposite();
-		blockPos = pos.offset(direction);
-		world.updateNeighbor(blockPos, this, pos);
-		world.updateNeighborsExcept(blockPos, this, direction);
+		BlockPos front = pos.offset(forward);
+		BlockPos back = pos.offset(backward);
+
+		// updateNeighbor updates the block NEXT to the gate
+		// and updateNeighborsExcept updates the neighbors of that block EXCEPT for the gate itself
+		world.updateNeighbor(front, this, pos);
+		world.updateNeighborsExcept(front, this, backward);
+
+		// do the same for the other end of the gate
+		world.updateNeighbor(back, this, pos);
+		world.updateNeighborsExcept(back, this, forward);
+	}
+
+	@Override
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+		Direction direction = Direction.from(state.get(AXIS), state.get(POWER).asAxisDirection()).rotateYClockwise();
+		AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, direction, false);
 	}
 
 }

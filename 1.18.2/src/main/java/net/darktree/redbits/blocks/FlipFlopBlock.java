@@ -8,8 +8,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.RepeaterBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
@@ -17,12 +15,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-
-import java.util.Random;
-
 import net.minecraft.world.BlockView;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class FlipFlopBlock extends AbstractRedstoneGateBlock implements RedstoneConnectable {
