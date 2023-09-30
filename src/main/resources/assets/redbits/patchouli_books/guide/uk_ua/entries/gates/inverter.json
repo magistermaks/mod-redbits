@@ -1,0 +1,16 @@
+{
+	"name": "Інвентор",
+	"icon": "redbits:inverter",
+	"category": "redbits:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Працює як ванільний редстоуновий смолоскип, але у формі редстоунового вентиля без контролю затримки (затримка завжди дорівнює 1 редстоуновому тіку)."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:inverter"
+		}
+	]
+}

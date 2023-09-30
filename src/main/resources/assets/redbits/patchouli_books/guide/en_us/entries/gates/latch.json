@@ -1,0 +1,16 @@
+{
+	"name": "Latch Gate",
+	"icon": "redbits:latch",
+	"category": "redbits:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Has two outputs, one of which is always active while the other inactive, this state can be flipped by clicking on the block or by powering the inactive side."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:latch"
+		}
+	]
+}

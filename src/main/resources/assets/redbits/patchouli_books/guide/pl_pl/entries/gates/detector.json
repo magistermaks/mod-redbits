@@ -1,0 +1,16 @@
+{
+	"name": "Detektor",
+	"icon": "redbits:detector",
+	"category": "redbits:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Jest detektorem opadającego/rosnącego sygnału, w trybie rosnącym wyzwala (jak obserwator - emitując krótki sygnał) przy włączeniu wejścia, a w trybie opadania wyzwala po wyłączeniu wejścia. Tryb można przełączać klikając na bramkę."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:detector"
+		}
+	]
+}

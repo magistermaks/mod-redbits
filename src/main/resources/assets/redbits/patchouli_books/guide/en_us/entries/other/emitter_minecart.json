@@ -1,0 +1,17 @@
+{
+	"name": "Minecart with Emitter",
+	"icon": "redbits:emitter_minecart",
+	"category": "redbits:other",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Emits comparator signal when on detector rails whose strength can be regulated by clicking on the minecart - similarity to normal Redstone Emitters."
+		},
+		{
+			"title": "Minecart with Emitter",
+			"type": "patchouli:crafting",
+			"recipe": "redbits:emitter_minecart"
+		}
+	]
+}

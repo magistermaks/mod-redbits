@@ -1,0 +1,16 @@
+{
+	"name": "Детектор",
+	"icon": "redbits:detector",
+	"category": "redbits:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "У режимі Зростання спрацьовує як спостерігач випромінюючи короткий сигнал. У режимі Спаду, коли під'єднано живлення, спрацює лише коли подача сигналу закінчиться. Режим можна перемикати натиснувши на вентиль."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:detector"
+		}
+	]
+}

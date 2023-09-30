@@ -1,8 +1,0 @@
-{
-	"name": "text.patchouli.redbits.guide.name",
-	"model": "redbits:guide",
-	"landing_text": "text.patchouli.redbits.guide.text",
-	"show_progress": false,
-	"show_toasts": false,
-	"version": 1
-}

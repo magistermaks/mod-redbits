@@ -24,7 +24,6 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.loot.LootTables;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.stat.StatFormatter;
@@ -36,7 +35,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vazkii.patchouli.common.item.PatchouliItems;
+import vazkii.patchouli.common.item.ItemModBook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,8 +99,8 @@ public class RedBits implements ModInitializer {
 	public final static Block BASALT_PRESSURE_PLATE = new ComplexPressurePlateBlock(COLLISION_CONDITION_PET, AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().noCollision().strength(0.5F));
 
 	// Other Components
-	public final static Block REDSTONE_LAMP = new RedstoneLampBlock(FabricBlockSettings.of(Material.REDSTONE_LAMP).lightLevel((n) -> n.get(Properties.LIT) ? 1 : 0).postProcess((a, b, c) -> a.get(Properties.LIT)).emissiveLighting((a, b, c) -> a.get(Properties.LIT)).strength(0.3F).sounds(BlockSoundGroup.GLASS).allowsSpawning((BlockState state, BlockView world, BlockPos pos, EntityType<?> type) -> true));
-	public final static Block RGB_LAMP = new AnalogLampBlock(FabricBlockSettings.of(Material.REDSTONE_LAMP).lightLevel((n) -> n.get(AnalogLampBlock.POWER) > 0 ? 1 : 0).postProcess((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).emissiveLighting((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).strength(0.3F).sounds(BlockSoundGroup.GLASS).allowsSpawning((BlockState state, BlockView world, BlockPos pos, EntityType<?> type) -> true));
+	public final static Block REDSTONE_LAMP = new RedstoneLampBlock(FabricBlockSettings.of(Material.REDSTONE_LAMP).luminance(n -> n.get(Properties.LIT) ? 1 : 0).postProcess((a, b, c) -> a.get(Properties.LIT)).emissiveLighting((a, b, c) -> a.get(Properties.LIT)).strength(0.3F).sounds(BlockSoundGroup.GLASS).allowsSpawning((BlockState state, BlockView world, BlockPos pos, EntityType<?> type) -> true));
+	public final static Block RGB_LAMP = new AnalogLampBlock(FabricBlockSettings.of(Material.REDSTONE_LAMP).luminance(n -> n.get(AnalogLampBlock.POWER) > 0 ? 1 : 0).postProcess((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).emissiveLighting((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).strength(0.3F).sounds(BlockSoundGroup.GLASS).allowsSpawning((BlockState state, BlockView world, BlockPos pos, EntityType<?> type) -> true));
 	public final static Block REDSTONE_EMITTER = new EmitterBlock(AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F).solidBlock((BlockState state, BlockView world, BlockPos pos) -> true));
 	public final static Block VISION_SENSOR = new VisionSensorBlock(AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F).solidBlock((BlockState state, BlockView world, BlockPos pos) -> true));
 	public final static Block INVERTED_REDSTONE_TORCH = new InvertedRedstoneTorchBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().breakInstantly().luminance((n) -> n.get(Properties.LIT) ? 7 : 0).sounds(BlockSoundGroup.WOOD));
@@ -178,10 +177,7 @@ public class RedBits implements ModInitializer {
 	}
 
 	private void initializePatchouliCompatibility() {
-		NbtCompound tag = new NbtCompound();
-		tag.putString("patchouli:book", "redbits-common:guide");
-		ItemStack stack = new ItemStack(PatchouliItems.BOOK);
-		stack.setNbt(tag);
+		ItemStack stack = ItemModBook.forBook(new Identifier("redbits", "guide"));
 
 		if (CONFIG.add_guide_to_loot_tables) {
 			LOGGER.info("Adding RedBits Patchouli guide book to loot tables...");

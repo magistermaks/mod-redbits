@@ -1,0 +1,17 @@
+{
+	"name": "Mostek",
+	"icon": "redbits:bridge",
+	"category": "redbits:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Działa podobnie jak $(l:gates/two_way_repeater)Dwukierunkowy przekaźnik$(). Pozwala dwóm sygnałom się wyminąć."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:bridge",
+			"title": "Mostek"
+		}
+	]
+}

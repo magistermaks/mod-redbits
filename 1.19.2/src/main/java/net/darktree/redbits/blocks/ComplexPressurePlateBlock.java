@@ -3,7 +3,6 @@ package net.darktree.redbits.blocks;
 import net.minecraft.block.PressurePlateBlock;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
