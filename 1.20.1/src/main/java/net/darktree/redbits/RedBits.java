@@ -7,6 +7,7 @@ import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
 import net.darktree.redbits.config.Settings;
 import net.darktree.redbits.entity.EmitterMinecartEntity;
+import net.darktree.redbits.item.ProxyBookItem;
 import net.darktree.redbits.network.C2SLookAtPacket;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -37,7 +38,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vazkii.patchouli.common.item.ItemModBook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +108,7 @@ public class RedBits implements ModInitializer {
 	public final static Block INVERTED_REDSTONE_TORCH = new InvertedRedstoneTorchBlock(AbstractBlock.Settings.create().pistonBehavior(PistonBehavior.DESTROY).noCollision().breakInstantly().luminance(n -> n.get(Properties.LIT) ? 7 : 0).sounds(BlockSoundGroup.WOOD));
 	public final static Block INVERTED_REDSTONE_WALL_TORCH = new WallInvertedRedstoneTorchBlock(AbstractBlock.Settings.create().pistonBehavior(PistonBehavior.DESTROY).noCollision().breakInstantly().luminance(n -> n.get(Properties.LIT) ? 7 : 0).sounds(BlockSoundGroup.WOOD));
 	public final static Item EMITTER_MINECART_ITEM = new MinecartItem(EmitterMinecartEntity.EMITTER, new Item.Settings().maxCount(1));
+	public final static Item GUIDE = ProxyBookItem.createInstance();
 
 	// Statistics
 	public static final Identifier INTERACT_WITH_SIGHT_SENSOR = new Identifier(NAMESPACE, "interact_with_sight_sensor");
@@ -161,6 +162,9 @@ public class RedBits implements ModInitializer {
 		register("redstone_lamp", REDSTONE_LAMP, lamps);
 		register("rgb_lamp", RGB_LAMP, lamps);
 
+		// Register the guide item
+		Registry.register(Registries.ITEM, new Identifier(NAMESPACE, "guide"), GUIDE);
+
 		// Register statistics
 		registerStat(INTERACT_WITH_SIGHT_SENSOR);
 		registerStat(INTERACT_WITH_REDSTONE_EMITTER);
@@ -181,7 +185,7 @@ public class RedBits implements ModInitializer {
 	}
 
 	private void initializePatchouliCompatibility() {
-		ItemStack stack = ItemModBook.forBook(new Identifier("redbits", "guide"));
+		ItemStack stack = new ItemStack(GUIDE, 1);
 
 		if (CONFIG.add_guide_to_loot_tables) {
 			LOGGER.info("Adding RedBits Patchouli guide book to loot tables...");

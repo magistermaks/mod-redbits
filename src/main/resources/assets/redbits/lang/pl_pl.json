@@ -32,11 +32,13 @@
     "block.redbits.stone_large_button": "Duży kamienny przycisk",
     "block.redbits.polished_blackstone_large_button": "Duży wypolerowany czarnitowy przycisk",
     "item.redbits.emitter_minecart": "Wagonik z emiterem",
+    "item.redbits.guide": "Przewodnik RedBits",
 
     "stat.redbits.interact_with_sight_sensor": "Wyzwolone czujnik wzroku",
     "stat.redbits.interact_with_redstone_emitter": "Dostrojone emitery",
 
     "message.redbits.power_level": "Energia: %s",
+    "message.redbits.patchouli": "Zainstaluj Patchouli aby móc urzyć tego przewodnika.",
 
     "text.autoconfig.redbits.title": "Konfiguracja Red Bits",
     "text.autoconfig.redbits.option.add_guide_to_loot_tables": "Dodaj przewodnik do skrzynek w strukturach",
