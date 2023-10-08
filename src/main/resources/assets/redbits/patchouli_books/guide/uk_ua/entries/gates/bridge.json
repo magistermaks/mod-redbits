@@ -1,0 +1,17 @@
+{
+	"name": "Редстоуновий міст",
+	"icon": "redbits:bridge",
+	"category": "redbits:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Працює подібно до $(l:gates/two_way_repeater)двопотокового повторювача$(). Він дозволяє двом сигналам проходити один над одним."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:bridge",
+			"title": "Міст"
+		}
+	]
+}
