@@ -15,5 +15,6 @@
   },
   "result": {
     "item": "redbits:redstone_lamp"
-  }
+  },
+  "category": "redstone"
 }

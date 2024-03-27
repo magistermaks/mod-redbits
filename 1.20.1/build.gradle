@@ -25,11 +25,11 @@ repositories {
 		url 'https://maven.terraformersmc.com'
 	}
 
-	// interference
-	maven {
-		allowInsecureProtocol = true
-		url 'http://maven.darktree.net'
-	}
+//	// interference
+//	maven {
+//		allowInsecureProtocol = true
+//		url 'http://maven.darktree.net'
+//	}
 
 	// Vazkii mods
 	maven {

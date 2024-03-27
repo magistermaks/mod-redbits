@@ -1,9 +1,8 @@
 {
-	"credit": "Made with Blockbench by magistermaks",
+	"credit": "Made with Blockbench by magistermaks and Poly_0000",
 	"parent": "redbits:block/inverter/base",
 	"textures": {
 		"torch": "block/redstone_torch_off",
-		"top": "block/repeater_on"
+		"top": "redbits:block/inverter_on"
 	}
 }
-

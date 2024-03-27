@@ -62,9 +62,9 @@ public class ProjectorBlock extends AbstractRedstoneGate {
 
 			if (target.getBlock() instanceof ProjectorBlock block) {
 				block.ping(target, world, location);
-				AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING).getOpposite(), true);
+				AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING).getOpposite(), true, -5);
 			} else {
-				AbstractRedstoneGate.spawnSimpleParticles(ParticleTypes.SMOKE, world, pos, random, state.get(FACING).getOpposite(), true);
+				AbstractRedstoneGate.spawnSimpleParticles(ParticleTypes.SMOKE, world, pos, random, state.get(FACING).getOpposite(), true, -5);
 			}
 
 			schedule = true;
@@ -126,7 +126,7 @@ public class ProjectorBlock extends AbstractRedstoneGate {
 	@Environment(EnvType.CLIENT)
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 		if (state.get(POWER) > 0) {
-			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING).getOpposite(), false);
+			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING).getOpposite(), false, -5);
 		}
 	}
 

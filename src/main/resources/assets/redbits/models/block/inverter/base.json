@@ -1,9 +1,10 @@
 {
-	"credit": "Made with Blockbench by magistermaks",
+	"credit": "Made with Blockbench by magistermaks and Poly_0000",
 	"ambientocclusion": false,
 	"textures": {
 		"base": "block/smooth_stone",
-		"particle": "#top"
+		"particle": "redbits:block/inverter_on",
+		"top": "redbits:block/inverter_on"
 	},
 	"elements": [
 		{
@@ -19,27 +20,50 @@
 			}
 		},
 		{
-			"from": [7, 7, 2],
-			"to": [9, 7, 4],
+			"from": [7, 7, 6],
+			"to": [9, 7, 8],
 			"faces": {
 				"up": {"uv": [7, 6, 9, 8], "texture": "#torch"}
 			}
 		},
 		{
-			"from": [7, 2, 1],
-			"to": [9, 8, 5],
+			"from": [7, 2, 5],
+			"to": [9, 8, 9],
 			"faces": {
 				"east": {"uv": [6, 5, 10, 11], "texture": "#torch"},
 				"west": {"uv": [6, 5, 10, 11], "texture": "#torch"}
 			}
 		},
 		{
-			"from": [6, 2, 2],
-			"to": [10, 8, 4],
+			"from": [6, 2, 6],
+			"to": [10, 8, 8],
 			"faces": {
 				"north": {"uv": [6, 5, 10, 11], "texture": "#torch"},
 				"south": {"uv": [6, 5, 10, 11], "texture": "#torch"}
 			}
+		},
+		{
+			"from": [6, 2, 8],
+			"to": [10, 4, 10],
+			"faces": {
+				"north": {"uv": [6, 8, 10, 10], "texture": "#top"},
+				"east": {"uv": [6, 8, 8, 10], "texture": "#top"},
+				"south": {"uv": [6, 8, 10, 10], "texture": "#top"},
+				"west": {"uv": [6, 8, 8, 10], "texture": "#top"},
+				"up": {"uv": [6, 8, 10, 10], "texture": "#top"}
+			}
 		}
-	]
+	],
+	"display": {
+		"gui": {
+			"rotation": [30, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"fixed": {
+			"rotation": [270, 0, 0],
+			"translation": [0, 0, -3],
+			"scale": [0.5, 0.5, 0.5]
+		}
+	}
 }

@@ -99,7 +99,7 @@ public abstract class AbstractRedstoneGate extends Block implements RedstoneConn
 		}
 	}
 
-	public static void spawnSimpleParticles(ParticleEffect effect, World world, BlockPos pos, Random random, Direction facing, boolean server) {
+	public static void spawnSimpleParticles(ParticleEffect effect, World world, BlockPos pos, Random random, Direction facing, boolean server, float offset) {
 		if (random.nextBoolean()) {
 			return;
 		}
@@ -107,8 +107,8 @@ public abstract class AbstractRedstoneGate extends Block implements RedstoneConn
 		double d = (double) pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.2;
 		double e = (double) pos.getY() + 0.4 + (random.nextDouble() - 0.5) * 0.2;
 		double f = (double) pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.2;
-		double h = (-5.0 / 16) * (float) facing.getOffsetX();
-		double i = (-5.0 / 16) * (float) facing.getOffsetZ();
+		double h = (offset / 16) * (float) facing.getOffsetX();
+		double i = (offset / 16) * (float) facing.getOffsetZ();
 
 		if (!server) {
 			world.addParticle(effect, d + h, e, f + i, 0, 0, 0);

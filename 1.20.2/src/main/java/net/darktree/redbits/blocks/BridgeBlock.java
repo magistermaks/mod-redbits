@@ -117,7 +117,7 @@ public class BridgeBlock extends AbstractRedstoneGate {
 		TwoWayPower power = state.get(config.property);
 
 		if (power != TwoWayPower.NONE) {
-			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, power.asDirection(config.axis), false);
+			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, power.asDirection(config.axis), false, -5);
 		}
 	}
 
