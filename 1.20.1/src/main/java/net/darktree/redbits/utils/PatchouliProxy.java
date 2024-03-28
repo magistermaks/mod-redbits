@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 
 public class PatchouliProxy {
 
+	private static final String PATCHOULI_ID = "patchouli";
 	private static final String PATCHOULI_API = "vazkii.patchouli.api.PatchouliAPI";
 	private static final String PATCHOULI_SOUNDS = "vazkii.patchouli.common.base.PatchouliSounds";
 	private static final String PATCHOULI_INTERFACE = "vazkii.patchouli.api.PatchouliAPI$IPatchouliAPI";
@@ -25,7 +26,7 @@ public class PatchouliProxy {
 	}
 
 	public static PatchouliProxy create() {
-		if (!FabricLoader.getInstance().isModLoaded("patchouli")) {
+		if (!isModLoaded()) {
 			return null;
 		}
 
@@ -53,6 +54,10 @@ public class PatchouliProxy {
 		} catch (Throwable throwable) {
 			RedBits.LOGGER.error("Failed to open book on the acquired API instance!", throwable);
 		}
+	}
+
+	public static boolean isModLoaded() {
+		return FabricLoader.getInstance().isModLoaded(PATCHOULI_ID);
 	}
 
 }
