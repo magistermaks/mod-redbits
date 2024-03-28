@@ -38,7 +38,7 @@
     "stat.redbits.interact_with_redstone_emitter": "Redstone Emitters Adjusted",
 
     "message.redbits.power_level": "Power: %s",
-    "message.redbits.patchouli": "Aby skorzystać z tego przewodnika, zainstaluj Patchouli.",
+    "message.redbits.patchouli": "Install Patchouli to use this guide.",
 
     "text.autoconfig.redbits.title": "Red Bits Configuration",
     "text.autoconfig.redbits.option.add_guide_to_loot_tables": "Add Guide Book To Loot Tables",
