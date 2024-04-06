@@ -42,10 +42,20 @@
 
     "text.autoconfig.redbits.title": "Konfiguracja Red Bits",
     "text.autoconfig.redbits.option.add_guide_to_loot_tables": "Dodaj przewodnik do skrzynek w strukturach",
+    "text.autoconfig.redbits.option.add_guide_to_loot_tables.@Tooltip[0]": "Dodaj przewodnik RedBits do pewnych",
+    "text.autoconfig.redbits.option.add_guide_to_loot_tables.@Tooltip[1]": "skrzynek w pewnych strukturach.",
     "text.autoconfig.redbits.option.add_guide_to_creative_menu": "Dodaj przewodnik do ekwipunku kreatywnego",
+    "text.autoconfig.redbits.option.add_guide_to_creative_menu.@Tooltip[0]": "Dodaj Przewodnik RedBits do",
+    "text.autoconfig.redbits.option.add_guide_to_creative_menu.@Tooltip[1]": "ekwipunktu trybu kreatywnego.",
     "text.autoconfig.redbits.option.disable_burnout": "Wyłacz wypalanie się pochodni redstone",
+    "text.autoconfig.redbits.option.disable_burnout.@Tooltip[0]": "Sprawia, że pochodnie Redstone i odwrócone pochodnie Redstone",
+    "text.autoconfig.redbits.option.disable_burnout.@Tooltip[1]": "nigdy nie wypalają się podczas szybkiego przełączania.",
     "text.autoconfig.redbits.option.jukebox_integration": "Włacz integracje z szafą grającą",
+    "text.autoconfig.redbits.option.jukebox_integration.@Tooltip[0]": "Sprawia, że Jukeboxy ponownie rozpoczynają ",
+    "text.autoconfig.redbits.option.jukebox_integration.@Tooltip[1]": "odtwarzanie włożonej płyty po włączeniu zasilania.",
     "text.autoconfig.redbits.option.campfire_integration": "Włacz integracje z ogniskiem",
+    "text.autoconfig.redbits.option.campfire_integration.@Tooltip[0]": "Sprawia, że Hoppers i Dropper mogą wchodzić w",
+    "text.autoconfig.redbits.option.campfire_integration.@Tooltip[1]": "interakcję z ogniskami.",
     "text.patchouli.redbits.guide.name": "Przewodnik RedBits",
     "text.patchouli.redbits.guide.text": "Przewodnik po komponentach dodanych w RedBits, ich zastosowaniu, i recepturach.",
 
@@ -53,6 +63,6 @@
     "sound.redbits.emitter_click": "Emiter klika",
     "sound.redbits.flip_flop_click": "Przerzutnik klika",
     "sound.redbits.latch_click": "Zatrzask klika",
-    "sound.redbits.timer_click": "Chronometr klika"
+    "sound.redbits.timer_click": "Chronometr klika",
 }
 
