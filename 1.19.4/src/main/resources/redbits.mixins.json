@@ -9,6 +9,7 @@
 		"HopperBlockEntityMixin",
 		"JukeboxBlockEntityInvoker",
 		"JukeboxBlockMixin",
+		"RecipeUnlockerMixin",
 		"RedstoneTorchBlockMixin"
 	],
 	"client": [

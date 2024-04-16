@@ -1,0 +1,28 @@
+{
+	"parent": "redbits:redstone/duplex",
+	"criteria": {
+		"bridge": {
+			"conditions": {
+				"recipe_id": "redbits:bridge"
+			},
+			"trigger": "redbits:recipe_crafted"
+		}
+	},
+	"display": {
+		"description": {
+			"translate": "advancements.redbits.redstone.cross.description"
+		},
+		"icon": {
+			"item": "redbits:bridge"
+		},
+		"title": {
+			"translate": "advancements.redbits.redstone.cross.title"
+		}
+	},
+	"requirements": [
+		[
+			"bridge"
+		]
+	],
+	"sends_telemetry_event": false
+}

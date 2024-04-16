@@ -9,7 +9,8 @@
 		"HopperBlockEntityMixin",
 		"JukeboxBlockEntityInvoker",
 		"JukeboxBlockMixin",
-		"RedstoneTorchBlockMixin"
+		"RedstoneTorchBlockMixin",
+		"ServerPlayerEntityMixin"
 	],
 	"client": [
 	],

@@ -1,4 +1,19 @@
 {
+    "advancements.redbits.redstone.redstone.title": "A, łaskocze!",
+    "advancements.redbits.redstone.redstone.description": "Zdobądź sproszkowany redstone",
+    "advancements.redbits.redstone.quartz.title": "Myśliciel z kamienia",
+    "advancements.redbits.redstone.quartz.description": "Zdobądź kwarc",
+    "advancements.redbits.redstone.inverted.title": "Zagubiony w zeznaniach",
+    "advancements.redbits.redstone.inverted.description": "Stwórz odwrotną pochodnie redstone",
+    "advancements.redbits.redstone.duplex.title": "Dupleksowa zabawa",
+    "advancements.redbits.redstone.duplex.description": "Stwórz dwukierunkowy przekaźnik",
+    "advancements.redbits.redstone.cross.title": "Układ zintegrowany",
+    "advancements.redbits.redstone.cross.description": "Stwórz mostek redstone",
+    "advancements.redbits.redstone.sight.title": "Zakaz fotografowania",
+    "advancements.redbits.redstone.sight.description": "Wejrzyj w sensor spojrzenia",
+    "advancements.redbits.redstone.emitter.title": "Dobrze naoliwiona maszyna",
+    "advancements.redbits.redstone.emitter.description": "Dostrój emiter redstone podłączony do komparatora",
+
     "block.redbits.timer": "Chronometr",
     "block.redbits.rgb_lamp": "Kolorowa lampa",
     "block.redbits.latch": "Zatrzask",
@@ -63,6 +78,6 @@
     "sound.redbits.emitter_click": "Emiter klika",
     "sound.redbits.flip_flop_click": "Przerzutnik klika",
     "sound.redbits.latch_click": "Zatrzask klika",
-    "sound.redbits.timer_click": "Chronometr klika",
+    "sound.redbits.timer_click": "Chronometr klika"
 }
 

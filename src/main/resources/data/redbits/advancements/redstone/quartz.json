@@ -1,0 +1,34 @@
+{
+	"parent": "minecraft:nether/root",
+	"criteria": {
+		"quartz": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:quartz"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"display": {
+		"description": {
+			"translate": "advancements.redbits.redstone.quartz.description"
+		},
+		"icon": {
+			"item": "minecraft:quartz"
+		},
+		"title": {
+			"translate": "advancements.redbits.redstone.quartz.title"
+		}
+	},
+	"requirements": [
+		[
+			"quartz"
+		]
+	],
+	"sends_telemetry_event": false
+}

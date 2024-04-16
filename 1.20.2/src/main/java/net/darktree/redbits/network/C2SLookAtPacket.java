@@ -1,6 +1,7 @@
 package net.darktree.redbits.network;
 
 import io.netty.buffer.Unpooled;
+import net.darktree.redbits.RedBits;
 import net.darktree.redbits.blocks.VisionSensorBlock;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -32,12 +33,13 @@ public class C2SLookAtPacket {
 		server.execute(() -> apply(player, pos));
 	}
 
-	private void apply(PlayerEntity player, BlockPos pos) {
+	private void apply(ServerPlayerEntity player, BlockPos pos) {
 		if (player != null && player.getWorld() != null) {
 			World world = player.getWorld();
 
 			if (world.isChunkLoaded(pos) && player.getBlockPos().isWithinDistance(pos, 130)) {
 				VisionSensorBlock.trigger(world, pos);
+				RedBits.LOOK_AT_SENSOR_CRITERION.trigger(player);
 			}
 		}
 	}

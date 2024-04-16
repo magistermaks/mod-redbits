@@ -1,0 +1,26 @@
+{
+	"parent": "redbits:redstone/quartz",
+	"criteria": {
+		"emitter": {
+			"conditions": {},
+			"trigger": "redbits:use_redstone_emitter"
+		}
+	},
+	"display": {
+		"description": {
+			"translate": "advancements.redbits.redstone.emitter.description"
+		},
+		"icon": {
+			"item": "redbits:emitter"
+		},
+		"title": {
+			"translate": "advancements.redbits.redstone.emitter.title"
+		}
+	},
+	"requirements": [
+		[
+			"emitter"
+		]
+	],
+	"sends_telemetry_event": false
+}

@@ -1,0 +1,34 @@
+{
+	"parent": "minecraft:story/iron_tools",
+	"criteria": {
+		"redstone": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:redstone"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"display": {
+		"description": {
+			"translate": "advancements.redbits.redstone.redstone.description"
+		},
+		"icon": {
+			"item": "minecraft:redstone"
+		},
+		"title": {
+			"translate": "advancements.redbits.redstone.redstone.title"
+		}
+	},
+	"requirements": [
+		[
+			"redstone"
+		]
+	],
+	"sends_telemetry_event": false
+}

@@ -3,7 +3,10 @@ package net.darktree.redbits.blocks;
 import net.darktree.redbits.RedBits;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ComparatorBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
@@ -12,6 +15,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 @SuppressWarnings("deprecation")
@@ -39,6 +43,31 @@ public class EmitterBlock extends Block {
 		return super.onUse(state, world, pos, player, hand, hit);
 	}
 
+	private static boolean isConnected(World world, BlockPos pos) {
+
+		Block center = world.getBlockState(pos).getBlock();
+
+		if (center != RedBits.REDSTONE_EMITTER && center != Blocks.DETECTOR_RAIL) {
+			return false;
+		}
+
+		for (Direction direction : Direction.Type.HORIZONTAL) {
+			BlockPos side = pos.offset(direction);
+			BlockState state = world.getBlockState(side);
+
+			if (state.getBlock() != Blocks.COMPARATOR) {
+				continue;
+			}
+
+			if (state.get(ComparatorBlock.FACING) == direction.getOpposite()) {
+				return true;
+			}
+		}
+
+		return false;
+
+	}
+
 	public static int interact(PlayerEntity player, World world, BlockPos pos, int power) {
 		boolean decrement = player != null && player.isSneaking();
 		power = power + (decrement ? -1 : 1);
@@ -51,6 +80,11 @@ public class EmitterBlock extends Block {
 		if (player != null) {
 			player.incrementStat(RedBits.INTERACT_WITH_REDSTONE_EMITTER);
 			player.sendMessage(Text.translatable("message.redbits.power_level", power), true);
+
+			// trigger then criterion when the connected comparator is powered by the emitter
+			if (power != 0 && player instanceof ServerPlayerEntity serverPlayer && isConnected(world, pos)) {
+				RedBits.USE_REDSTONE_EMITTER_CRITERION.trigger(serverPlayer);
+			}
 		}
 
 		return power;
