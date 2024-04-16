@@ -2,7 +2,13 @@ package net.darktree.redbits.blocks;
 
 import net.darktree.redbits.RedBits;
 import net.minecraft.block.*;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -14,6 +20,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import org.apache.commons.lang3.mutable.Mutable;
 
 @SuppressWarnings("deprecation")
@@ -24,6 +31,25 @@ public class EmitterBlock extends Block {
 	public EmitterBlock(Settings settings) {
 		super(settings);
 		this.setDefaultState(this.stateManager.getDefaultState().with(POWER, 1));
+	}
+
+	@Override
+	public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
+		ItemStack stack = super.getPickStack(world, pos, state);
+
+		if (Screen.hasControlDown()) {
+			NbtCompound blockStateNbt = new NbtCompound();
+			blockStateNbt.putInt("power", state.get(EmitterBlock.POWER));
+			stack.setSubNbt(BlockItem.BLOCK_STATE_TAG_KEY, blockStateNbt);
+
+			NbtCompound displayNbt = new NbtCompound();
+			NbtList loreNbt = new NbtList();
+			loreNbt.add(NbtString.of("\"(+NBT)\""));
+			displayNbt.put("Lore", loreNbt);
+			stack.setSubNbt("display", displayNbt);
+		}
+
+		return stack;
 	}
 
 	@Override
