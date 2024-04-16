@@ -30,5 +30,13 @@
 			"quartz"
 		]
 	],
+	"rewards": {
+		"recipes": [
+			"redbits:detector",
+			"redbits:projector",
+			"redbits:t_flip_flop",
+			"redbits:vision_sensor"
+		]
+	},
 	"sends_telemetry_event": false
 }

@@ -30,5 +30,15 @@
 			"redstone"
 		]
 	],
+	"rewards": {
+		"recipes": [
+			"redbits:two_way_repeater",
+			"redbits:emitter",
+			"redbits:emitter_minecart",
+			"redbits:inverter",
+			"redbits:latch",
+			"redbits:timer"
+		]
+	},
 	"sends_telemetry_event": false
 }

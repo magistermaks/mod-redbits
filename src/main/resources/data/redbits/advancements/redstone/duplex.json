@@ -24,5 +24,10 @@
 			"two_way_repeater"
 		]
 	],
+	"rewards": {
+		"recipes": [
+			"redbits:bridge"
+		]
+	},
 	"sends_telemetry_event": false
 }
