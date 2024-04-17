@@ -1,0 +1,17 @@
+{
+	"name": "Skrzyżowanie",
+	"icon": "redbits:cross",
+	"category": "redbits:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Działa podobnie jak $(l:gates/bridge)Mostek$(), ale kiedy dwa sygnały przecinają go w tym samym czasie, emituje sygnał w górę, skutecznie działając jak bramka logiczna 'AND'."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:cross",
+			"title": "Skrzyżowanie"
+		}
+	]
+}

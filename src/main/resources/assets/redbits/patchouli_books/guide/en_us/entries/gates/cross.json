@@ -1,0 +1,17 @@
+{
+	"name": "Cross Gate",
+	"icon": "redbits:cross",
+	"category": "redbits:gates",
+	"read_by_default": true,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "Works similarly to the $(l:gates/bridge)Bridge$(), but when two signals cross it at the same time it emits a signal upwards, effectively working like a 'AND' logic gate."
+		},
+		{
+			"type": "patchouli:crafting",
+			"recipe": "redbits:cross",
+			"title": "Cross"
+		}
+	]
+}

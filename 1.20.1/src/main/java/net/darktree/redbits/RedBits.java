@@ -96,6 +96,7 @@ public class RedBits implements ModInitializer {
 	public final static Block TIMER = new TimerBlock(AbstractBlock.Settings.create().breakInstantly().sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
 	public final static Block BRIDGE = new BridgeBlock(AbstractBlock.Settings.create().breakInstantly().sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
 	public final static Block PROJECTOR = new ProjectorBlock(AbstractBlock.Settings.create().breakInstantly().sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
+	public final static Block CROSS = new CrossBlock(AbstractBlock.Settings.create().breakInstantly().sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
 
 	// Pressure Plates
 	public final static Block OBSIDIAN_PRESSURE_PLATE = new ComplexPressurePlateBlock(COLLISION_CONDITION_PLAYERS, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).solid().requiresTool().noCollision().strength(0.5f).mapColor(MapColor.BLACK));
@@ -146,6 +147,7 @@ public class RedBits implements ModInitializer {
 		register("timer", TIMER, gates);
 		register("bridge", BRIDGE, gates);
 		register("projector", PROJECTOR, gates);
+		register("cross", CROSS, gates);
 
 		register("emitter", REDSTONE_EMITTER, cubes);
 		register("vision_sensor", VISION_SENSOR, cubes);

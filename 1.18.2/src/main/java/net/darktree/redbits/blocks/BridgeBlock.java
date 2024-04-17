@@ -97,9 +97,13 @@ public class BridgeBlock extends AbstractRedstoneGate {
 		}
 	}
 
+	protected Direction[] getTargetDirections() {
+		return HORIZONTAL;
+	}
+
 	@Override
 	protected void updateTarget(World world, BlockPos pos, BlockState state) {
-		for (Direction direction : HORIZONTAL) {
+		for (Direction direction : getTargetDirections()) {
 			BlockPos target = pos.offset(direction);
 
 			// does the same thing as TwoWayRepeater's updateTarget but for all four sides
@@ -122,7 +126,7 @@ public class BridgeBlock extends AbstractRedstoneGate {
 		}
 	}
 
-	private static class PowerConfig {
+	static class PowerConfig {
 		public final EnumProperty<TwoWayPower> property;
 		public final Direction.Axis axis;
 

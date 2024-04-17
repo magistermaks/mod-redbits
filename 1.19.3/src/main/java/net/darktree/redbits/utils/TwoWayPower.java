@@ -7,15 +7,17 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 public enum TwoWayPower implements StringIdentifiable {
-	FRONT("front", Direction.AxisDirection.POSITIVE),
-	BACK("back", Direction.AxisDirection.NEGATIVE),
-	NONE("none", null);
+	FRONT("front", true, Direction.AxisDirection.POSITIVE),
+	BACK("back", true, Direction.AxisDirection.NEGATIVE),
+	NONE("none", false, null);
 
 	private final String name;
+	private final boolean powered;
 	private final Direction.AxisDirection direction;
 
-	TwoWayPower(String name, Direction.AxisDirection direction) {
+	TwoWayPower(String name, boolean powered, Direction.AxisDirection direction) {
 		this.name = name;
+		this.powered = powered;
 		this.direction = direction;
 	}
 
@@ -25,6 +27,10 @@ public enum TwoWayPower implements StringIdentifiable {
 
 	public boolean isAligned(Direction facing) {
 		return direction != null && direction == facing.getDirection();
+	}
+
+	public boolean any() {
+		return powered;
 	}
 
 	public Direction asDirection(Direction.Axis axis) {
@@ -38,19 +44,19 @@ public enum TwoWayPower implements StringIdentifiable {
 	public static Unit getPower(World world, BlockPos pos, AbstractRedstoneGate gate, TwoWayPower power, Direction.Axis axis) {
 
 		if (power == TwoWayPower.NONE) {
-			TwoWayPower.Unit a = getPower(world, pos, gate, TwoWayPower.FRONT, axis);
+			Unit a = getPower(world, pos, gate, TwoWayPower.FRONT, axis);
 			if (a.getPower() > 0) return a;
 
-			TwoWayPower.Unit b = getPower(world, pos, gate, TwoWayPower.BACK, axis);
+			Unit b = getPower(world, pos, gate, TwoWayPower.BACK, axis);
 			if (b.getPower() > 0) return b;
 
-			return new TwoWayPower.Unit(TwoWayPower.NONE, 0);
+			return new Unit(TwoWayPower.NONE, 0);
 		}
 
 		Direction direction = power.asDirection(axis);
 		BlockPos source = pos.offset(direction);
 
-		return new TwoWayPower.Unit(power, gate.getInputPower(world, source, direction));
+		return new Unit(power, gate.getInputPower(world, source, direction));
 	}
 
 	public static class Unit {

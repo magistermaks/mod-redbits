@@ -19,6 +19,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicR
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -98,6 +99,7 @@ public class RedBits implements ModInitializer {
 	public final static Block TIMER = new TimerBlock(AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().sounds(BlockSoundGroup.WOOD));
 	public final static Block BRIDGE = new BridgeBlock(AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().sounds(BlockSoundGroup.WOOD));
 	public final static Block PROJECTOR = new ProjectorBlock(AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().sounds(BlockSoundGroup.WOOD));
+	public final static Block CROSS = new CrossBlock(AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().sounds(BlockSoundGroup.WOOD));
 
 	// Pressure Plates
 	public final static Block OBSIDIAN_PRESSURE_PLATE = new ComplexPressurePlateBlock(COLLISION_CONDITION_PLAYERS, AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().noCollision().strength(0.5F));
@@ -148,6 +150,7 @@ public class RedBits implements ModInitializer {
 		register("timer", TIMER, gates);
 		register("bridge", BRIDGE, gates);
 		register("projector", PROJECTOR, gates);
+		register("cross", CROSS, gates);
 
 		register("emitter", REDSTONE_EMITTER, cubes);
 		register("vision_sensor", VISION_SENSOR, cubes);

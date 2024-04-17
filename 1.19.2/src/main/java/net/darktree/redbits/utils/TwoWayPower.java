@@ -7,15 +7,17 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 public enum TwoWayPower implements StringIdentifiable {
-	FRONT("front", Direction.AxisDirection.POSITIVE),
-	BACK("back", Direction.AxisDirection.NEGATIVE),
-	NONE("none", null);
+	FRONT("front", true, Direction.AxisDirection.POSITIVE),
+	BACK("back", true, Direction.AxisDirection.NEGATIVE),
+	NONE("none", false, null);
 
 	private final String name;
+	private final boolean powered;
 	private final Direction.AxisDirection direction;
 
-	TwoWayPower(String name, Direction.AxisDirection direction) {
+	TwoWayPower(String name, boolean powered, Direction.AxisDirection direction) {
 		this.name = name;
+		this.powered = powered;
 		this.direction = direction;
 	}
 
@@ -25,6 +27,10 @@ public enum TwoWayPower implements StringIdentifiable {
 
 	public boolean isAligned(Direction facing) {
 		return direction != null && direction == facing.getDirection();
+	}
+
+	public boolean any() {
+		return powered;
 	}
 
 	public Direction asDirection(Direction.Axis axis) {

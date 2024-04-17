@@ -1,0 +1,12 @@
+{
+	"credit": "Made with Blockbench by magistermaks",
+	"parent": "redbits:block/cross/base",
+	"textures": {
+		"torch_x_back": "block/redstone_torch",
+		"torch_x_front": "block/redstone_torch_off",
+		"torch_z_back": "block/redstone_torch",
+		"torch_z_front": "block/redstone_torch_off",
+		"top": "redbits:block/cross_on_on",
+		"torch": "minecraft:block/redstone_torch"
+	}
+}
