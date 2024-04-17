@@ -11,6 +11,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -23,33 +24,50 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
 		super(settings);
 	}
 
+	@Unique
+	private boolean verified = false;
+
+	@Unique
+	private boolean isValidTarget() {
+		return this.getClass().equals(JukeboxBlock.class);
+	}
+
 	@Inject(at = @At("TAIL"), method = "<init>")
 	private void init(AbstractBlock.Settings settings, CallbackInfo info) {
-		setDefaultState(this.stateManager.getDefaultState().with(JukeboxBlock.HAS_RECORD, false).with(Properties.POWERED, false));
+		BlockState state = this.stateManager.getDefaultState();
+
+		if (isValidTarget() && state.contains(Properties.POWERED)) {
+			setDefaultState(state.with(JukeboxBlock.HAS_RECORD, false).with(Properties.POWERED, false));
+			verified = true;
+		} else {
+			RedBits.LOGGER.error("Skipped RedBits init in JukeboxBlockMixin, verify failed for: '" + this.getClass().getName() + "'. Was the class inherited from?");
+		}
 	}
 
 	@Inject(at = @At("TAIL"), method = "appendProperties")
 	public void appendProperties(StateManager.Builder<Block, BlockState> builder, CallbackInfo info) {
-		builder.add(Properties.POWERED);
+		if (isValidTarget()) {
+			builder.add(Properties.POWERED);
+		}
 	}
 
 	@Inject(at = @At("HEAD"), method = "emitsRedstonePower", cancellable = true)
 	public void emitsRedstonePower(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-		if (RedBits.CONFIG.jukebox_integration) {
+		if (RedBits.CONFIG.jukebox_integration && verified) {
 			cir.setReturnValue(false);
 		}
 	}
 
 	@Inject(at = @At("HEAD"), method = "getWeakRedstonePower", cancellable = true)
 	public void getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction, CallbackInfoReturnable<Integer> cir) {
-		if (RedBits.CONFIG.jukebox_integration) {
+		if (RedBits.CONFIG.jukebox_integration && verified) {
 			cir.setReturnValue(0);
 		}
 	}
 
 	@Override
 	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
-		if (!world.isClient) {
+		if (!world.isClient && verified) {
 			boolean power = world.isReceivingRedstonePower(pos);
 
 			if (power) {
@@ -69,7 +87,7 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
 
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		if (RedBits.CONFIG.jukebox_integration) {
+		if (RedBits.CONFIG.jukebox_integration && verified) {
 			if (world.getBlockEntity(pos) instanceof JukeboxBlockEntityInvoker entity) {
 				entity.redbits_invokeStartPlaying();
 			}
