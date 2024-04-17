@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "redbits:item/cross"
+    "layer0": "redbits:item/junction"
   }
 }

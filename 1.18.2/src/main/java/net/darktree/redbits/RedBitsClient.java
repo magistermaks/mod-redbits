@@ -31,7 +31,7 @@ public class RedBitsClient implements ClientModInitializer {
 		cutout(RedBits.TIMER);
 		cutout(RedBits.BRIDGE);
 		cutout(RedBits.PROJECTOR);
-		cutout(RedBits.CROSS);
+		cutout(RedBits.JUNCTION);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> RedstoneWireBlock.getWireColor(1), RedBits.REDSTONE_EMITTER);
 		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> RedstoneWireBlock.getWireColor(state.get(EmitterBlock.POWER)), RedBits.REDSTONE_EMITTER);
@@ -51,6 +51,8 @@ public class RedBitsClient implements ClientModInitializer {
 		MessageInjector.inject("VGhlIG5vYmxlIGJlbmVmYWN0b3JzPyBHb25lLg==");
 		MessageInjector.inject("MDkgRjkh");
 		MessageInjector.inject("WW91IHdvbid0IGV2ZW4gZGllIGhvcnJpYmx5IQ==");
+		MessageInjector.inject("TW9zdCBWZXhpbmcgUGFyc2Uh");
+		MessageInjector.inject("QWxzbyBUcnkgU3BhY2UgU2hpZnRlciE=");
 
 		if (!PatchouliProxy.isModLoaded()) {
 			MessageInjector.inject("VHJ5IHdpdGggUGF0Y2hvdWxpIQ==");

@@ -1,0 +1,31 @@
+{
+    "variants": {
+        "x_power=none,z_power=none": {
+            "model": "redbits:block/junction/none-none"
+        },
+        "x_power=front,z_power=none": {
+            "model": "redbits:block/junction/front-none"
+        },
+        "x_power=back,z_power=none": {
+            "model": "redbits:block/junction/back-none"
+        },
+		"x_power=none,z_power=front": {
+            "model": "redbits:block/junction/none-front"
+        },
+        "x_power=front,z_power=front": {
+            "model": "redbits:block/junction/front-front"
+        },
+        "x_power=back,z_power=front": {
+            "model": "redbits:block/junction/back-front"
+        },
+		"x_power=none,z_power=back": {
+            "model": "redbits:block/junction/none-back"
+        },
+        "x_power=front,z_power=back": {
+            "model": "redbits:block/junction/front-back"
+        },
+        "x_power=back,z_power=back": {
+            "model": "redbits:block/junction/back-back"
+        }
+    }
+}

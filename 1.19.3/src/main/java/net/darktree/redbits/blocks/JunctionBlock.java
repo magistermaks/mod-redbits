@@ -3,27 +3,20 @@ package net.darktree.redbits.blocks;
 import net.darktree.redbits.utils.TwoWayPower;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.tick.TickPriority;
 
 @SuppressWarnings("deprecation")
-public class CrossBlock extends BridgeBlock {
+public class JunctionBlock extends BridgeBlock {
 
 	private static final Direction[] TARGETS = new Direction[] {Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.UP};
 
-	public CrossBlock(Settings settings) {
+	public JunctionBlock(Settings settings) {
 		super(settings);
 	}
 

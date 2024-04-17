@@ -1,6 +1,6 @@
 {
-	"name": "Cross Gate",
-	"icon": "redbits:cross",
+	"name": "Junction Gate",
+	"icon": "redbits:junction",
 	"category": "redbits:gates",
 	"read_by_default": true,
 	"pages": [
@@ -10,8 +10,8 @@
 		},
 		{
 			"type": "patchouli:crafting",
-			"recipe": "redbits:cross",
-			"title": "Cross"
+			"recipe": "redbits:junction",
+			"title": "junction"
 		}
 	]
 }

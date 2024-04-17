@@ -12,11 +12,11 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 @SuppressWarnings("deprecation")
-public class CrossBlock extends BridgeBlock {
+public class JunctionBlock extends BridgeBlock {
 
 	private static final Direction[] TARGETS = new Direction[] {Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.UP};
 
-	public CrossBlock(Settings settings) {
+	public JunctionBlock(Settings settings) {
 		super(settings);
 	}
 

@@ -7,16 +7,17 @@ import net.minecraft.block.BlockState;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 @SuppressWarnings("deprecation")
-public class CrossBlock extends BridgeBlock {
+public class JunctionBlock extends BridgeBlock {
 
 	private static final Direction[] TARGETS = new Direction[] {Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.UP};
 
-	public CrossBlock(Settings settings) {
+	public JunctionBlock(Settings settings) {
 		super(settings);
 	}
 

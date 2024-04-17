@@ -10,6 +10,6 @@
         "redbits:timer",
         "redbits:bridge",
         "redbits:projector",
-        "redbits:cross"
+        "redbits:junction"
     ]
 }

@@ -31,7 +31,7 @@
     "block.redbits.t_flip_flop": "Przerzutnik",
     "block.redbits.emitter": "Emiter",
 	"block.redbits.bridge": "Mostek",
-    "block.redbits.cross": "Skrzyżowanie",
+    "block.redbits.junction": "Węzeł",
     "block.redbits.projector": "Projektor",
     "block.redbits.vision_sensor": "Czujnik wzroku",
     "block.redbits.inverter": "Odwracacz",

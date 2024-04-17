@@ -1,6 +1,6 @@
 {
-	"name": "Skrzyżowanie",
-	"icon": "redbits:cross",
+	"name": "Węzeł",
+	"icon": "redbits:junction",
 	"category": "redbits:gates",
 	"read_by_default": true,
 	"pages": [
@@ -10,8 +10,8 @@
 		},
 		{
 			"type": "patchouli:crafting",
-			"recipe": "redbits:cross",
-			"title": "Skrzyżowanie"
+			"recipe": "redbits:junction",
+			"title": "Węzeł"
 		}
 	]
 }
