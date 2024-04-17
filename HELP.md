@@ -42,6 +42,19 @@ Works like vanilla repeater but doesn't have timing control,
 (delay is always equal 1 redstone tick) and allows signals to
 pass in both directions.
 
+**Projector**  
+Works like a redstone receiver and transmitter, a pair of those
+gates can be used for short-range wireless communications.
+First gate, when powered, projects power forward, by a distance that
+depends on the strength of the input signal (1 redstone power level - 1 block forward),
+when that projection aligns with another projector gate it in turn activates and outputs a signal.
+
+**Bridge**  
+Works similarly to the Two Way Repeater. It allows two signals to pass over each other.
+
+**Cross**  
+Works similarly to the Bridge, but when two signals cross it at the same time it emits a signal upwards, effectively working like a 'AND' logic gate.
+
 ## Input
 
 **Large Buttons**  

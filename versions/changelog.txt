@@ -1,4 +1,12 @@
 
+1.16.4 <2024/04/17>
+    - Fixed some misplaced pixels in the Two-Way Repeater Texture
+    - Fixed version requirements that made the mod load on unsupported version and do nothing
+    - Added tooltips to the mod settings
+    - Added advancements to guide survival players
+    - Added the Cross Gate
+    - Added the ability to CTRL-Pick the Emitter (saving the configured power level)
+
 1.16.3 <2024/03/28>
     - Fixed one translation error in en_us
     - Fixed crafting recipes appearing in the wrong category
