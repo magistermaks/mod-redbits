@@ -19,7 +19,8 @@
 			"translate": "advancements.redbits.redstone.redstone.description"
 		},
 		"icon": {
-			"item": "minecraft:redstone"
+			"item": "minecraft:redstone",
+			"id": "minecraft:redstone"
 		},
 		"title": {
 			"translate": "advancements.redbits.redstone.redstone.title"

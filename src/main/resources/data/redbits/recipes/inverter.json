@@ -13,7 +13,8 @@
     }
   },
   "result": {
-    "item": "redbits:inverter"
+    "item": "redbits:inverter",
+    "id": "redbits:inverter"
   },
   "category": "redstone"
 }

@@ -10,7 +10,8 @@
     }
   },
   "result": {
-    "item": "redbits:warped_large_button"
+    "item": "redbits:warped_large_button",
+    "id": "redbits:warped_large_button"
   },
   "category": "redstone"
 }

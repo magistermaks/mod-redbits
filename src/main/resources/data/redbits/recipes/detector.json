@@ -20,7 +20,8 @@
     }
   },
   "result": {
-    "item": "redbits:detector"
+    "item": "redbits:detector",
+    "id": "redbits:detector"
   },
   "category": "redstone"
 }

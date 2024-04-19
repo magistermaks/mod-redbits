@@ -19,7 +19,8 @@
 			"translate": "advancements.redbits.redstone.quartz.description"
 		},
 		"icon": {
-			"item": "minecraft:quartz"
+			"item": "minecraft:quartz",
+			"id": "redbits:quartz"
 		},
 		"title": {
 			"translate": "advancements.redbits.redstone.quartz.title"

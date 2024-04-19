@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'fabric-loom' version '1.6-SNAPSHOT'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -24,6 +24,7 @@ dependencies {
 	include project(path: ":1.20.1", configuration: "namedElements")
 	include project(path: ":1.20.2", configuration: "namedElements")
 	include project(path: ":1.20.4", configuration: "namedElements")
+	include project(path: ":1.20.5", configuration: "namedElements")
 }
 
 processResources {

@@ -11,7 +11,8 @@
 			"translate": "advancements.redbits.redstone.emitter.description"
 		},
 		"icon": {
-			"item": "redbits:emitter"
+			"item": "redbits:emitter",
+			"id": "redbits:emitter"
 		},
 		"title": {
 			"translate": "advancements.redbits.redstone.emitter.title"

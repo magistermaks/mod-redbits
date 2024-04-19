@@ -13,7 +13,8 @@
 			"translate": "advancements.redbits.redstone.cross.description"
 		},
 		"icon": {
-			"item": "redbits:bridge"
+			"item": "redbits:bridge",
+			"id": "redbits:bridge"
 		},
 		"title": {
 			"translate": "advancements.redbits.redstone.cross.title"
@@ -26,7 +27,8 @@
 	],
 	"rewards": {
 		"recipes": [
-			"redbits:junction"
+			"redbits:junction",
+			"redbits:two_way_repeater_from_bridge"
 		]
 	},
 	"sends_telemetry_event": false

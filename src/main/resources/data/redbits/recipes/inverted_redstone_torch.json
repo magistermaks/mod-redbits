@@ -14,7 +14,8 @@
     }
   },
   "result": {
-    "item": "redbits:inverted_redstone_torch"
+    "item": "redbits:inverted_redstone_torch",
+    "id": "redbits:inverted_redstone_torch"
   },
   "category": "redstone"
 }

@@ -1,0 +1,11 @@
+{
+	"name": "text.patchouli.redbits.guide.name",
+	"model": "redbits:guide",
+	"landing_text": "text.patchouli.redbits.guide.text",
+	"show_progress": false,
+	"show_toasts": false,
+	"use_resource_pack": true,
+	"dont_generate_book": true,
+	"custom_book_item": "redbits:guide",
+	"version": 1
+}

@@ -10,7 +10,8 @@
     }
   },
   "result": {
-    "item": "redbits:acacia_large_button"
+    "item": "redbits:acacia_large_button",
+    "id": "redbits:acacia_large_button"
   },
   "category": "redstone"
 }

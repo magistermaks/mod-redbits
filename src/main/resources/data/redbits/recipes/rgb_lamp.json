@@ -16,7 +16,7 @@
   ],
   "result": {
     "item": "redbits:rgb_lamp",
-    "count": 1
+    "id": "redbits:rgb_lamp"
   },
   "category": "redstone"
 }

@@ -1,0 +1,4 @@
+accessWidener   v1   named
+
+# Remove package-private from AbstractMinecartEntity.getItem() abstract method
+extendable   method   net/minecraft/entity/vehicle/VehicleEntity   asItem   ()Lnet/minecraft/item/Item;

@@ -17,7 +17,8 @@
     }
   },
   "result": {
-    "item": "redbits:t_flip_flop"
+    "item": "redbits:t_flip_flop",
+    "id": "redbits:t_flip_flop"
   },
   "category": "redstone"
 }

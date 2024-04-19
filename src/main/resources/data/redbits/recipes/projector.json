@@ -20,7 +20,8 @@
     }
   },
   "result": {
-    "item": "redbits:projector"
+    "item": "redbits:projector",
+    "id": "redbits:projector"
   },
   "category": "redstone"
 }

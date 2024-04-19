@@ -10,7 +10,8 @@
     }
   },
   "result": {
-    "item": "redbits:dark_oak_large_button"
+    "item": "redbits:dark_oak_large_button",
+    "id": "redbits:dark_oak_large_button"
   },
   "category": "redstone"
 }

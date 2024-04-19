@@ -10,7 +10,8 @@
     }
   },
   "result": {
-    "item": "redbits:polished_blackstone_large_button"
+    "item": "redbits:polished_blackstone_large_button",
+    "id": "redbits:polished_blackstone_large_button"
   },
   "category": "redstone"
 }

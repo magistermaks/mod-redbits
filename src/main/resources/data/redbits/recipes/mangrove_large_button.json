@@ -10,7 +10,8 @@
     }
   },
   "result": {
-    "item": "redbits:mangrove_large_button"
+    "item": "redbits:mangrove_large_button",
+    "id": "redbits:mangrove_large_button"
   },
   "category": "redstone"
 }

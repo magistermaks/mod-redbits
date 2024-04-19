@@ -10,7 +10,8 @@
     }
   },
   "result": {
-    "item": "redbits:stone_large_button"
+    "item": "redbits:stone_large_button",
+    "id": "redbits:stone_large_button"
   },
   "category": "redstone"
 }

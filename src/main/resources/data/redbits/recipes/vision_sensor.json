@@ -20,7 +20,8 @@
     }
   },
   "result": {
-    "item": "redbits:vision_sensor"
+    "item": "redbits:vision_sensor",
+    "id": "redbits:vision_sensor"
   },
   "category": "redstone"
 }

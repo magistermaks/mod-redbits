@@ -11,7 +11,8 @@
 			"translate": "advancements.redbits.redstone.sight.description"
 		},
 		"icon": {
-			"item": "redbits:vision_sensor"
+			"item": "redbits:vision_sensor",
+			"id": "redbits:vision_sensor"
 		},
 		"title": {
 			"translate": "advancements.redbits.redstone.sight.title"

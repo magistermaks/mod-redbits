@@ -13,7 +13,8 @@
 			"translate": "advancements.redbits.redstone.inverted.description"
 		},
 		"icon": {
-			"item": "redbits:inverted_redstone_torch"
+			"item": "redbits:inverted_redstone_torch",
+			"id": "redbits:inverted_redstone_torch"
 		},
 		"title": {
 			"translate": "advancements.redbits.redstone.inverted.title"

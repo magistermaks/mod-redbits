@@ -17,7 +17,8 @@
     }
   },
   "result": {
-    "item": "redbits:latch"
+    "item": "redbits:latch",
+    "id": "redbits:latch"
   },
   "category": "redstone"
 }

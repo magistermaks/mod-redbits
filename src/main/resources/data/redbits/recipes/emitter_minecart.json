@@ -13,7 +13,8 @@
     }
   },
   "result": {
-    "item": "redbits:emitter_minecart"
+    "item": "redbits:emitter_minecart",
+    "id": "redbits:emitter_minecart"
   },
   "category": "redstone"
 }

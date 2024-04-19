@@ -10,7 +10,8 @@
     }
   },
   "result": {
-    "item": "redbits:crimson_large_button"
+    "item": "redbits:crimson_large_button",
+    "id": "redbits:crimson_large_button"
   },
   "category": "redstone"
 }

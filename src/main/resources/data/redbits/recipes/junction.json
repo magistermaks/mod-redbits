@@ -17,7 +17,8 @@
     }
   },
   "result": {
-    "item": "redbits:junction"
+    "item": "redbits:junction",
+    "id": "redbits:junction"
   },
   "category": "redstone"
 }

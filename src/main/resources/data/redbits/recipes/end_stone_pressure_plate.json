@@ -9,7 +9,8 @@
     }
   },
   "result": {
-    "item": "redbits:end_stone_pressure_plate"
+    "item": "redbits:end_stone_pressure_plate",
+    "id": "redbits:end_stone_pressure_plate"
   },
   "category": "redstone"
 }

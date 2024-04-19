@@ -10,7 +10,8 @@
     }
   },
   "result": {
-    "item": "redbits:birch_large_button"
+    "item": "redbits:birch_large_button",
+    "id": "redbits:birch_large_button"
   },
   "category": "redstone"
 }

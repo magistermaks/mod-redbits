@@ -14,7 +14,8 @@
     }
   },
   "result": {
-    "item": "redbits:emitter"
+    "item": "redbits:emitter",
+    "id": "redbits:emitter"
   },
   "category": "redstone"
 }

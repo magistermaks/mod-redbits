@@ -9,7 +9,8 @@
     }
   ],
   "result": {
-    "item": "redbits:bridge"
+    "item": "redbits:bridge",
+    "id": "redbits:bridge"
   },
   "category": "redstone"
 }

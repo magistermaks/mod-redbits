@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "redbits:two_way_repeater",
   "pattern": [
     "1 1",
     "333",
@@ -17,7 +18,8 @@
     }
   },
   "result": {
-    "item": "redbits:two_way_repeater"
+    "item": "redbits:two_way_repeater",
+    "id": "redbits:two_way_repeater"
   },
   "category": "redstone"
 }

@@ -9,7 +9,8 @@
     }
   },
   "result": {
-    "item": "redbits:obsidian_pressure_plate"
+    "item": "redbits:obsidian_pressure_plate",
+    "id": "redbits:obsidian_pressure_plate"
   },
   "category": "redstone"
 }
