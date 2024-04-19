@@ -2,9 +2,6 @@ plugins {
 	id 'fabric-loom' version '1.6-SNAPSHOT'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
-
 archivesBaseName = project.archives_base_name + "-" + project.minecraft_version
 version = project.mod_version
 group = project.maven_group
@@ -83,12 +80,12 @@ processResources {
 	}
 }
 
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
-}
-
 java {
 	withSourcesJar()
+
+	toolchain {
+		languageVersion.set(JavaLanguageVersion.of(17))
+	}
 }
 
 jar {

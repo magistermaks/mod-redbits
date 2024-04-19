@@ -2,9 +2,6 @@ plugins {
 	id 'fabric-loom' version '1.6-SNAPSHOT'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
-
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
@@ -17,14 +14,9 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.base_minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.base_yarn_mappings}:v2"
 
-	include project(path: ":1.18.2", configuration: "namedElements")
-	include project(path: ":1.19.2", configuration: "namedElements")
-	include project(path: ":1.19.3", configuration: "namedElements")
-	include project(path: ":1.19.4", configuration: "namedElements")
-	include project(path: ":1.20.1", configuration: "namedElements")
-	include project(path: ":1.20.2", configuration: "namedElements")
-	include project(path: ":1.20.4", configuration: "namedElements")
-	include project(path: ":1.20.5", configuration: "namedElements")
+	getGradle().includedBuilds.each { name ->
+		include project(path: ":" + name, configuration: "namedElements")
+	}
 }
 
 processResources {
@@ -38,12 +30,12 @@ processResources {
 	}
 }
 
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
-}
-
 java {
 	withSourcesJar()
+
+	toolchain {
+		languageVersion.set(JavaLanguageVersion.of(17))
+	}
 }
 
 jar {
