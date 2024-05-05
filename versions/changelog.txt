@@ -1,4 +1,8 @@
 
+1.16.5 <2024/05/05>
+    - Fixed invalid configuration, the previous version will be retracted
+    - Added support for 1.20.6
+
 1.16.4 <2024/04/17>
     - Fixed some misplaced pixels in the Two-Way Repeater Texture
     - Fixed version requirements that made the mod load on unsupported version and do nothing
