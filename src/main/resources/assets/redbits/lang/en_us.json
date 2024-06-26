@@ -51,6 +51,8 @@
     "item.redbits.emitter_minecart": "Minecart with Redstone Emitter",
     "item.redbits.guide": "RedBits Guide",
 
+    "entity.redbits.emitter_minecart": "Minecart with Redstone Emitter",
+
     "stat.redbits.interact_with_sight_sensor": "Sight Sensors Triggered",
     "stat.redbits.interact_with_redstone_emitter": "Redstone Emitters Adjusted",
 

@@ -51,6 +51,8 @@
     "item.redbits.emitter_minecart": "Wagonik z emiterem",
     "item.redbits.guide": "Przewodnik RedBits",
 
+    "entity.redbits.emitter_minecart": "Wagonik z emiterem",
+
     "stat.redbits.interact_with_sight_sensor": "Wyzwolone czujnik wzroku",
     "stat.redbits.interact_with_redstone_emitter": "Dostrojone emitery",
 
