@@ -82,6 +82,7 @@ public class RedBits implements ModInitializer {
 	public final static Block ACACIA_LARGE_BUTTON = new LargeButtonBlock(true, BlockSetType.ACACIA, AbstractBlock.Settings.create().noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY));
 	public final static Block DARK_OAK_LARGE_BUTTON = new LargeButtonBlock(true, BlockSetType.DARK_OAK, AbstractBlock.Settings.create().noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY));
 	public final static Block MANGROVE_LARGE_BUTTON = new LargeButtonBlock(true, BlockSetType.MANGROVE, AbstractBlock.Settings.create().noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY));
+	public final static Block CHERRY_LARGE_BUTTON = new LargeButtonBlock(true, BlockSetType.CHERRY, AbstractBlock.Settings.create().noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY));
 	public final static Block CRIMSON_LARGE_BUTTON = new LargeButtonBlock(true, BlockSetType.CRIMSON, AbstractBlock.Settings.create().noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY));
 	public final static Block WARPED_LARGE_BUTTON = new LargeButtonBlock(true, BlockSetType.WARPED, AbstractBlock.Settings.create().noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY));
 	public final static Block STONE_LARGE_BUTTON = new LargeButtonBlock(false, BlockSetType.STONE, AbstractBlock.Settings.create().noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY));
@@ -159,6 +160,7 @@ public class RedBits implements ModInitializer {
 		register("acacia_large_button", ACACIA_LARGE_BUTTON, buttons);
 		register("dark_oak_large_button", DARK_OAK_LARGE_BUTTON, buttons);
 		register("mangrove_large_button", MANGROVE_LARGE_BUTTON, buttons);
+		register("cherry_large_button", CHERRY_LARGE_BUTTON, buttons);
 		register("crimson_large_button", CRIMSON_LARGE_BUTTON, buttons);
 		register("warped_large_button", WARPED_LARGE_BUTTON, buttons);
 		register("stone_large_button", STONE_LARGE_BUTTON, buttons);

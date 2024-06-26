@@ -12,6 +12,11 @@
         {
             "id": "redbits:mangrove_large_button",
             "required": false
+        },
+
+        {
+            "id": "redbits:cherry_large_button",
+            "required": false
         }
     ]
 }
