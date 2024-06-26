@@ -4,14 +4,14 @@
     - Added support for 1.20.6
 
 1.16.4 <2024/04/17>
-    - Fixed some misplaced pixels in the Two-Way Repeater Texture
-    - Fixed version requirements that made the mod load on unsupported version and do nothing
-    - Updated some of the Ukrainian translations (unroman)
-    - Added tooltips to the mod settings
-    - Added advancements and recipe unlocks to guide survival players
-    - Added the Junction Gate
-    - Added the ability to CTRL-Pick the Emitter (saving the configured power level)
-    - Added support for 1.20.5
+	- Fixed some misplaced pixels in the Two-Way Repeater Texture
+	- Fixed version requirements that made the mod load on unsupported version and do nothing
+	- Updated some of the Ukrainian translations (unroman)
+	- Added tooltips to the mod settings
+	- Added advancements and recipe unlocks to guide survival players
+	- Added the Junction Gate
+	- Added the ability to CTRL-Pick the Emitter (saving the configured power level)
+	- Added support for 1.20.5
 
 1.16.3 <2024/03/28>
     - Fixed one translation error in en_us

@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "redbits-common",
+	"id": "redbits",
 	"version": "${version}",
 
 	"name": "Red Bits",
@@ -14,22 +14,30 @@
 		"issues": "https://github.com/magistermaks/mod-redbits/issues"
 	},
 
+	"accessWidener": "redbits.accesswidener",
 	"environment": "*",
-	"entrypoints": {},
-	"mixins": [],
-
-	"depends": {
-		"minecraft": ["1.18.0", "1.18.1", "1.18.2", "1.19.0", "1.19.1", "1.19.2", "1.19.3", "1.19.4", "1.20.0", "1.20.1", "1.20.2", "1.20.3", "1.20.4", "1.20.5", "1.20.6", "1.21"],
-		"fabric": "*"
+	"entrypoints": {
+		"main": [
+			"net.darktree.redbits.RedBits"
+		],
+		"client": [
+			"net.darktree.redbits.RedBitsClient"
+		],
+		"modmenu": [
+			"net.darktree.redbits.config.Menu"
+		]
 	},
 
-	"custom": {
-		"modmenu": {
-			"badges": ["library"],
-			"parent": {
-				"id": "redbits"
-			}
-		}
+	"mixins": [
+        "redbits.mixins.json"
+	],
+
+	"depends": {
+		"fabricloader": "*",
+		"fabric": "*",
+		"minecraft": ["1.21"],
+		"interference": "1.11.x",
+		"redbits-common": "*"
 	},
 
 	"recommends": {

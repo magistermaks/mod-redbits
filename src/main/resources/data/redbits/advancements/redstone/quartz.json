@@ -20,7 +20,7 @@
 		},
 		"icon": {
 			"item": "minecraft:quartz",
-			"id": "redbits:quartz"
+			"id": "minecraft:quartz"
 		},
 		"title": {
 			"translate": "advancements.redbits.redstone.quartz.title"
