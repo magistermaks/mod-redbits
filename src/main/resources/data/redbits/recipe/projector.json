@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 4 ",
+    "232",
+    "111"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:stone"
+    },
+    "2": {
+      "item": "minecraft:quartz"
+    },
+    "3": {
+      "item": "minecraft:redstone"
+    },
+    "4": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "result": {
+    "item": "redbits:projector",
+    "id": "redbits:projector"
+  },
+  "category": "redstone"
+}

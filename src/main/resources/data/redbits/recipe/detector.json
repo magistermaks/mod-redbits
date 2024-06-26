@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 4 ",
+    "131",
+    "222"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:redstone_torch"
+    },
+    "2": {
+      "item": "minecraft:stone"
+    },
+    "3": {
+      "item": "minecraft:quartz"
+    },
+    "4": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "redbits:detector",
+    "id": "redbits:detector"
+  },
+  "category": "redstone"
+}

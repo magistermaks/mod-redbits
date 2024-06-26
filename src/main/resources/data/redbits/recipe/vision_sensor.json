@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "121",
+    "232",
+    "141"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:cobblestone"
+    },
+    "2": {
+      "item": "minecraft:redstone"
+    },
+    "3": {
+      "item": "minecraft:ender_eye"
+    },
+    "4": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "result": {
+    "item": "redbits:vision_sensor",
+    "id": "redbits:vision_sensor"
+  },
+  "category": "redstone"
+}

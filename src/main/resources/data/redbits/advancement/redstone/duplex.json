@@ -1,0 +1,34 @@
+{
+	"parent": "redbits:redstone/redstone",
+	"criteria": {
+		"two_way_repeater": {
+			"conditions": {
+				"recipe_id": "redbits:two_way_repeater"
+			},
+			"trigger": "redbits:recipe_crafted"
+		}
+	},
+	"display": {
+		"description": {
+			"translate": "advancements.redbits.redstone.duplex.description"
+		},
+		"icon": {
+			"item": "redbits:two_way_repeater",
+			"id": "redbits:two_way_repeater"
+		},
+		"title": {
+			"translate": "advancements.redbits.redstone.duplex.title"
+		}
+	},
+	"requirements": [
+		[
+			"two_way_repeater"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"redbits:bridge"
+		]
+	},
+	"sends_telemetry_event": false
+}

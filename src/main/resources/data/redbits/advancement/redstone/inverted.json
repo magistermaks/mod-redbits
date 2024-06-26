@@ -1,0 +1,29 @@
+{
+	"parent": "redbits:redstone/redstone",
+	"criteria": {
+		"inverted_redstone_torch": {
+			"conditions": {
+				"recipe_id": "redbits:inverted_redstone_torch"
+			},
+			"trigger": "redbits:recipe_crafted"
+		}
+	},
+	"display": {
+		"description": {
+			"translate": "advancements.redbits.redstone.inverted.description"
+		},
+		"icon": {
+			"item": "redbits:inverted_redstone_torch",
+			"id": "redbits:inverted_redstone_torch"
+		},
+		"title": {
+			"translate": "advancements.redbits.redstone.inverted.title"
+		}
+	},
+	"requirements": [
+		[
+			"inverted_redstone_torch"
+		]
+	],
+	"sends_telemetry_event": false
+}

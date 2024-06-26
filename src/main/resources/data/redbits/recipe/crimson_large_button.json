@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:crimson_button"
+    }
+  },
+  "result": {
+    "item": "redbits:crimson_large_button",
+    "id": "redbits:crimson_large_button"
+  },
+  "category": "redstone"
+}

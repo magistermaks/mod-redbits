@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "1",
+    "2",
+    "3"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:redstone_torch"
+    },
+    "2": {
+      "item": "minecraft:quartz"
+    },
+    "3": {
+      "item": "redbits:bridge"
+    }
+  },
+  "result": {
+    "item": "redbits:junction",
+    "id": "redbits:junction"
+  },
+  "category": "redstone"
+}

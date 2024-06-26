@@ -1,0 +1,45 @@
+{
+	"parent": "minecraft:story/iron_tools",
+	"criteria": {
+		"redstone": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:redstone"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"display": {
+		"description": {
+			"translate": "advancements.redbits.redstone.redstone.description"
+		},
+		"icon": {
+			"item": "minecraft:redstone",
+			"id": "minecraft:redstone"
+		},
+		"title": {
+			"translate": "advancements.redbits.redstone.redstone.title"
+		}
+	},
+	"requirements": [
+		[
+			"redstone"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"redbits:two_way_repeater",
+			"redbits:emitter",
+			"redbits:emitter_minecart",
+			"redbits:inverter",
+			"redbits:latch",
+			"redbits:timer"
+		]
+	},
+	"sends_telemetry_event": false
+}

@@ -1,0 +1,27 @@
+{
+	"parent": "redbits:redstone/quartz",
+	"criteria": {
+		"sight": {
+			"conditions": {},
+			"trigger": "redbits:look_at_sensor"
+		}
+	},
+	"display": {
+		"description": {
+			"translate": "advancements.redbits.redstone.sight.description"
+		},
+		"icon": {
+			"item": "redbits:vision_sensor",
+			"id": "redbits:vision_sensor"
+		},
+		"title": {
+			"translate": "advancements.redbits.redstone.sight.title"
+		}
+	},
+	"requirements": [
+		[
+			"sight"
+		]
+	],
+	"sends_telemetry_event": false
+}

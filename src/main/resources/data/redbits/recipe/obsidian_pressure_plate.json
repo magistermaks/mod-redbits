@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "11"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "item": "redbits:obsidian_pressure_plate",
+    "id": "redbits:obsidian_pressure_plate"
+  },
+  "category": "redstone"
+}
