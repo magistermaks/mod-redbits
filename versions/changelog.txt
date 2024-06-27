@@ -1,7 +1,13 @@
 
+1.16.6 <2024/07/27>
+	- Added support for 1.21
+	- Added missing entity translation for Minecart with Redstone Emitter
+	- Added Large Cherry Buttons
+	- Fixed broken advancement
+
 1.16.5 <2024/05/05>
-    - Fixed invalid configuration, the previous version will be retracted
-    - Added support for 1.20.6
+	- Fixed invalid configuration, the previous version will be retracted
+	- Added support for 1.20.6
 
 1.16.4 <2024/04/17>
 	- Fixed some misplaced pixels in the Two-Way Repeater Texture
