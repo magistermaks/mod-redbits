@@ -1,0 +1,17 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "net.darktree.redbits.mixin",
+	"compatibilityLevel": "JAVA_16",
+	"mixins": [
+		"CampfireBlockMixin",
+		"JukeboxBlockMixin",
+		"RedstoneTorchBlockMixin",
+		"ServerPlayerEntityMixin"
+	],
+	"client": [
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
