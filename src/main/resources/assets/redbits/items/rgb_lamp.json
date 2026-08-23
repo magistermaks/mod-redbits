@@ -1,6 +1,12 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "redbits:block/rgb_lamp"
+    "model": "redbits:block/rgb_lamp",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": 5263444
+      }
+    ]
   }
 }
