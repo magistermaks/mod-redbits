@@ -5,30 +5,30 @@ import net.darktree.redbits.blocks.EmitterBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
+import net.minecraft.entity.vehicle.TntMinecartEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EmitterMinecartEntity extends AbstractMinecartEntity {
 
 	private static final TrackedData<Integer> POWER = DataTracker.registerData(EmitterMinecartEntity.class, TrackedDataHandlerRegistry.INTEGER);
-	//public static EntityType<?> EMITTER = null; // TODO AbstractMinecartEntity.Type.valueOf("EMITTER");
 
-	public EmitterMinecartEntity(EntityType<Entity> entity, World world) {
-		super(entity, world);
-	}
-
-	public EmitterMinecartEntity(World world, double x, double y, double z) {
-		super(RedBits.EMITTER_MINECART, world, x, y, z);
+	public EmitterMinecartEntity(EntityType<? extends EmitterMinecartEntity> type, World world) {
+		super(type, world);
 	}
 
 //	@Override
@@ -45,11 +45,11 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 		return RedBits.REDSTONE_EMITTER.getDefaultState().with(EmitterBlock.POWER, getPower());
 	}
 
-//	@Override
-//	public ActionResult interact(PlayerEntity player, Hand hand) {
-//		this.cycle(player);
-//		return ActionResult.success(this.getWorld().isClient());
-//	}
+	@Override
+	public ActionResult interact(PlayerEntity player, Hand hand) {
+		this.cycle(player);
+		return ActionResult.SUCCESS;
+	}
 
 	@Override
 	public ItemStack getPickBlockStack() {
@@ -62,19 +62,17 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 		builder.add(POWER, 1);
 	}
 
-//	@Override
-//	protected void readCustomDataFromNbt(NbtCompound nbt) {
-//		super.readCustomDataFromNbt(nbt);
-//		if (nbt.contains("power", NbtElement.NUMBER_TYPE)) {
-//			setPower(nbt.getInt("power"));
-//		}
-//	}
-//
-//	@Override
-//	protected void writeCustomDataToNbt(NbtCompound nbt) {
-//		super.writeCustomDataToNbt(nbt);
-//		nbt.putInt("power", getPower());
-//	}
+	@Override
+	protected void readCustomData(ReadView view) {
+		super.readCustomData(view);
+		setPower(view.getInt("power", 0));
+	}
+
+	@Override
+	protected void writeCustomData(WriteView view) {
+		super.writeCustomData(view);
+		view.putInt("fuse", this.getPower());
+	}
 
 	private void cycle(PlayerEntity player) {
 		int power = EmitterBlock.interact(player, this.getWorld(), this.getBlockPos(), getPower());
@@ -88,7 +86,7 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 		return this.dataTracker.get(POWER);
 	}
 
-	public void setPower(int power) {
+	private void setPower(int power) {
 		this.dataTracker.set(POWER, power);
 	}
 

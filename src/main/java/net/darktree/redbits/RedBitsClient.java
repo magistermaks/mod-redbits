@@ -44,7 +44,7 @@ public class RedBitsClient implements ClientModInitializer {
 		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> ColorProvider.getColor(state.get(AnalogLampBlock.POWER)), RedBits.RGB_LAMP);
 
 		// minecart renderer
-//		EntityRendererRegistry.register(RedBits.EMITTER_MINECART, ctx -> new MinecartEntityRenderer<>(ctx, EntityModelLayers.TNT_MINECART));
+		EntityRendererRegistry.register(RedBits.EMITTER_MINECART, ctx -> new MinecartEntityRenderer(ctx, EntityModelLayers.TNT_MINECART));
 
 		// nothing to see here
 		// TODO

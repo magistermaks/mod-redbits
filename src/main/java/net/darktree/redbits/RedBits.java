@@ -14,10 +14,15 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
+import net.fabricmc.fabric.api.renderer.v1.render.RenderLayerHelper;
+import net.fabricmc.fabric.impl.client.rendering.BlockRenderLayerMapImpl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.EntityRenderers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -118,10 +123,11 @@ public class RedBits implements ModInitializer {
 	public final static Block END_STONE_PRESSURE_PLATE = registerBlock("end_stone_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_VILLAGER, MapColor.PALE_YELLOW));
 	public final static Block BASALT_PRESSURE_PLATE = registerBlock("basalt_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_PET, MapColor.BLACK));
 
-	// Entities, Java why can't I do it normally? Generics are a pain worse than templates
-	public static final EntityType<EmitterMinecartEntity> EMITTER_MINECART = (EntityType<EmitterMinecartEntity>) (Object) FabricEntityTypeBuilder
-			.create(SpawnGroup.MISC, EmitterMinecartEntity::new)
-			.dimensions(EntityDimensions.fixed(0.98f, 0.7f))
+	public static final EntityType<EmitterMinecartEntity> EMITTER_MINECART = EntityType.Builder.create(EmitterMinecartEntity::new, SpawnGroup.MISC)
+			.dropsNothing()
+			.dimensions(0.98F, 0.7F)
+			.passengerAttachments(0.1875F)
+			.maxTrackingRange(8)
 			.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(NAMESPACE, "emitter_minecart")));
 
 	// Other Components
