@@ -2,6 +2,7 @@ package net.darktree.redbits.item;
 
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.utils.PatchouliProxy;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,6 +22,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ProxyBookItem extends Item {
 
@@ -36,21 +38,19 @@ public class ProxyBookItem extends Item {
 		this.proxy = proxy;
 	}
 
-//	@Override
-//	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-//		if (proxy == null) tooltip.add(Text.translatable("message.redbits.patchouli").formatted(Formatting.DARK_RED));
-//	}
-//
-//	@Override
-//	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-//		ItemStack stack = player.getStackInHand(hand);
-//
-//		if (proxy != null && player instanceof ServerPlayerEntity serverPlayer) {
-//			proxy.openBook(serverPlayer, BOOK);
-//		}
-//
-//		// always returns success, even if there is no proxy
-//		return TypedActionResult.success(stack);
-//	}
+	@Override
+	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
+		if (proxy == null) tooltip.accept(Text.translatable("message.redbits.patchouli").formatted(Formatting.DARK_RED));
+	}
+
+	@Override
+	public ActionResult use(World world, PlayerEntity player, Hand hand) {
+		if (proxy != null && player instanceof ServerPlayerEntity serverPlayer) {
+			proxy.openBook(serverPlayer, BOOK);
+		}
+
+		// always returns success, even if there is no proxy
+		return ActionResult.SUCCESS;
+	}
 
 }

@@ -195,33 +195,29 @@ public class RedBits implements ModInitializer {
 		// Network
 		LOOK_AT_PACKET.register();
 
-		// Check is Patchouli is present in the mod list
-		if (FabricLoader.getInstance().isModLoaded("patchouli")) {
-			initializePatchouliCompatibility();
-		}
-
+		initializePatchouliCompatibility();
 		appendItemsToGroup();
 	}
 
 	private void initializePatchouliCompatibility() {
-		// TODO
-//		ItemStack stack = new ItemStack(GUIDE, 1);
-//
-//		if (CONFIG.add_guide_to_loot_tables) {
-//			LOGGER.info("Adding RedBits Patchouli guide book to loot tables...");
-//
+		ItemStack stack = new ItemStack(GUIDE, 1);
+
+		if (CONFIG.add_guide_to_loot_tables) {
+			LOGGER.info("Adding RedBits Patchouli guide book to loot tables...");
+
+			// TODO
 //			LootInjector.injectEntry(LootTables.STRONGHOLD_LIBRARY_CHEST.getValue(), stack, 40);
 //			LootInjector.injectEntry(LootTables.SPAWN_BONUS_CHEST.getValue(), stack, 90);
 //			LootInjector.injectEntry(LootTables.VILLAGE_CARTOGRAPHER_CHEST.getValue(), stack, 35);
-//		}
-//
-//		if (CONFIG.add_guide_to_creative_menu) {
-//			LOGGER.info("Adding RedBits Patchouli guide book to creative menu...");
-//
-//			ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> {
-//				content.add(stack);
-//			});
-//		}
+		}
+
+		if (CONFIG.add_guide_to_creative_menu) {
+			LOGGER.info("Adding RedBits Patchouli guide book to creative menu...");
+
+			ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> {
+				content.add(stack);
+			});
+		}
 	}
 
 	private static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory) {
