@@ -20,7 +20,7 @@ public abstract class CampfireBlockMixin extends BlockWithEntity implements Inve
 
 	@Override
 	public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
-		if (RedBits.CONFIG.campfire_integration && state.getClass().equals(CampfireBlock.class)) {
+		if (RedBits.CONFIG.campfire_integration && state.getBlock().getClass().equals(CampfireBlock.class)) {
 			return new CampfireInventory(world, pos);
 		}
 
