@@ -6,21 +6,12 @@
     "111"
   ],
   "key": {
-    "1": {
-      "item": "minecraft:stone"
-    },
-    "2": {
-      "item": "minecraft:quartz"
-    },
-    "3": {
-      "item": "minecraft:redstone"
-    },
-    "4": {
-      "item": "minecraft:amethyst_shard"
-    }
+    "1": "minecraft:stone",
+    "2": "minecraft:quartz",
+    "3": "minecraft:redstone",
+    "4": "minecraft:amethyst_shard"
   },
   "result": {
-    "item": "redbits:projector",
     "id": "redbits:projector"
   },
   "category": "redstone"

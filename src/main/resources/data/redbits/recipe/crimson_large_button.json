@@ -5,12 +5,9 @@
     "RR"
   ],
   "key": {
-    "R": {
-      "item": "minecraft:crimson_button"
-    }
+    "R": "minecraft:crimson_button"
   },
   "result": {
-    "item": "redbits:crimson_large_button",
     "id": "redbits:crimson_large_button"
   },
   "category": "redstone"

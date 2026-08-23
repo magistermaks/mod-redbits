@@ -6,15 +6,10 @@
     " 1 "
   ],
   "key": {
-    "1": {
-      "item": "minecraft:cobblestone"
-    },
-    "2": {
-      "item": "minecraft:redstone_block"
-    }
+    "1": "minecraft:cobblestone",
+    "2": "minecraft:redstone_block"
   },
   "result": {
-    "item": "redbits:emitter",
     "id": "redbits:emitter"
   },
   "category": "redstone"
