@@ -11,6 +11,7 @@ import net.darktree.redbits.network.C2SLookAtPacket;
 import net.darktree.redbits.utils.ParameterlessCriterion;
 import net.darktree.redbits.utils.RecipeCriterion;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
