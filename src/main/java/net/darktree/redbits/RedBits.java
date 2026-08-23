@@ -131,7 +131,7 @@ public class RedBits implements ModInitializer {
 	public final static Block VISION_SENSOR = registerBlock("vision_sensor", settings -> new VisionSensorBlock(settings.requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE).solid()));
 	public final static Block INVERTED_REDSTONE_TORCH = registerBlock("inverted_redstone_torch", settings -> new InvertedRedstoneTorchBlock(settings.pistonBehavior(PistonBehavior.DESTROY).noCollision().breakInstantly().luminance(n -> n.get(Properties.LIT) ? 7 : 0).sounds(BlockSoundGroup.WOOD)));
 	public final static Block INVERTED_REDSTONE_WALL_TORCH = registerBlock("inverted_redstone_wall_torch", settings -> new WallInvertedRedstoneTorchBlock(settings.pistonBehavior(PistonBehavior.DESTROY).noCollision().breakInstantly().luminance(n -> n.get(Properties.LIT) ? 7 : 0).sounds(BlockSoundGroup.WOOD)));
-	public final static Item EMITTER_MINECART_ITEM = registerItem("", settings -> new MinecartItem(EMITTER_MINECART, settings.maxCount(1)));
+	public final static Item EMITTER_MINECART_ITEM = registerItem("emitter_minecart", settings -> new MinecartItem(EMITTER_MINECART, settings.maxCount(1)));
 	public final static Item GUIDE = ProxyBookItem.createInstance();
 
 	// Statistics
@@ -148,7 +148,7 @@ public class RedBits implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		torches.add(new ItemStack(registerItem("inverted_redstone_torch", settings -> new VerticallyAttachableBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, Direction.DOWN, settings))));
+		torches.add(new ItemStack(registerItem("inverted_redstone_torch", settings -> new VerticallyAttachableBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, Direction.DOWN, settings.useBlockPrefixedTranslationKey()))));
 		carts.add(new ItemStack(EMITTER_MINECART_ITEM));
 
 		registerItem("two_way_repeater", TWO_WAY_REPEATER, gates);
@@ -240,12 +240,13 @@ public class RedBits implements ModInitializer {
 		return Registry.register(Registries.ITEM, key, factory.apply(settings));
 	}
 
-//	private void registerItem(String name, Item item, List<ItemStack> group) {
-//		group.add(new ItemStack(registerItem(name, settings -> new BlockItem(block, settings))));
-//	}
+	private void registerItem(String name, Item item, List<ItemStack> group) {
+		group.add(new ItemStack(item));
+		Registry.register(Registries.ITEM, Identifier.of(NAMESPACE, name), item);
+	}
 
 	private void registerItem(String name, Block block, List<ItemStack> group) {
-		group.add(new ItemStack(registerItem(name, settings -> new BlockItem(block, settings))));
+		group.add(new ItemStack(registerItem(name, settings -> new BlockItem(block, settings.useBlockPrefixedTranslationKey()))));
 	}
 
 	private void registerStat(Identifier id) {
