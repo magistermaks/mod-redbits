@@ -5,7 +5,7 @@
 			"conditions": {
 				"recipe_id": "redbits:two_way_repeater"
 			},
-			"trigger": "redbits:recipe_crafted"
+			"trigger": "minecraft:recipe_crafted"
 		}
 	},
 	"display": {

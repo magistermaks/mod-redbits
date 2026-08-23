@@ -5,7 +5,7 @@
 			"conditions": {
 				"recipe_id": "redbits:inverted_redstone_torch"
 			},
-			"trigger": "redbits:recipe_crafted"
+			"trigger": "minecraft:recipe_crafted"
 		}
 	},
 	"display": {

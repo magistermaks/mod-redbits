@@ -9,23 +9,14 @@ import net.darktree.redbits.entity.EmitterMinecartEntity;
 import net.darktree.redbits.item.ProxyBookItem;
 import net.darktree.redbits.network.C2SLookAtPacket;
 import net.darktree.redbits.utils.ParameterlessCriterion;
-import net.darktree.redbits.utils.RecipeCriterion;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
-import net.fabricmc.fabric.api.renderer.v1.render.RenderLayerHelper;
-import net.fabricmc.fabric.impl.client.rendering.BlockRenderLayerMapImpl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.entity.EntityRenderers;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.mob.HostileEntity;
@@ -49,7 +40,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -151,7 +141,6 @@ public class RedBits implements ModInitializer {
 	// Advancements
 	public static final ParameterlessCriterion LOOK_AT_SENSOR_CRITERION = Criteria.register("redbits:look_at_sensor", new ParameterlessCriterion());
 	public static final ParameterlessCriterion USE_REDSTONE_EMITTER_CRITERION = Criteria.register("redbits:use_redstone_emitter", new ParameterlessCriterion());
-	@Deprecated public static final RecipeCriterion RECIPE_CRAFTED_CRITERION = Criteria.register("redbits:recipe_crafted", new RecipeCriterion());
 
 	@Override
 	public void onInitialize() {
