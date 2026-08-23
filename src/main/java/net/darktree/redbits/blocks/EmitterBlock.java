@@ -2,7 +2,8 @@ package net.darktree.redbits.blocks;
 
 import net.darktree.redbits.RedBits;
 import net.minecraft.block.*;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -31,17 +32,8 @@ public class EmitterBlock extends Block {
 	protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
 		ItemStack stack = super.getPickStack(world, pos, state, false);
 
-		if (Screen.hasControlDown()) {
-			// TODO
-//			NbtCompound blockStateNbt = new NbtCompound();
-//			blockStateNbt.putInt("power", state.get(EmitterBlock.POWER));
-//			stack.setSubNbt(BlockItem.BLOCK_STATE_TAG_KEY, blockStateNbt);
-//
-//			NbtCompound displayNbt = new NbtCompound();
-//			NbtList loreNbt = new NbtList();
-//			loreNbt.add(NbtString.of("\"(+NBT)\""));
-//			displayNbt.put("Lore", loreNbt);
-//			stack.setSubNbt("display", displayNbt);
+		if (includeData) {
+			stack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT.with(POWER, state));
 		}
 
 		return stack;
