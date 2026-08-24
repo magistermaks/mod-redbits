@@ -11,8 +11,8 @@ import net.darktree.redbits.network.C2SLookAtPacket;
 import net.darktree.redbits.utils.ParameterlessCriterion;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
@@ -24,6 +24,10 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
+import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -200,22 +204,36 @@ public class RedBits implements ModInitializer {
 	}
 
 	private void initializePatchouliCompatibility() {
-		ItemStack stack = new ItemStack(GUIDE, 1);
 
 		if (CONFIG.add_guide_to_loot_tables) {
 			LOGGER.info("Adding RedBits Patchouli guide book to loot tables...");
 
-			// TODO
-//			LootInjector.injectEntry(LootTables.STRONGHOLD_LIBRARY_CHEST.getValue(), stack, 40);
-//			LootInjector.injectEntry(LootTables.SPAWN_BONUS_CHEST.getValue(), stack, 90);
-//			LootInjector.injectEntry(LootTables.VILLAGE_CARTOGRAPHER_CHEST.getValue(), stack, 35);
+			List<RegistryKey<LootTable>> tables = List.of(
+					LootTables.STRONGHOLD_LIBRARY_CHEST,
+					LootTables.SPAWN_BONUS_CHEST,
+					LootTables.VILLAGE_CARTOGRAPHER_CHEST
+			);
+
+			LootTableEvents.MODIFY.register((key, builder, source, registries) -> {
+
+				if (!source.isBuiltin()) {
+					return;
+				}
+
+				if (tables.stream().anyMatch(table -> table.equals(key))) {
+					LootPool.Builder pool = LootPool.builder()
+							.with(ItemEntry.builder(GUIDE));
+
+					builder.pool(pool);
+				}
+			});
 		}
 
 		if (CONFIG.add_guide_to_creative_menu) {
 			LOGGER.info("Adding RedBits Patchouli guide book to creative menu...");
 
 			ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> {
-				content.add(stack);
+				content.add(new ItemStack(GUIDE, 1));
 			});
 		}
 	}
