@@ -8,7 +8,8 @@
 		"JukeboxBlockMixin",
 		"RedstoneTorchBlockMixin",
 		"SimpleItemTooltipsMixin",
-		"SplashTextMixin"
+		"SplashTextMixin",
+		"RedstoneWireMixin"
 	],
 	"client": [
 	],
