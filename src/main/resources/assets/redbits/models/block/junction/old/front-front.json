@@ -7,12 +7,6 @@
 		"torch_z_back": "block/redstone_torch_off",
 		"torch_z_front": "block/redstone_torch",
 		"top": "redbits:block/junction_on_on",
-		"central": "block/redstone_torch",
-		"central_glow": "block/redstone_torch",
-
-		"torch_x_glow_back": "redbits:block/empty",
-		"torch_x_glow_front": "block/redstone_torch",
-		"torch_z_glow_back": "redbits:block/empty",
-		"torch_z_glow_front": "block/redstone_torch"
+		"torch": "minecraft:block/redstone_torch"
 	}
 }
