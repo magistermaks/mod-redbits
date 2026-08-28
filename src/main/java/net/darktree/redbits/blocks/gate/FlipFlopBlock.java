@@ -71,7 +71,7 @@ public class FlipFlopBlock extends AbstractRedstoneGateBlock implements Redstone
 
 			if (this.isTargetNotAligned(world, pos, state)) {
 				tickPriority = TickPriority.EXTREMELY_HIGH;
-			} else if (power) {
+			} else if (block) {
 				tickPriority = TickPriority.VERY_HIGH;
 			}
 
