@@ -1,5 +1,6 @@
 package net.darktree.redbits.blocks;
 
+import net.darktree.redbits.utils.RedstoneConnectable;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.particle.ParticleEffect;
@@ -16,8 +17,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
-public abstract class AbstractRedstoneGate extends Block implements net.darktree.redbits.utils.RedstoneConnectable {
+public abstract class AbstractRedstoneGate extends Block implements RedstoneConnectable {
 
 	public static final VoxelShape SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
 
@@ -107,7 +107,7 @@ public abstract class AbstractRedstoneGate extends Block implements net.darktree
 			world.removeBlock(pos, false);
 
 			for (Direction direction : Direction.values()) {
-				world.updateNeighborsAlways(pos.offset(direction), this, null); // TODO
+				world.updateNeighbors(pos.offset(direction), this);
 			}
 		}
 	}

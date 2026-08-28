@@ -41,9 +41,8 @@ public class BridgeBlock extends AbstractRedstoneGate {
 		builder.add(X_POWER, Z_POWER);
 	}
 
-	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		BlockState newState = state;
+	private BlockState getNextState(World world, BlockPos pos, BlockState state) {
+		BlockState updated = state;
 
 		for (PowerConfig config : CONFIGS) {
 			TwoWayPower power = state.get(config.property);
@@ -55,16 +54,23 @@ public class BridgeBlock extends AbstractRedstoneGate {
 			}
 
 			if (unlocked && next.hasPower()) {
-				newState = newState.with(config.property, next.getDirection());
+				updated = updated.with(config.property, next.getDirection());
 			}
 
 			if (!next.hasPower()) {
-				newState = newState.with(config.property, TwoWayPower.NONE);
+				updated = updated.with(config.property, TwoWayPower.NONE);
 			}
 		}
 
-		if (newState != state) {
-			world.setBlockState(pos, newState, 2);
+		return updated;
+	}
+
+	@Override
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+		BlockState updated = getNextState(world, pos, state);
+
+		if (updated != state) {
+			world.setBlockState(pos, updated, Block.NOTIFY_LISTENERS);
 		}
 	}
 
@@ -84,7 +90,9 @@ public class BridgeBlock extends AbstractRedstoneGate {
 
 	@Override
 	protected void updatePowered(World world, BlockPos pos, BlockState state) {
-		if (!world.getBlockTickScheduler().isQueued(pos, this)) {
+		BlockState next = getNextState(world, pos, state);
+
+		if ((next != state) && !world.getBlockTickScheduler().isQueued(pos, this)) {
 			world.scheduleBlockTick(pos, this, this.getUpdateDelayInternal(), TickPriority.HIGH);
 		}
 	}
