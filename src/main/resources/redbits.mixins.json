@@ -9,7 +9,9 @@
 		"RedstoneTorchBlockMixin",
 		"SimpleItemTooltipsMixin",
 		"SplashTextMixin",
-		"RedstoneWireMixin"
+		"RedstoneWireMixin",
+		"ItemFrameEntityMixin",
+		"AbstractDecorationEntityMixin"
 	],
 	"client": [
 	],
