@@ -1,6 +1,7 @@
-package net.darktree.redbits.blocks;
+package net.darktree.redbits.blocks.gate;
 
 import net.darktree.redbits.RedBits;
+import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
@@ -37,7 +38,7 @@ public class TimerBlock extends FlipFlopBlock {
 		if (player == null || player.getAbilities().allowModifyWorld) {
 			world.setBlockState(pos, state.cycle(DELAY));
 
-			AbstractRedstoneGate.playClickSound(world, pos, RedBits.TIMER_CLICK, true);
+			CustomRedstoneGate.playClickSound(world, pos, RedBits.TIMER_CLICK, true);
 			return ActionResult.SUCCESS;
 		}
 
@@ -51,7 +52,7 @@ public class TimerBlock extends FlipFlopBlock {
 				world.scheduleBlockTick(pos, this, getUpdateDelayInternal(state), TickPriority.HIGH);
 			}
 		} else {
-			world.setBlockState(pos, state.with(INPUT, false), 2);
+			world.setBlockState(pos, state.with(INPUT, false), Block.NOTIFY_LISTENERS);
 		}
 	}
 
@@ -59,14 +60,14 @@ public class TimerBlock extends FlipFlopBlock {
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 		if (hasPower(world, pos, state)) {
 			if (state.get(INPUT)) {
-				world.setBlockState(pos, state.cycle(POWERED), 2);
+				world.setBlockState(pos, state.cycle(POWERED), Block.NOTIFY_LISTENERS);
 			} else {
-				world.setBlockState(pos, state.with(INPUT, true), 2);
+				world.setBlockState(pos, state.with(INPUT, true), Block.NOTIFY_LISTENERS);
 			}
 
 			world.scheduleBlockTick(pos, this, (int) Math.pow(2, state.get(DELAY)), TickPriority.HIGH);
 		} else {
-			world.setBlockState(pos, state.with(INPUT, false).with(POWERED, false), 2);
+			world.setBlockState(pos, state.with(INPUT, false).with(POWERED, false), Block.NOTIFY_LISTENERS);
 		}
 	}
 
@@ -74,7 +75,7 @@ public class TimerBlock extends FlipFlopBlock {
 	@Environment(EnvType.CLIENT)
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 		if (state.get(POWERED)) {
-			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING), false, -5);
+			CustomRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING), false, -5);
 		}
 	}
 

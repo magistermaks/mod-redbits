@@ -1,4 +1,4 @@
-package net.darktree.redbits.blocks;
+package net.darktree.redbits.blocks.custom;
 
 import net.darktree.redbits.utils.TwoWayPower;
 import net.fabricmc.api.EnvType;
@@ -18,8 +18,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.tick.TickPriority;
 
-@SuppressWarnings("deprecation")
-public class BridgeBlock extends AbstractRedstoneGate {
+public class BridgeBlock extends CustomRedstoneGate {
 
 	public static final EnumProperty<TwoWayPower> X_POWER = EnumProperty.of("x_power", TwoWayPower.class);
 	public static final EnumProperty<TwoWayPower> Z_POWER = EnumProperty.of("z_power", TwoWayPower.class);
@@ -129,7 +128,7 @@ public class BridgeBlock extends AbstractRedstoneGate {
 		TwoWayPower power = state.get(config.property);
 
 		if (power != TwoWayPower.NONE) {
-			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, power.asDirection(config.axis), false, -5);
+			CustomRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, power.asDirection(config.axis), false, -5);
 		}
 	}
 

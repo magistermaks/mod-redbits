@@ -1,4 +1,4 @@
-package net.darktree.redbits.blocks;
+package net.darktree.redbits.blocks.custom;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,8 +21,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-@SuppressWarnings("deprecation")
-public class ProjectorBlock extends AbstractRedstoneGate {
+public class ProjectorBlock extends CustomRedstoneGate {
 
 	public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 	public static final IntProperty POWER = IntProperty.of("power", 0, 2);
@@ -61,9 +60,9 @@ public class ProjectorBlock extends AbstractRedstoneGate {
 
 			if (target.getBlock() instanceof ProjectorBlock block) {
 				block.ping(target, world, location);
-				AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING).getOpposite(), true, -5);
+				CustomRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING).getOpposite(), true, -5);
 			} else {
-				AbstractRedstoneGate.spawnSimpleParticles(ParticleTypes.SMOKE, world, pos, random, state.get(FACING).getOpposite(), true, -5);
+				CustomRedstoneGate.spawnSimpleParticles(ParticleTypes.SMOKE, world, pos, random, state.get(FACING).getOpposite(), true, -5);
 			}
 
 			schedule = true;
@@ -125,7 +124,7 @@ public class ProjectorBlock extends AbstractRedstoneGate {
 	@Environment(EnvType.CLIENT)
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 		if (state.get(POWER) > 0) {
-			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING).getOpposite(), false, -5);
+			CustomRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING).getOpposite(), false, -5);
 		}
 	}
 

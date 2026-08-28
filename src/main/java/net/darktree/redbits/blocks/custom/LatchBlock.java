@@ -1,11 +1,10 @@
-package net.darktree.redbits.blocks;
+package net.darktree.redbits.blocks.custom;
 
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.utils.FacingDirection;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.DustParticleEffect;
@@ -14,7 +13,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -23,7 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.tick.TickPriority;
 
 @SuppressWarnings("deprecation")
-public class LatchBlock extends AbstractRedstoneGate {
+public class LatchBlock extends CustomRedstoneGate {
 
 	public static final EnumProperty<FacingDirection> POWER = EnumProperty.of("power", FacingDirection.class);
 	public static final EnumProperty<Direction.Axis> AXIS = Properties.HORIZONTAL_AXIS;
@@ -72,16 +70,13 @@ public class LatchBlock extends AbstractRedstoneGate {
 	}
 
 	@Override
-	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-		if (player == null || player.getAbilities().allowModifyWorld) {
-			FacingDirection facing = state.get(POWER);
-			world.setBlockState(pos, state.with(POWER, facing.other()));
+	protected ActionResult onClicked(BlockState state, World world, BlockPos pos) {
+		FacingDirection facing = state.get(POWER);
+		world.setBlockState(pos, state.with(POWER, facing.other()));
 
-			AbstractRedstoneGate.playClickSound(world, pos, RedBits.LATCH_CLICK, facing.asBoolean());
-			this.updatePowered(world, pos, state);
-			return ActionResult.SUCCESS;
-		}
-		return super.onUse(state, world, pos, player, hit);
+		CustomRedstoneGate.playClickSound(world, pos, RedBits.LATCH_CLICK, facing.asBoolean());
+		this.updatePowered(world, pos, state);
+		return ActionResult.SUCCESS;
 	}
 
 	@Override
@@ -123,7 +118,7 @@ public class LatchBlock extends AbstractRedstoneGate {
 	@Override
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 		Direction direction = Direction.from(state.get(AXIS), state.get(POWER).asAxisDirection()).rotateYClockwise();
-		AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, direction, false, -5);
+		CustomRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, direction, false, -5);
 	}
 
 }

@@ -1,12 +1,15 @@
-package net.darktree.redbits.blocks;
+package net.darktree.redbits.blocks.custom;
 
 import net.darktree.redbits.utils.RedstoneConnectable;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -17,11 +20,11 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractRedstoneGate extends Block implements RedstoneConnectable {
+public abstract class CustomRedstoneGate extends Block implements RedstoneConnectable {
 
 	public static final VoxelShape SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
 
-	public AbstractRedstoneGate(Settings settings) {
+	public CustomRedstoneGate(Settings settings) {
 		super(settings);
 	}
 
@@ -33,8 +36,8 @@ public abstract class AbstractRedstoneGate extends Block implements RedstoneConn
 		return 2;
 	}
 
-	public static void playClickSound(World world, BlockPos pos, SoundEvent sound, boolean pitch) {
-		world.playSound(null, pos, sound, SoundCategory.BLOCKS, 0.3f, pitch ? 0.55f : 0.5f);
+	public static void playClickSound(World world, BlockPos pos, SoundEvent sound, boolean pitched) {
+		world.playSound(null, pos, sound, SoundCategory.BLOCKS, 0.3f, pitched ? 0.55f : 0.5f);
 	}
 
 	public int getInputPower(World world, BlockPos blockPos, Direction direction) {
@@ -78,17 +81,6 @@ public abstract class AbstractRedstoneGate extends Block implements RedstoneConn
 		this.updateTarget(world, pos, state);
 	}
 
-//	@Override
-//	protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
-//		super.neighborUpdate(state, world, pos, sourceBlock, wireOrientation, notify);
-//
-//		if (!moved && !state.isOf(newState.getBlock())) {
-//			super.onStateReplaced(state, world, pos, newState, false);
-//			this.updateTarget(world, pos, state);
-//		}
-//	}
-
-
 	@Override
 	protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
 		if (!moved) {
@@ -110,6 +102,19 @@ public abstract class AbstractRedstoneGate extends Block implements RedstoneConn
 				world.updateNeighbors(pos.offset(direction), this);
 			}
 		}
+	}
+
+	protected ActionResult onClicked(BlockState state, World world, BlockPos pos) {
+		return ActionResult.PASS;
+	}
+
+	@Override
+	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+		if (player == null || player.getAbilities().allowModifyWorld) {
+			return onClicked(state, world, pos);
+		}
+
+		return super.onUse(state, world, pos, player, hit);
 	}
 
 	public static void spawnSimpleParticles(ParticleEffect effect, World world, BlockPos pos, Random random, Direction facing, boolean server, float offset) {

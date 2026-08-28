@@ -1,6 +1,7 @@
-package net.darktree.redbits.blocks;
+package net.darktree.redbits.blocks.gate;
 
 import net.darktree.redbits.RedBits;
+import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
 import net.minecraft.block.*;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlockStateComponent;
@@ -18,7 +19,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
-@SuppressWarnings("deprecation")
 public class EmitterBlock extends Block {
 
 	public static final IntProperty POWER = Properties.POWER;
@@ -87,7 +87,7 @@ public class EmitterBlock extends Block {
 		if (power < 0) power = 15;
 		if (power > 15) power = 0;
 
-		AbstractRedstoneGate.playClickSound(world, pos, RedBits.EMITTER_CLICK, decrement);
+		CustomRedstoneGate.playClickSound(world, pos, RedBits.EMITTER_CLICK, decrement);
 
 		if (player != null) {
 			player.incrementStat(RedBits.INTERACT_WITH_REDSTONE_EMITTER);

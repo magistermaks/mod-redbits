@@ -1,4 +1,4 @@
-package net.darktree.redbits.blocks;
+package net.darktree.redbits.blocks.custom;
 
 import net.darktree.redbits.utils.TwoWayPower;
 import net.fabricmc.api.EnvType;
@@ -20,7 +20,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.tick.TickPriority;
 
-public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
+public class TwoWayRepeaterBlock extends CustomRedstoneGate {
 
 	public static final EnumProperty<TwoWayPower> POWER = EnumProperty.of("power", TwoWayPower.class);
 	public static final EnumProperty<Direction.Axis> AXIS = Properties.HORIZONTAL_AXIS;
@@ -125,7 +125,7 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
 		TwoWayPower power = state.get(POWER);
 
 		if (power != TwoWayPower.NONE) {
-			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, power.asDirection(state.get(AXIS)), false, -5);
+			CustomRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, power.asDirection(state.get(AXIS)), false, -5);
 		}
 	}
 

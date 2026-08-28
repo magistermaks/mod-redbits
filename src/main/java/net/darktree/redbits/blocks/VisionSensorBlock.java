@@ -17,7 +17,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-@SuppressWarnings("deprecation")
 public class VisionSensorBlock extends Block implements RedstoneConnectable, LookAtEvent {
 
 	public static final BooleanProperty POWERED = Properties.POWERED;

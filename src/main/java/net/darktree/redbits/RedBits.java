@@ -4,6 +4,8 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
+import net.darktree.redbits.blocks.custom.*;
+import net.darktree.redbits.blocks.gate.*;
 import net.darktree.redbits.config.Settings;
 import net.darktree.redbits.entity.EmitterMinecartEntity;
 import net.darktree.redbits.item.ProxyBookItem;

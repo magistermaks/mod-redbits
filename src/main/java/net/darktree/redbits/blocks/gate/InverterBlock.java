@@ -1,6 +1,7 @@
-package net.darktree.redbits.blocks;
+package net.darktree.redbits.blocks.gate;
 
 import com.mojang.serialization.MapCodec;
+import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
 import net.darktree.redbits.utils.RedstoneConnectable;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -33,11 +34,6 @@ public class InverterBlock extends AbstractRedstoneGateBlock implements Redstone
 		builder.add(FACING, POWERED);
 	}
 
-//	@Override
-//	protected boolean isValidInput(BlockState state) {
-//		return isRedstoneGate(state);
-//	}
-
 	@Override
 	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
 		if (!state.get(POWERED)) {
@@ -51,7 +47,7 @@ public class InverterBlock extends AbstractRedstoneGateBlock implements Redstone
 	@Environment(EnvType.CLIENT)
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 		if (!state.get(POWERED)) {
-			AbstractRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING), false, -1);
+			CustomRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING), false, -1);
 		}
 	}
 

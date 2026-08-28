@@ -1,7 +1,8 @@
-package net.darktree.redbits.blocks;
+package net.darktree.redbits.blocks.gate;
 
 import com.mojang.serialization.MapCodec;
 import net.darktree.redbits.RedBits;
+import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
 import net.darktree.redbits.utils.RedstoneConnectable;
 import net.minecraft.block.AbstractRedstoneGateBlock;
 import net.minecraft.block.Block;
@@ -20,7 +21,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.tick.TickPriority;
 
-@SuppressWarnings("deprecation")
 public class FlipFlopBlock extends AbstractRedstoneGateBlock implements RedstoneConnectable {
 
 	public static final BooleanProperty INPUT = BooleanProperty.of("input");
@@ -46,16 +46,11 @@ public class FlipFlopBlock extends AbstractRedstoneGateBlock implements Redstone
 			boolean powered = state.get(POWERED);
 			world.setBlockState(pos, state.with(POWERED, !powered));
 
-			AbstractRedstoneGate.playClickSound(world, pos, RedBits.FLIP_FLOP_CLICK, powered);
+			CustomRedstoneGate.playClickSound(world, pos, RedBits.FLIP_FLOP_CLICK, powered);
 			return ActionResult.SUCCESS;
 		}
 		return super.onUse(state, world, pos, player, hit);
 	}
-
-//	@Override
-//	protected boolean isValidInput(BlockState state) {
-//		return isRedstoneGate(state);
-//	}
 
 	@Override
 	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
@@ -91,7 +86,7 @@ public class FlipFlopBlock extends AbstractRedstoneGateBlock implements Redstone
 		if (power && !block) {
 			world.setBlockState(pos, state.with(INPUT, false), 2);
 		} else if (!power) {
-			world.setBlockState(pos, state.with(INPUT, true).with(POWERED, !state.get(POWERED)), 2);
+			world.setBlockState(pos, state.with(INPUT, true).with(POWERED, !state.get(POWERED)), Block.NOTIFY_LISTENERS);
 
 			if (!block) {
 				world.scheduleBlockTick(pos, this, this.getUpdateDelayInternal(state), TickPriority.VERY_HIGH);

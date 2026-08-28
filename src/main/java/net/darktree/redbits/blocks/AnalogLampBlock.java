@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class AnalogLampBlock extends Block {
 	public static final ColorProperty POWER = ColorProperty.of("color");
 

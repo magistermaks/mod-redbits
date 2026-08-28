@@ -1,10 +1,9 @@
 package net.darktree.redbits;
 
 import net.darktree.redbits.blocks.AnalogLampBlock;
-import net.darktree.redbits.blocks.EmitterBlock;
+import net.darktree.redbits.blocks.gate.EmitterBlock;
 import net.darktree.redbits.utils.ColorProvider;
 import net.darktree.redbits.utils.LookAtTickHandle;
-import net.darktree.redbits.utils.PatchouliProxy;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

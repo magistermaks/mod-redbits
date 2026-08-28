@@ -1,6 +1,6 @@
 package net.darktree.redbits.utils;
 
-import net.darktree.redbits.blocks.AbstractRedstoneGate;
+import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -41,7 +41,7 @@ public enum TwoWayPower implements StringIdentifiable {
 		return this.name;
 	}
 
-	public static Unit getPower(World world, BlockPos pos, AbstractRedstoneGate gate, TwoWayPower power, Direction.Axis axis) {
+	public static Unit getPower(World world, BlockPos pos, CustomRedstoneGate gate, TwoWayPower power, Direction.Axis axis) {
 
 		if (power == TwoWayPower.NONE) {
 			Unit a = getPower(world, pos, gate, TwoWayPower.FRONT, axis);

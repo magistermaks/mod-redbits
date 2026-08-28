@@ -1,26 +1,20 @@
 package net.darktree.redbits.entity;
 
 import net.darktree.redbits.RedBits;
-import net.darktree.redbits.blocks.EmitterBlock;
+import net.darktree.redbits.blocks.gate.EmitterBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.entity.vehicle.TntMinecartEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EmitterMinecartEntity extends AbstractMinecartEntity {
@@ -30,15 +24,6 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 	public EmitterMinecartEntity(EntityType<? extends EmitterMinecartEntity> type, World world) {
 		super(type, world);
 	}
-
-//	@Override
-//	protected void applySlowdown() {
-//		float f = 0.98f + 15 * 0.001f;
-//		if (this.isTouchingWater()) {
-//			f *= 0.95f;
-//		}
-//		this.setVelocity(this.getVelocity().multiply(f, 0.0, f));
-//	}
 
 	@Override
 	public BlockState getDefaultContainedBlock() {

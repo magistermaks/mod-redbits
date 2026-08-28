@@ -1,4 +1,4 @@
-package net.darktree.redbits.blocks;
+package net.darktree.redbits.blocks.custom;
 
 import net.darktree.redbits.utils.TwoWayPower;
 import net.fabricmc.api.EnvType;

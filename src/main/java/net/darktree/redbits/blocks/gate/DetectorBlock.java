@@ -1,6 +1,7 @@
-package net.darktree.redbits.blocks;
+package net.darktree.redbits.blocks.gate;
 
 import net.darktree.redbits.RedBits;
+import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,7 +35,7 @@ public class DetectorBlock extends FlipFlopBlock {
 		if (player == null || player.getAbilities().allowModifyWorld) {
 			boolean inverted = state.get(INVERTED);
 			world.setBlockState(pos, state.with(INVERTED, !inverted));
-			AbstractRedstoneGate.playClickSound(world, pos, RedBits.DETECTOR_CLICK, inverted);
+			CustomRedstoneGate.playClickSound(world, pos, RedBits.DETECTOR_CLICK, inverted);
 			return ActionResult.SUCCESS;
 		}
 
@@ -48,11 +49,11 @@ public class DetectorBlock extends FlipFlopBlock {
 		boolean block = this.hasPower(world, pos, state);
 
 		if (input && !block) {
-			world.setBlockState(pos, state.with(INPUT, false).with(POWERED, state.get(INVERTED) || state.get(POWERED)), 2);
+			world.setBlockState(pos, state.with(INPUT, false).with(POWERED, state.get(INVERTED) || state.get(POWERED)), Block.NOTIFY_LISTENERS);
 		} else if (!input && block) {
-			world.setBlockState(pos, state.with(INPUT, true).with(POWERED, !state.get(INVERTED) || state.get(POWERED)), 2);
+			world.setBlockState(pos, state.with(INPUT, true).with(POWERED, !state.get(INVERTED) || state.get(POWERED)), Block.NOTIFY_LISTENERS);
 		} else {
-			world.setBlockState(pos, state.with(POWERED, false), 2);
+			world.setBlockState(pos, state.with(POWERED, false), Block.NOTIFY_LISTENERS);
 			return;
 		}
 
