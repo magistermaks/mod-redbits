@@ -20,7 +20,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.tick.TickPriority;
 
-@SuppressWarnings("deprecation")
 public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
 
 	public static final EnumProperty<TwoWayPower> POWER = EnumProperty.of("power", TwoWayPower.class);
@@ -82,7 +81,7 @@ public class TwoWayRepeaterBlock extends AbstractRedstoneGate {
 		boolean block = this.hasPower(world, pos, state.get(POWER), state.get(AXIS));
 
 		if (power != block && !world.getBlockTickScheduler().isQueued(pos, this)) {
-			TickPriority priority = power ? TickPriority.VERY_HIGH : TickPriority.HIGH;
+			TickPriority priority = block ? TickPriority.VERY_HIGH : TickPriority.HIGH;
 			world.scheduleBlockTick(pos, this, this.getUpdateDelayInternal(), priority);
 		}
 	}
