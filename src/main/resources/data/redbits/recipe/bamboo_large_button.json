@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "key": {
+    "R": "minecraft:bamboo_button"
+  },
+  "result": {
+    "id": "redbits:bamboo_large_button"
+  },
+  "category": "redstone"
+}

@@ -99,6 +99,7 @@ public class RedBits implements ModInitializer {
 	public final static Block MANGROVE_LARGE_BUTTON = registerBlock("mangrove_large_button", getButtonFactory(BlockSetType.MANGROVE));
 	public final static Block CHERRY_LARGE_BUTTON = registerBlock("cherry_large_button", getButtonFactory(BlockSetType.CHERRY));
 	public final static Block PALE_OAK_LARGE_BUTTON = registerBlock("pale_oak_large_button", getButtonFactory(BlockSetType.PALE_OAK));
+	public final static Block BAMBOO_LARGE_BUTTON = registerBlock("bamboo_large_button", getButtonFactory(BlockSetType.BAMBOO));
 	public final static Block CRIMSON_LARGE_BUTTON = registerBlock("crimson_large_button", getButtonFactory(BlockSetType.CRIMSON));
 	public final static Block WARPED_LARGE_BUTTON = registerBlock("warped_large_button", getButtonFactory(BlockSetType.WARPED));
 	public final static Block STONE_LARGE_BUTTON = registerBlock("stone_large_button", getButtonFactory(BlockSetType.STONE));
@@ -176,6 +177,7 @@ public class RedBits implements ModInitializer {
 		registerItem("mangrove_large_button", MANGROVE_LARGE_BUTTON, buttons);
 		registerItem("cherry_large_button", CHERRY_LARGE_BUTTON, buttons);
 		registerItem("pale_oak_large_button", PALE_OAK_LARGE_BUTTON, buttons);
+		registerItem("bamboo_large_button", BAMBOO_LARGE_BUTTON, buttons);
 		registerItem("crimson_large_button", CRIMSON_LARGE_BUTTON, buttons);
 		registerItem("warped_large_button", WARPED_LARGE_BUTTON, buttons);
 		registerItem("stone_large_button", STONE_LARGE_BUTTON, buttons);
