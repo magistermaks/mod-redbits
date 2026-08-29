@@ -60,9 +60,9 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 	}
 
 	private void cycle(PlayerEntity player) {
-		int power = EmitterBlock.interact(player, this.getWorld(), this.getBlockPos(), getPower());
+		int power = EmitterBlock.interact(player, this.getEntityWorld(), this.getBlockPos(), getPower());
 
-		if (!this.getWorld().isClient()) {
+		if (!this.getEntityWorld().isClient()) {
 			setPower(power);
 		}
 	}

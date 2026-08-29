@@ -103,7 +103,7 @@ public class EmitterBlock extends Block {
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	protected int getComparatorOutput(BlockState state, World world, BlockPos pos, Direction direction) {
 		return Math.max(state.get(POWER), world.getReceivedRedstonePower(pos));
 	}
 

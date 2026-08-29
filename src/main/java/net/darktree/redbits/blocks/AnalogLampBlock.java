@@ -27,7 +27,7 @@ public class AnalogLampBlock extends Block {
 
 	@Override
 	protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
-		if (!world.isClient) {
+		if (!world.isClient()) {
 			int power = world.getReceivedRedstonePower(pos);
 
 			if (state.get(POWER) != power) {

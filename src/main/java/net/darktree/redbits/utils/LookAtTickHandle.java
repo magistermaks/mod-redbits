@@ -14,13 +14,13 @@ import java.util.function.Consumer;
 public class LookAtTickHandle {
 
 	public static void raytrace(PlayerEntity player, BlockPoint previous, Consumer<BlockPoint> callback) {
-		if (player.getWorld() != null) {
+		if (player.getEntityWorld() != null) {
 			HitResult hit = player.raycast(128, 0.0f, false);
 
 			if (hit.getType() == HitResult.Type.BLOCK) {
 
 				BlockHitResult blockHit = (BlockHitResult) hit;
-				BlockPoint current = BlockPoint.of(player.getWorld(), blockHit.getBlockPos());
+				BlockPoint current = BlockPoint.of(player.getEntityWorld(), blockHit.getBlockPos());
 
 				if (!current.equals(previous)) {
 
