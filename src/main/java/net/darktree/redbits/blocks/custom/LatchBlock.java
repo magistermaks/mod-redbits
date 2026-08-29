@@ -72,10 +72,12 @@ public class LatchBlock extends CustomRedstoneGate {
 	@Override
 	protected ActionResult onClicked(BlockState state, World world, BlockPos pos) {
 		FacingDirection facing = state.get(POWER);
-		world.setBlockState(pos, state.with(POWER, facing.other()));
+		BlockState next = state.with(POWER, facing.other());
+
+		world.setBlockState(pos, next);
 
 		CustomRedstoneGate.playClickSound(world, pos, RedBits.LATCH_CLICK, facing.asBoolean());
-		this.updatePowered(world, pos, state);
+		this.updatePowered(world, pos, next);
 		return ActionResult.SUCCESS;
 	}
 
@@ -83,7 +85,7 @@ public class LatchBlock extends CustomRedstoneGate {
 	protected void updatePowered(World world, BlockPos pos, BlockState state) {
 		boolean block = this.hasPower(world, pos, state, state.get(POWER).other());
 
-		if (block && !world.getBlockTickScheduler().isTicking(pos, this)) {
+		if (block && !world.getBlockTickScheduler().isQueued(pos, this)) {
 			world.scheduleBlockTick(pos, this, this.getUpdateDelayInternal(), TickPriority.HIGH);
 		}
 	}

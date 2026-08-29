@@ -66,7 +66,7 @@ public class FlipFlopBlock extends AbstractRedstoneGateBlock implements Redstone
 		boolean power = state.get(INPUT);
 		boolean block = this.hasPower(world, pos, state);
 
-		if (power != block && !world.getBlockTickScheduler().isTicking(pos, this)) {
+		if (power != block && !world.getBlockTickScheduler().isQueued(pos, this)) {
 			TickPriority tickPriority = TickPriority.HIGH;
 
 			if (this.isTargetNotAligned(world, pos, state)) {

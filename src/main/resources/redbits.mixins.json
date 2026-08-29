@@ -8,13 +8,13 @@
 		"JukeboxBlockMixin",
 		"RedstoneTorchBlockMixin",
 		"SimpleItemTooltipsMixin",
-		"SplashTextMixin",
 		"RedstoneWireMixin",
 		"ItemFrameEntityMixin",
 		"AbstractDecorationEntityMixin",
 		"RedstoneViewMixin"
 	],
 	"client": [
+		"SplashTextMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
