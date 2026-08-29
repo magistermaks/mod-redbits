@@ -1,7 +1,7 @@
 package net.darktree.redbits.entity;
 
 import net.darktree.redbits.RedBits;
-import net.darktree.redbits.blocks.gate.EmitterBlock;
+import net.darktree.redbits.blocks.EmitterBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;

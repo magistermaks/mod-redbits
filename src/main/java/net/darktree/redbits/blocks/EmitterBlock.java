@@ -1,4 +1,4 @@
-package net.darktree.redbits.blocks.gate;
+package net.darktree.redbits.blocks;
 
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
