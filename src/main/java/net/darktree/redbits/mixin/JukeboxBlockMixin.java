@@ -70,7 +70,7 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
 
 	@Override
 	protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
-		if (!world.isClient && verified) {
+		if (!world.isClient() && verified) {
 			boolean power = world.isReceivingRedstonePower(pos);
 
 			if (power) {

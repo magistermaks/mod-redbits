@@ -24,8 +24,8 @@ public class C2SLookAtPacket {
 	}
 
 	private void apply(ServerPlayerEntity player, BlockPos pos) {
-		if (player != null && player.getWorld() != null) {
-			World world = player.getWorld();
+		if (player != null && player.getEntityWorld() != null) {
+			World world = player.getEntityWorld();
 
 			if (world.isChunkLoaded(pos) && player.getBlockPos().isWithinDistance(pos, 130)) {
 				VisionSensorBlock.trigger(world, pos);

@@ -1,4 +1,4 @@
-package net.darktree.redbits.blocks.gate;
+package net.darktree.redbits.blocks;
 
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
@@ -103,7 +103,7 @@ public class EmitterBlock extends Block {
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	protected int getComparatorOutput(BlockState state, World world, BlockPos pos, Direction direction) {
 		return Math.max(state.get(POWER), world.getReceivedRedstonePower(pos));
 	}
 

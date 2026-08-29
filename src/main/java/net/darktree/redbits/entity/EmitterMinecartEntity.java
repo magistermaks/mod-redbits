@@ -1,7 +1,7 @@
 package net.darktree.redbits.entity;
 
 import net.darktree.redbits.RedBits;
-import net.darktree.redbits.blocks.gate.EmitterBlock;
+import net.darktree.redbits.blocks.EmitterBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
@@ -50,19 +50,19 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 	@Override
 	protected void readCustomData(ReadView view) {
 		super.readCustomData(view);
-		setPower(view.getInt("power", 0));
+		setPower(view.getInt("power", 1));
 	}
 
 	@Override
 	protected void writeCustomData(WriteView view) {
 		super.writeCustomData(view);
-		view.putInt("fuse", this.getPower());
+		view.putInt("power", this.getPower());
 	}
 
 	private void cycle(PlayerEntity player) {
-		int power = EmitterBlock.interact(player, this.getWorld(), this.getBlockPos(), getPower());
+		int power = EmitterBlock.interact(player, this.getEntityWorld(), this.getBlockPos(), getPower());
 
-		if (!this.getWorld().isClient()) {
+		if (!this.getEntityWorld().isClient()) {
 			setPower(power);
 		}
 	}
