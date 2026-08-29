@@ -14,8 +14,8 @@ public interface RedstoneViewMixin {
 	/**
 	 * Make our custom gates able to lock repeaters
 	 *
-	 * getEmittedRedstonePower has a "onlyFromGate" boolean arguments, when that is true, it calls isRedstoneGate(),
-	 * we need to patch it to also allow our CustomRedstoneGates. We can't just modify the isRedstoneGate() itself as
+	 * getControlInputSignal has a "onlyDiodes" boolean arguments, when that is true, it calls isDiode(),
+	 * we need to patch it to also allow our CustomRedstoneGates. We can't just modify the isDiode() itself as
 	 * it's also used by minecraft to check if we can get the FACING property from blockstate, ofc we could also patch
 	 * that, but it sets a dangerous precedent and other mods may also use it for that, causing crashes (our custom
 	 * gates don't have a FACING blockstate propery).

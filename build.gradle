@@ -1,5 +1,6 @@
 plugins {
-	id 'fabric-loom' version '1.17-SNAPSHOT'
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+	id 'maven-publish'
 }
 
 version = project.mod_version
@@ -36,23 +37,19 @@ repositories {
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.officialMojangMappings()
-
-	minecraft "com.mojang:minecraft:${project.minecraft_version}" transitive false
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}" transitive false
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}" transitive false
 
 	// ModMenu
-	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}" transitive false
-	modRuntimeOnly "com.terraformersmc:modmenu:${project.modmenu_version}" transitive false
+	implementation "com.terraformersmc:modmenu:${project.modmenu_version}" transitive false
 
 	// Fabric API
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
 	// Cloth Config
-	include( modImplementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") ) exclude group: 'net.fabricmc.fabric-api'
+	include( implementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") ) exclude group: 'net.fabricmc.fabric-api'
 
 	// Patchouli
-	//modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}-FABRIC"
+	//implementation "vazkii.patchouli:Patchouli:${project.patchouli_version}-FABRIC"
 
 }
 
@@ -61,20 +58,13 @@ processResources {
 
 	filesMatching("fabric.mod.json") {
 		expand (
-				"version": project.version,
-				"loader_version": project.loader_version
+				"version": project.version
 		)
 	}
 }
 
 java {
 	toolchain {
-		languageVersion.set(JavaLanguageVersion.of(21))
-	}
-}
-
-jar {
-	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+		languageVersion.set(JavaLanguageVersion.of(25))
 	}
 }

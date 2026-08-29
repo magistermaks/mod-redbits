@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 
 public class EmitterMinecartEntity extends AbstractMinecart {
 
@@ -31,7 +32,7 @@ public class EmitterMinecartEntity extends AbstractMinecart {
 	}
 
 	@Override
-	public InteractionResult interact(Player player, InteractionHand hand) {
+	public InteractionResult interact(final Player player, final InteractionHand hand, final Vec3 location)  {
 		this.cycle(player);
 		return InteractionResult.SUCCESS;
 	}

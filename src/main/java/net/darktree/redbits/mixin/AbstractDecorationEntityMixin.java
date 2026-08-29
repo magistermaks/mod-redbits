@@ -14,12 +14,12 @@ public class AbstractDecorationEntityMixin {
 	/**
 	 * Make item frames attach to the custom gates (apparently it's something they do).
 	 *
-	 * We can't just modify the isRedstoneGate() itself as it's also used by minecraft to check if we can get the
+	 * We can't just modify the isDiode()  (uhh what hedius name...) itself as it's also used by minecraft to check if we can get the
 	 * FACING property from blockstate, ofc we could also patch that, but it sets a dangerous precedent and other mods
 	 * may also use it for that, causing crashes (our custom gates don't have a FACING blockstate propery).
 	 */
 	@WrapOperation(
-			method = "method_59942", // lambda in canStayAttached()
+			method = "lambda$survives$0", // lambda in canStayAttached()
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/DiodeBlock;isDiode(Lnet/minecraft/world/level/block/state/BlockState;)Z")
 	)
 	private boolean isRedstoneGateWrapper(BlockState state, Operation<Boolean> original) {

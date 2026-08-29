@@ -94,7 +94,7 @@ public class EmitterBlock extends Block {
 
 		if (player != null) {
 			player.awardStat(RedBits.INTERACT_WITH_REDSTONE_EMITTER);
-			player.displayClientMessage(Component.translatable("message.redbits.power_level", power), true);
+			player.sendOverlayMessage(Component.translatable("message.redbits.power_level", power));
 
 			// trigger then criterion when the connected comparator is powered by the emitter
 			if (power != 0 && player instanceof ServerPlayer serverPlayer && isConnected(world, pos)) {

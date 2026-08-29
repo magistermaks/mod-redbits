@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 public class C2SLookAtPacket {
 
 	public void register() {
-		PayloadTypeRegistry.playC2S().register(LookPayload.ID, LookPayload.CODEC);
+		PayloadTypeRegistry.serverboundPlay().register(LookPayload.ID, LookPayload.CODEC);
 
 		ServerPlayNetworking.registerGlobalReceiver(LookPayload.ID, (payload, context) -> {
 			apply(context.player(), payload.pos());
