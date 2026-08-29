@@ -50,13 +50,13 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 	@Override
 	protected void readCustomData(ReadView view) {
 		super.readCustomData(view);
-		setPower(view.getInt("power", 0));
+		setPower(view.getInt("power", 1));
 	}
 
 	@Override
 	protected void writeCustomData(WriteView view) {
 		super.writeCustomData(view);
-		view.putInt("fuse", this.getPower());
+		view.putInt("power", this.getPower());
 	}
 
 	private void cycle(PlayerEntity player) {
