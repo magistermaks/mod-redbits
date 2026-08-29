@@ -77,14 +77,13 @@ public abstract class CustomRedstoneGate extends Block implements RedstoneConnec
 	}
 
 	@Override
-	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+	protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
 		this.updateTarget(world, pos, state);
 	}
 
 	@Override
 	protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
 		if (!moved) {
-			super.onStateReplaced(state, world, pos, false);
 			this.updateTarget(world, pos, state);
 		}
 	}

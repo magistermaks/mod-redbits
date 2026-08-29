@@ -42,6 +42,15 @@ public class ProjectorBlock extends CustomRedstoneGate {
 		return state.get(FACING).getAxis() == direction.getAxis();
 	}
 
+	/**
+	 * We override this here to make it NOT emit an update forward
+	 * when the output signal doesn't change, instead we call updateTarget() from scheduledTick()
+	 */
+	@Override
+	protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+		// do nothing
+	}
+
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 
@@ -49,9 +58,12 @@ public class ProjectorBlock extends CustomRedstoneGate {
 		Direction source = facing.getOpposite();
 		int input = getInputPower(world, pos.offset(source), source);
 		int output = state.get(POWER);
+		boolean powered = state.get(POWERED);
 
-		BlockState next = state.with(POWERED, input > 0);
+		BlockState next = state;
+		int flags = 0;
 		boolean schedule = false;
+		boolean update = false;
 
 		// handle input & ping
 		if (input > 0) {
@@ -65,27 +77,61 @@ public class ProjectorBlock extends CustomRedstoneGate {
 				CustomRedstoneGate.spawnSimpleParticles(ParticleTypes.SMOKE, world, pos, random, state.get(FACING).getOpposite(), true, -5);
 			}
 
+			if (!powered) {
+				next = next.with(POWERED, input > 0);
+				flags = Block.NOTIFY_ALL;
+			}
+
 			schedule = true;
+		}
+
+		if (powered && input == 0) {
+			next = next.with(POWERED, false);
+			flags = Block.NOTIFY_ALL;
 		}
 
 		// handle output
 		if (output > 0) {
 			next = next.with(POWER, output - 1);
 			schedule = true;
+
+			if (output == 1) {
+				flags = Block.NOTIFY_LISTENERS;
+				update = true;
+			}
 		}
 
-		if (schedule) {
+		if (schedule && !world.getBlockTickScheduler().isQueued(pos, this)) {
 			world.scheduleBlockTick(pos, this, getUpdateDelayInternal());
 		}
 
 		if (next != state) {
-			world.setBlockState(pos, next, Block.NOTIFY_LISTENERS);
+			world.setBlockState(pos, next, flags);
+		}
+
+		if (update) {
+			updateTarget(world, pos, next);
 		}
 	}
 
 	private void ping(BlockState state, World world, BlockPos pos) {
-		world.setBlockState(pos, state.with(POWER, 2), Block.NOTIFY_LISTENERS);
-		world.scheduleBlockTick(pos, this, getUpdateDelayInternal());
+
+		int power = state.get(POWER);
+		int flags = power == 0 ? Block.NOTIFY_LISTENERS : 0; // don't sync the 1->2 state change to clients
+
+		BlockState next = state.with(POWER, 2);
+
+		if (power != 2) {
+			world.setBlockState(pos, next, flags);
+		}
+
+		if (power == 0) {
+			updateTarget(world, pos, next);
+		}
+
+		if (!world.getBlockTickScheduler().isQueued(pos, this)) {
+			world.scheduleBlockTick(pos, this, getUpdateDelayInternal());
+		}
 	}
 
 	@Override

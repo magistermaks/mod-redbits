@@ -42,18 +42,43 @@ public class DetectorBlock extends FlipFlopBlock {
 		return super.onUse(state, world, pos, player, hit);
 	}
 
+	/**
+	 * We override this here to make it NOT emit an update forward (oposite of FACING)
+	 * when the output signal doesn't change, instead we call updateTarget() from scheduledTick()
+	 */
+	@Override
+	protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+		// do nothing
+	}
+
+	private void updateState(ServerWorld world, BlockPos pos, BlockState next, boolean update) {
+		world.setBlockState(pos, next, Block.NOTIFY_LISTENERS);
+
+		if (update) {
+			updateTarget(world, pos, next);
+		}
+	}
+
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 
+		boolean powered = state.get(POWERED);
 		boolean input = state.get(INPUT);
 		boolean block = this.hasPower(world, pos, state);
 
 		if (input && !block) {
-			world.setBlockState(pos, state.with(INPUT, false).with(POWERED, state.get(INVERTED) || state.get(POWERED)), Block.NOTIFY_LISTENERS);
+			boolean output = state.get(INVERTED) || state.get(POWERED);
+			BlockState next = state.with(INPUT, false).with(POWERED, output);
+			world.setBlockState(pos, next, Block.NOTIFY_LISTENERS);
+			updateState(world, pos, next, output != powered);
 		} else if (!input && block) {
-			world.setBlockState(pos, state.with(INPUT, true).with(POWERED, !state.get(INVERTED) || state.get(POWERED)), Block.NOTIFY_LISTENERS);
+			boolean output = !state.get(INVERTED) || state.get(POWERED);
+			BlockState next = state.with(INPUT, true).with(POWERED, output);
+			updateState(world, pos, next, output != powered);
+		} else if (powered) {
+			updateState(world, pos, state.with(POWERED, false), true);
+			return;
 		} else {
-			world.setBlockState(pos, state.with(POWERED, false), Block.NOTIFY_LISTENERS);
 			return;
 		}
 
