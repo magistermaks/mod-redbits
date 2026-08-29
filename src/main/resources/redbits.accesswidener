@@ -1,8 +1,4 @@
-accessWidener   v2   named
-
-# Remove package-private from AbstractMinecartEntity.getItem() abstract method
-extendable   method   net/minecraft/entity/vehicle/VehicleEntity   asItem   ()Lnet/minecraft/item/Item;
-
-# Needed for ColorProperty
-extendable   class    net/minecraft/state/property/IntProperty
-accessible   method   net/minecraft/state/property/IntProperty   <init>    (Ljava/lang/String;II)V
+accessWidener	v2	named
+#extendable	method	net/minecraft/entity/vehicle/VehicleEntity	asItem	()Lnet/minecraft/item/Item;
+extendable	class	net/minecraft/world/level/block/state/properties/IntegerProperty
+accessible	method	net/minecraft/world/level/block/state/properties/IntegerProperty	<init>	(Ljava/lang/String;II)V

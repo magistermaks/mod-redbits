@@ -2,44 +2,44 @@ package net.darktree.redbits.blocks.gate;
 
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.tick.TickPriority;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.ticks.TickPriority;
 
 public class DetectorBlock extends FlipFlopBlock {
 
-	public static final BooleanProperty INVERTED = BooleanProperty.of("inverted");
+	public static final BooleanProperty INVERTED = BooleanProperty.create("inverted");
 
-	public DetectorBlock(Settings settings) {
+	public DetectorBlock(Properties settings) {
 		super(settings);
-		this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(POWERED, false).with(INPUT, false).with(INVERTED, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(INPUT, false).setValue(INVERTED, false));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, POWERED, INPUT, INVERTED);
 	}
 
 	@Override
-	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-		if (player == null || player.getAbilities().allowModifyWorld) {
-			boolean inverted = state.get(INVERTED);
-			world.setBlockState(pos, state.with(INVERTED, !inverted));
+	protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+		if (player == null || player.getAbilities().mayBuild) {
+			boolean inverted = state.getValue(INVERTED);
+			world.setBlockAndUpdate(pos, state.setValue(INVERTED, !inverted));
 			CustomRedstoneGate.playClickSound(world, pos, RedBits.DETECTOR_CLICK, inverted);
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
-		return super.onUse(state, world, pos, player, hit);
+		return super.useWithoutItem(state, world, pos, player, hit);
 	}
 
 	/**
@@ -47,42 +47,42 @@ public class DetectorBlock extends FlipFlopBlock {
 	 * when the output signal doesn't change, instead we call updateTarget() from scheduledTick()
 	 */
 	@Override
-	protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+	protected void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean notify) {
 		// do nothing
 	}
 
-	private void updateState(ServerWorld world, BlockPos pos, BlockState next, boolean update) {
-		world.setBlockState(pos, next, Block.NOTIFY_LISTENERS);
+	private void updateState(ServerLevel world, BlockPos pos, BlockState next, boolean update) {
+		world.setBlock(pos, next, Block.UPDATE_CLIENTS);
 
 		if (update) {
-			updateTarget(world, pos, next);
+			updateNeighborsInFront(world, pos, next);
 		}
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
 
-		boolean powered = state.get(POWERED);
-		boolean input = state.get(INPUT);
-		boolean block = this.hasPower(world, pos, state);
+		boolean powered = state.getValue(POWERED);
+		boolean input = state.getValue(INPUT);
+		boolean block = this.shouldTurnOn(world, pos, state);
 
 		if (input && !block) {
-			boolean output = state.get(INVERTED) || state.get(POWERED);
-			BlockState next = state.with(INPUT, false).with(POWERED, output);
-			world.setBlockState(pos, next, Block.NOTIFY_LISTENERS);
+			boolean output = state.getValue(INVERTED) || state.getValue(POWERED);
+			BlockState next = state.setValue(INPUT, false).setValue(POWERED, output);
+			world.setBlock(pos, next, Block.UPDATE_CLIENTS);
 			updateState(world, pos, next, output != powered);
 		} else if (!input && block) {
-			boolean output = !state.get(INVERTED) || state.get(POWERED);
-			BlockState next = state.with(INPUT, true).with(POWERED, output);
+			boolean output = !state.getValue(INVERTED) || state.getValue(POWERED);
+			BlockState next = state.setValue(INPUT, true).setValue(POWERED, output);
 			updateState(world, pos, next, output != powered);
 		} else if (powered) {
-			updateState(world, pos, state.with(POWERED, false), true);
+			updateState(world, pos, state.setValue(POWERED, false), true);
 			return;
 		} else {
 			return;
 		}
 
-		world.scheduleBlockTick(pos, this, this.getUpdateDelayInternal(state), TickPriority.VERY_HIGH);
+		world.scheduleTick(pos, this, this.getDelay(state), TickPriority.VERY_HIGH);
 	}
 
 }

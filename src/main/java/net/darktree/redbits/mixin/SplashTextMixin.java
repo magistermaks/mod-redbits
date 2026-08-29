@@ -3,31 +3,26 @@ package net.darktree.redbits.mixin;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.darktree.redbits.utils.PatchouliProxy;
-import net.minecraft.client.resource.SplashTextResourceSupplier;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.text.Text;
-import net.minecraft.util.profiler.Profiler;
+import net.minecraft.client.resources.SplashManager;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.profiling.ProfilerFiller;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.function.Consumer;
 
-@Mixin(SplashTextResourceSupplier.class)
+@Mixin(SplashManager.class)
 public class SplashTextMixin {
 
-	@WrapMethod(method = "prepare(Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)Ljava/util/List;")
-	protected List<Text> prepare(ResourceManager resourceManager, Profiler profiler, Operation<List<Text>> original) {
-		List<Text> injected = new ArrayList<>(original.call(resourceManager, profiler));
+	@WrapMethod(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/List;")
+	protected List<Component> prepare(ResourceManager resourceManager, ProfilerFiller profiler, Operation<List<Component>> original) {
+		List<Component> injected = new ArrayList<>(original.call(resourceManager, profiler));
 
 		Consumer<String> inject = encoded -> {
-			injected.add(Text.literal(new String(Base64.getDecoder().decode(encoded))));
+			injected.add(Component.literal(new String(Base64.getDecoder().decode(encoded))));
 		};
 
 		// nothing to see here

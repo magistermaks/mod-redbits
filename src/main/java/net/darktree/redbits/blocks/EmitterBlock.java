@@ -2,60 +2,63 @@ package net.darktree.redbits.blocks;
 
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
-import net.minecraft.block.*;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BlockStateComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.BlockItemStateProperties;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComparatorBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class EmitterBlock extends Block {
 
-	public static final IntProperty POWER = Properties.POWER;
+	public static final IntegerProperty POWER = BlockStateProperties.POWER;
 
-	public EmitterBlock(Settings settings) {
+	public EmitterBlock(Properties settings) {
 		super(settings);
-		this.setDefaultState(this.stateManager.getDefaultState().with(POWER, 1));
+		this.registerDefaultState(this.stateDefinition.any().setValue(POWER, 1));
 	}
 
 	@Override
-	protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
-		ItemStack stack = super.getPickStack(world, pos, state, false);
+	protected ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state, boolean includeData) {
+		ItemStack stack = super.getCloneItemStack(world, pos, state, false);
 
 		if (includeData) {
-			stack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT.with(POWER, state));
+			stack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(POWER, state));
 		}
 
 		return stack;
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(POWER);
 	}
 
 	@Override
-	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-		if (player == null || player.getAbilities().allowModifyWorld) {
-			int power = interact(player, world, pos, state.get(POWER));
-			world.setBlockState(pos, state.with(POWER, power));
-			return ActionResult.SUCCESS;
+	protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+		if (player == null || player.getAbilities().mayBuild) {
+			int power = interact(player, world, pos, state.getValue(POWER));
+			world.setBlockAndUpdate(pos, state.setValue(POWER, power));
+			return InteractionResult.SUCCESS;
 		}
 
-		return super.onUse(state, world, pos, player, hit);
+		return super.useWithoutItem(state, world, pos, player, hit);
 	}
 
-	private static boolean isConnected(World world, BlockPos pos) {
+	private static boolean isConnected(Level world, BlockPos pos) {
 
 		Block center = world.getBlockState(pos).getBlock();
 
@@ -63,15 +66,15 @@ public class EmitterBlock extends Block {
 			return false;
 		}
 
-		for (Direction direction : Direction.Type.HORIZONTAL) {
-			BlockPos side = pos.offset(direction);
+		for (Direction direction : Direction.Plane.HORIZONTAL) {
+			BlockPos side = pos.relative(direction);
 			BlockState state = world.getBlockState(side);
 
 			if (state.getBlock() != Blocks.COMPARATOR) {
 				continue;
 			}
 
-			if (state.get(ComparatorBlock.FACING) == direction.getOpposite()) {
+			if (state.getValue(ComparatorBlock.FACING) == direction.getOpposite()) {
 				return true;
 			}
 		}
@@ -80,8 +83,8 @@ public class EmitterBlock extends Block {
 
 	}
 
-	public static int interact(PlayerEntity player, World world, BlockPos pos, int power) {
-		boolean decrement = player != null && player.isSneaking();
+	public static int interact(Player player, Level world, BlockPos pos, int power) {
+		boolean decrement = player != null && player.isShiftKeyDown();
 		power = power + (decrement ? -1 : 1);
 
 		if (power < 0) power = 15;
@@ -90,11 +93,11 @@ public class EmitterBlock extends Block {
 		CustomRedstoneGate.playClickSound(world, pos, RedBits.EMITTER_CLICK, decrement);
 
 		if (player != null) {
-			player.incrementStat(RedBits.INTERACT_WITH_REDSTONE_EMITTER);
-			player.sendMessage(Text.translatable("message.redbits.power_level", power), true);
+			player.awardStat(RedBits.INTERACT_WITH_REDSTONE_EMITTER);
+			player.displayClientMessage(Component.translatable("message.redbits.power_level", power), true);
 
 			// trigger then criterion when the connected comparator is powered by the emitter
-			if (power != 0 && player instanceof ServerPlayerEntity serverPlayer && isConnected(world, pos)) {
+			if (power != 0 && player instanceof ServerPlayer serverPlayer && isConnected(world, pos)) {
 				RedBits.USE_REDSTONE_EMITTER_CRITERION.trigger(serverPlayer);
 			}
 		}
@@ -103,12 +106,12 @@ public class EmitterBlock extends Block {
 	}
 
 	@Override
-	protected int getComparatorOutput(BlockState state, World world, BlockPos pos, Direction direction) {
-		return Math.max(state.get(POWER), world.getReceivedRedstonePower(pos));
+	protected int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos, Direction direction) {
+		return Math.max(state.getValue(POWER), world.getBestNeighborSignal(pos));
 	}
 
 	@Override
-	public boolean hasComparatorOutput(BlockState state) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 

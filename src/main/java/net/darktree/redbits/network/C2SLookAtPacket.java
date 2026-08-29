@@ -5,13 +5,13 @@ import net.darktree.redbits.blocks.VisionSensorBlock;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
 
 public class C2SLookAtPacket {
 
@@ -23,11 +23,11 @@ public class C2SLookAtPacket {
 		});
 	}
 
-	private void apply(ServerPlayerEntity player, BlockPos pos) {
-		if (player != null && player.getEntityWorld() != null) {
-			World world = player.getEntityWorld();
+	private void apply(ServerPlayer player, BlockPos pos) {
+		if (player != null && player.level() != null) {
+			Level world = player.level();
 
-			if (world.isChunkLoaded(pos) && player.getBlockPos().isWithinDistance(pos, 130)) {
+			if (world.hasChunkAt(pos) && player.blockPosition().closerThan(pos, 130)) {
 				VisionSensorBlock.trigger(world, pos);
 				RedBits.LOOK_AT_SENSOR_CRITERION.trigger(player);
 			}
@@ -38,21 +38,21 @@ public class C2SLookAtPacket {
 		ClientPlayNetworking.send(new LookPayload(pos));
 	}
 
-	record LookPayload(BlockPos pos) implements CustomPayload {
+	record LookPayload(BlockPos pos) implements CustomPacketPayload {
 
-		public static PacketCodec<PacketByteBuf, LookPayload> CODEC = CustomPayload.codecOf(LookPayload::write, LookPayload::new);
-		public static CustomPayload.Id<LookPayload> ID = new Id<>(Identifier.of(RedBits.NAMESPACE, "look_at"));
+		public static StreamCodec<FriendlyByteBuf, LookPayload> CODEC = CustomPacketPayload.codec(LookPayload::write, LookPayload::new);
+		public static CustomPacketPayload.Type<LookPayload> ID = new Type<>(Identifier.fromNamespaceAndPath(RedBits.NAMESPACE, "look_at"));
 
-		public LookPayload(PacketByteBuf packetByteBuf) {
-			this(BlockPos.fromLong(packetByteBuf.readLong()));
+		public LookPayload(FriendlyByteBuf packetByteBuf) {
+			this(BlockPos.of(packetByteBuf.readLong()));
 		}
 
-		private void write(PacketByteBuf buf) {
+		private void write(FriendlyByteBuf buf) {
 			buf.writeLong(this.pos.asLong());
 		}
 
 		@Override
-		public Id<LookPayload> getId() {
+		public Type<LookPayload> type() {
 			return ID;
 		}
 

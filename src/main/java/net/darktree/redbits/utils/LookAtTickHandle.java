@@ -1,26 +1,25 @@
 package net.darktree.redbits.utils;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
 import java.util.Objects;
 import java.util.function.Consumer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 public class LookAtTickHandle {
 
-	public static void raytrace(PlayerEntity player, BlockPoint previous, Consumer<BlockPoint> callback) {
-		if (player.getEntityWorld() != null) {
-			HitResult hit = player.raycast(128, 0.0f, false);
+	public static void raytrace(Player player, BlockPoint previous, Consumer<BlockPoint> callback) {
+		if (player.level() != null) {
+			HitResult hit = player.pick(128, 0.0f, false);
 
 			if (hit.getType() == HitResult.Type.BLOCK) {
 
 				BlockHitResult blockHit = (BlockHitResult) hit;
-				BlockPoint current = BlockPoint.of(player.getEntityWorld(), blockHit.getBlockPos());
+				BlockPoint current = BlockPoint.of(player.level(), blockHit.getBlockPos());
 
 				if (!current.equals(previous)) {
 
@@ -49,7 +48,7 @@ public class LookAtTickHandle {
 		}
 	}
 
-	private static void notifyPrevious(BlockPoint previous, PlayerEntity player) {
+	private static void notifyPrevious(BlockPoint previous, Player player) {
 		if( previous != null && previous.block instanceof LookAtEvent handle ) {
 			handle.onLookAtStop(previous.query(), previous.world, previous.pos, player);
 		}
@@ -59,10 +58,10 @@ public class LookAtTickHandle {
 
 		public BlockPos pos;
 		public Block block;
-		public World world;
+		public Level world;
 		public BlockState cached;
 
-		BlockPoint(BlockPos pos, Block block, World world, BlockState state) {
+		BlockPoint(BlockPos pos, Block block, Level world, BlockState state) {
 			this.pos = pos;
 			this.block = block;
 			this.world = world;
@@ -85,7 +84,7 @@ public class LookAtTickHandle {
 			return this.world.getBlockState(this.pos);
 		}
 
-		public static BlockPoint of(World world, BlockPos pos) {
+		public static BlockPoint of(Level world, BlockPos pos) {
 			BlockState state = world.getBlockState(pos);
 			return new BlockPoint(pos, state.getBlock(), world, state);
 		}

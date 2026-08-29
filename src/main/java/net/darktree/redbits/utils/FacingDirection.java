@@ -1,9 +1,9 @@
 package net.darktree.redbits.utils;
 
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.util.StringRepresentable;
 
-public enum FacingDirection implements StringIdentifiable {
+public enum FacingDirection implements StringRepresentable {
 	FRONT("front", Direction.AxisDirection.POSITIVE),
 	BACK("back", Direction.AxisDirection.NEGATIVE);
 
@@ -16,7 +16,7 @@ public enum FacingDirection implements StringIdentifiable {
 	}
 
 	public String toString() {
-		return this.asString();
+		return this.getSerializedName();
 	}
 
 	public Direction.AxisDirection asAxisDirection() {
@@ -39,7 +39,7 @@ public enum FacingDirection implements StringIdentifiable {
 		return from(facing == Direction.AxisDirection.POSITIVE);
 	}
 
-	public String asString() {
+	public String getSerializedName() {
 		return this.name;
 	}
 }

@@ -4,103 +4,103 @@ import com.mojang.serialization.MapCodec;
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
 import net.darktree.redbits.utils.RedstoneConnectable;
-import net.minecraft.block.AbstractRedstoneGateBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.RepeaterBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.tick.TickPriority;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DiodeBlock;
+import net.minecraft.world.level.block.RepeaterBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.ticks.TickPriority;
 
-public class FlipFlopBlock extends AbstractRedstoneGateBlock implements RedstoneConnectable {
+public class FlipFlopBlock extends DiodeBlock implements RedstoneConnectable {
 
-	public static final BooleanProperty INPUT = BooleanProperty.of("input");
+	public static final BooleanProperty INPUT = BooleanProperty.create("input");
 
-	public FlipFlopBlock(Settings settings) {
+	public FlipFlopBlock(Properties settings) {
 		super(settings);
-		this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(POWERED, false).with(INPUT, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(INPUT, false));
 	}
 
 	@Override
-	protected int getUpdateDelayInternal(BlockState state) {
+	protected int getDelay(BlockState state) {
 		return 2;
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, POWERED, INPUT);
 	}
 
 	@Override
-	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-		if (player == null || player.getAbilities().allowModifyWorld) {
-			boolean powered = state.get(POWERED);
-			world.setBlockState(pos, state.with(POWERED, !powered));
+	protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+		if (player == null || player.getAbilities().mayBuild) {
+			boolean powered = state.getValue(POWERED);
+			world.setBlockAndUpdate(pos, state.setValue(POWERED, !powered));
 
 			CustomRedstoneGate.playClickSound(world, pos, RedBits.FLIP_FLOP_CLICK, powered);
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return super.onUse(state, world, pos, player, hit);
+		return super.useWithoutItem(state, world, pos, player, hit);
 	}
 
 	@Override
-	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-		if (state.get(POWERED)) {
-			return state.get(FACING) == direction ? 15 : 0;
+	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
+		if (state.getValue(POWERED)) {
+			return state.getValue(FACING) == direction ? 15 : 0;
 		} else {
 			return 0;
 		}
 	}
 
 	@Override
-	protected void updatePowered(World world, BlockPos pos, BlockState state) {
-		boolean power = state.get(INPUT);
-		boolean block = this.hasPower(world, pos, state);
+	protected void checkTickOnNeighbor(Level world, BlockPos pos, BlockState state) {
+		boolean power = state.getValue(INPUT);
+		boolean block = this.shouldTurnOn(world, pos, state);
 
-		if (power != block && !world.getBlockTickScheduler().isQueued(pos, this)) {
+		if (power != block && !world.getBlockTicks().hasScheduledTick(pos, this)) {
 			TickPriority tickPriority = TickPriority.HIGH;
 
-			if (this.isTargetNotAligned(world, pos, state)) {
+			if (this.shouldPrioritize(world, pos, state)) {
 				tickPriority = TickPriority.EXTREMELY_HIGH;
 			} else if (block) {
 				tickPriority = TickPriority.VERY_HIGH;
 			}
 
-			world.scheduleBlockTick(pos, this, this.getUpdateDelayInternal(state), tickPriority);
+			world.scheduleTick(pos, this, this.getDelay(state), tickPriority);
 		}
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		boolean power = state.get(INPUT);
-		boolean block = this.hasPower(world, pos, state);
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+		boolean power = state.getValue(INPUT);
+		boolean block = this.shouldTurnOn(world, pos, state);
 		if (power && !block) {
-			world.setBlockState(pos, state.with(INPUT, false), 2);
+			world.setBlock(pos, state.setValue(INPUT, false), 2);
 		} else if (!power) {
-			world.setBlockState(pos, state.with(INPUT, true).with(POWERED, !state.get(POWERED)), Block.NOTIFY_LISTENERS);
+			world.setBlock(pos, state.setValue(INPUT, true).setValue(POWERED, !state.getValue(POWERED)), Block.UPDATE_CLIENTS);
 
 			if (!block) {
-				world.scheduleBlockTick(pos, this, this.getUpdateDelayInternal(state), TickPriority.VERY_HIGH);
+				world.scheduleTick(pos, this, this.getDelay(state), TickPriority.VERY_HIGH);
 			}
 		}
 	}
 
 	@Override
 	public boolean connectsTo(BlockState state, Direction direction) {
-		return state.get(RepeaterBlock.FACING).getAxis() == direction.getAxis();
+		return state.getValue(RepeaterBlock.FACING).getAxis() == direction.getAxis();
 	}
 
 	@Override
-	protected MapCodec<? extends AbstractRedstoneGateBlock> getCodec() {
+	protected MapCodec<? extends DiodeBlock> codec() {
 		return null;
 	}
 

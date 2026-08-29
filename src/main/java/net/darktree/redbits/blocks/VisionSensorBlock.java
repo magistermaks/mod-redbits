@@ -3,51 +3,49 @@ package net.darktree.redbits.blocks;
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.utils.LookAtEvent;
 import net.darktree.redbits.utils.RedstoneConnectable;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class VisionSensorBlock extends Block implements RedstoneConnectable, LookAtEvent {
 
 	public static final int DELAY = 8;
-	public static final IntProperty POWER = IntProperty.of("power", 0, 2);
+	public static final IntegerProperty POWER = IntegerProperty.create("power", 0, 2);
 
-	public VisionSensorBlock(Settings settings) {
+	public VisionSensorBlock(Properties settings) {
 		super(settings);
-		setDefaultState(this.stateManager.getDefaultState().with(POWER, 0));
+		registerDefaultState(this.stateDefinition.any().setValue(POWER, 0));
 	}
 
-	public static void trigger(World world, BlockPos pos) {
+	public static void trigger(Level world, BlockPos pos) {
 		BlockState state = world.getBlockState(pos);
 
-		if (state.get(POWER) == 0) {
+		if (state.getValue(POWER) == 0) {
 			Block self = state.getBlock();
 
-			if (!world.getBlockTickScheduler().isQueued(pos, self)) {
-				world.setBlockState(pos, state.with(POWER, 2));
-				world.scheduleBlockTick(pos, self, DELAY);
+			if (!world.getBlockTicks().hasScheduledTick(pos, self)) {
+				world.setBlockAndUpdate(pos, state.setValue(POWER, 2));
+				world.scheduleTick(pos, self, DELAY);
 			}
 		}
 	}
 
 	@Override
-	public void onLookAtStart(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+	public void onLookAtStart(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
 		RedBits.LOOK_AT_PACKET.send(pos);
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(POWER);
 	}
 
@@ -57,30 +55,30 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable, Loo
 	}
 
 	@Override
-	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-		return (state.get(POWER) != 0) ? 15 : 0;
+	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
+		return (state.getValue(POWER) != 0) ? 15 : 0;
 	}
 
 	@Override
-	public boolean emitsRedstonePower(BlockState state) {
+	public boolean isSignalSource(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		int power = Math.max(0, state.get(POWER) - 1);
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+		int power = Math.max(0, state.getValue(POWER) - 1);
 
-		world.setBlockState(pos, state.with(POWER, power));
+		world.setBlockAndUpdate(pos, state.setValue(POWER, power));
 
 		if (power > 0) {
-			world.scheduleBlockTick(pos, this, DELAY);
+			world.scheduleTick(pos, this, DELAY);
 		}
 	}
 
 	@Override
-	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean notify) {
 		if (oldState.getBlock() != state.getBlock()) {
-			world.scheduleBlockTick(pos, this, DELAY);
+			world.scheduleTick(pos, this, DELAY);
 		}
 	}
 

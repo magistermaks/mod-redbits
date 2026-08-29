@@ -2,81 +2,81 @@ package net.darktree.redbits.entity;
 
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.blocks.EmitterBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
-public class EmitterMinecartEntity extends AbstractMinecartEntity {
+public class EmitterMinecartEntity extends AbstractMinecart {
 
-	private static final TrackedData<Integer> POWER = DataTracker.registerData(EmitterMinecartEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	private static final EntityDataAccessor<Integer> POWER = SynchedEntityData.defineId(EmitterMinecartEntity.class, EntityDataSerializers.INT);
 
-	public EmitterMinecartEntity(EntityType<? extends EmitterMinecartEntity> type, World world) {
+	public EmitterMinecartEntity(EntityType<? extends EmitterMinecartEntity> type, Level world) {
 		super(type, world);
 	}
 
 	@Override
-	public BlockState getDefaultContainedBlock() {
-		return RedBits.REDSTONE_EMITTER.getDefaultState().with(EmitterBlock.POWER, getPower());
+	public BlockState getDefaultDisplayBlockState() {
+		return RedBits.REDSTONE_EMITTER.defaultBlockState().setValue(EmitterBlock.POWER, getPower());
 	}
 
 	@Override
-	public ActionResult interact(PlayerEntity player, Hand hand) {
+	public InteractionResult interact(Player player, InteractionHand hand) {
 		this.cycle(player);
-		return ActionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	public ItemStack getPickBlockStack() {
+	public ItemStack getPickResult() {
 		return new ItemStack(RedBits.EMITTER_MINECART_ITEM);
 	}
 
 	@Override
-	protected void initDataTracker(DataTracker.Builder builder) {
-		super.initDataTracker(builder);
-		builder.add(POWER, 1);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(POWER, 1);
 	}
 
 	@Override
-	protected void readCustomData(ReadView view) {
-		super.readCustomData(view);
-		setPower(view.getInt("power", 1));
+	protected void readAdditionalSaveData(ValueInput view) {
+		super.readAdditionalSaveData(view);
+		setPower(view.getIntOr("power", 1));
 	}
 
 	@Override
-	protected void writeCustomData(WriteView view) {
-		super.writeCustomData(view);
+	protected void addAdditionalSaveData(ValueOutput view) {
+		super.addAdditionalSaveData(view);
 		view.putInt("power", this.getPower());
 	}
 
-	private void cycle(PlayerEntity player) {
-		int power = EmitterBlock.interact(player, this.getEntityWorld(), this.getBlockPos(), getPower());
+	private void cycle(Player player) {
+		int power = EmitterBlock.interact(player, this.level(), this.blockPosition(), getPower());
 
-		if (!this.getEntityWorld().isClient()) {
+		if (!this.level().isClientSide()) {
 			setPower(power);
 		}
 	}
 
 	public int getPower() {
-		return this.dataTracker.get(POWER);
+		return this.entityData.get(POWER);
 	}
 
 	private void setPower(int power) {
-		this.dataTracker.set(POWER, power);
+		this.entityData.set(POWER, power);
 	}
 
 	@Override
-	public Item asItem() {
+	public Item getDropItem() {
 		return RedBits.EMITTER_MINECART_ITEM;
 	}
 

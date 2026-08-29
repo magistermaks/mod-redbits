@@ -11,13 +11,13 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.RedstoneWireBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.BlockRenderLayer;
-import net.minecraft.client.render.entity.MinecartEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.renderer.entity.MinecartRenderer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RedStoneWireBlock;
 
 public class RedBitsClient implements ClientModInitializer {
 
@@ -37,14 +37,14 @@ public class RedBitsClient implements ClientModInitializer {
 		cutout(RedBits.PROJECTOR);
 		cutout(RedBits.JUNCTION);
 
-		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> RedstoneWireBlock.getWireColor(state.get(EmitterBlock.POWER)), RedBits.REDSTONE_EMITTER);
-		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> ColorProvider.getColor(state.get(AnalogLampBlock.POWER)), RedBits.RGB_LAMP);
+		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> RedStoneWireBlock.getColorForPower(state.getValue(EmitterBlock.POWER)), RedBits.REDSTONE_EMITTER);
+		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> ColorProvider.getColor(state.getValue(AnalogLampBlock.POWER)), RedBits.RGB_LAMP);
 
 		// minecart renderer
-		EntityRendererRegistry.register(RedBits.EMITTER_MINECART, ctx -> new MinecartEntityRenderer(ctx, EntityModelLayers.TNT_MINECART));
+		EntityRendererRegistry.register(RedBits.EMITTER_MINECART, ctx -> new MinecartRenderer(ctx, ModelLayers.TNT_MINECART));
 
 		ClientTickEvents.END_WORLD_TICK.register(world -> {
-			PlayerEntity player = MinecraftClient.getInstance().player;
+			Player player = Minecraft.getInstance().player;
 
 			if (player != null && !player.isSpectator()) {
 				LookAtTickHandle.raytrace(player, client, point -> client = point);
@@ -54,7 +54,7 @@ public class RedBitsClient implements ClientModInitializer {
 
 	@Environment(EnvType.CLIENT)
 	private void cutout(Block block) {
-		BlockRenderLayerMap.putBlock(block, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(block, ChunkSectionLayer.CUTOUT);
 	}
 
 }
