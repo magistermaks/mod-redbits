@@ -1,6 +1,7 @@
 {
   "variants": {
-    "powered=true": { "model": "redbits:block/vision_sensor/on" },
-    "powered=false": { "model": "redbits:block/vision_sensor/off" }
+    "power=2": { "model": "redbits:block/vision_sensor/on" },
+    "power=1": { "model": "redbits:block/vision_sensor/squint" },
+    "power=0": { "model": "redbits:block/vision_sensor/off" }
   }
 }

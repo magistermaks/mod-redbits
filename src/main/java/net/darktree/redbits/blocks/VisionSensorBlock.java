@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -19,33 +20,35 @@ import net.minecraft.world.World;
 
 public class VisionSensorBlock extends Block implements RedstoneConnectable, LookAtEvent {
 
-	public static final BooleanProperty POWERED = Properties.POWERED;
+	public static final int DELAY = 8;
+	public static final IntProperty POWER = IntProperty.of("power", 0, 2);
 
 	public VisionSensorBlock(Settings settings) {
 		super(settings);
-		setDefaultState(this.stateManager.getDefaultState().with(POWERED, false));
+		setDefaultState(this.stateManager.getDefaultState().with(POWER, 0));
 	}
 
 	public static void trigger(World world, BlockPos pos) {
 		BlockState state = world.getBlockState(pos);
 
-		if (!state.get(POWERED)) {
+		if (state.get(POWER) == 0) {
 			Block self = state.getBlock();
 
 			if (!world.getBlockTickScheduler().isQueued(pos, self)) {
-				world.setBlockState(pos, state.with(POWERED, true));
-				world.scheduleBlockTick(pos, self, 2);
+				world.setBlockState(pos, state.with(POWER, 2));
+				world.scheduleBlockTick(pos, self, DELAY);
 			}
 		}
 	}
 
+	@Override
 	public void onLookAtStart(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
 		RedBits.LOOK_AT_PACKET.send(pos);
 	}
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(POWERED);
+		builder.add(POWER);
 	}
 
 	@Override
@@ -55,7 +58,7 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable, Loo
 
 	@Override
 	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-		return state.get(POWERED) ? 15 : 0;
+		return (state.get(POWER) != 0) ? 15 : 0;
 	}
 
 	@Override
@@ -65,12 +68,20 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable, Loo
 
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		world.setBlockState(pos, state.with(POWERED, false));
+		int power = Math.max(0, state.get(POWER) - 1);
+
+		world.setBlockState(pos, state.with(POWER, power));
+
+		if (power > 0) {
+			world.scheduleBlockTick(pos, this, DELAY);
+		}
 	}
 
 	@Override
 	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-		world.scheduleBlockTick(pos, this, 2);
+		if (oldState.getBlock() != state.getBlock()) {
+			world.scheduleBlockTick(pos, this, DELAY);
+		}
 	}
 
 }
