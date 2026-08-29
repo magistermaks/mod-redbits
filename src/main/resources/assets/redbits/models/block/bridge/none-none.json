@@ -6,7 +6,12 @@
 		"torch_x_front": "block/redstone_torch_off",
 		"torch_z_back": "block/redstone_torch_off",
 		"torch_z_front": "block/redstone_torch_off",
-		"top": "redbits:block/bridge_off_off"
+		"top": "redbits:block/bridge_off_off",
+
+		"torch_x_glow_back": "redbits:block/empty",
+		"torch_x_glow_front": "redbits:block/empty",
+		"torch_z_glow_back": "redbits:block/empty",
+		"torch_z_glow_front": "redbits:block/empty"
 	}
 }
 

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "redbits:large_wooden_buttons",
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "key": {
+    "R": "minecraft:pale_oak_button"
+  },
+  "result": {
+    "id": "redbits:pale_oak_large_button"
+  },
+  "category": "redstone"
+}

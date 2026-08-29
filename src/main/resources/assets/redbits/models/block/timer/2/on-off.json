@@ -2,9 +2,11 @@
 	"credit": "Made with Blockbench by magistermaks",
 	"parent": "redbits:block/timer/2/base",
 	"textures": {
-		"top": "block/repeater_on",
+		"top": "redbits:block/timer_on",
 		"torch_front": "block/redstone_torch_off",
-		"torch_back": "block/redstone_torch"
+		"torch_back": "block/redstone_torch",
+		"glow_front": "redbits:block/empty",
+		"glow_back": "block/redstone_torch"
 	}
 }
 

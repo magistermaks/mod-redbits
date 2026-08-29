@@ -1,16 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "redbits:large_wooden_buttons",
   "pattern": [
     "RR",
     "RR"
   ],
   "key": {
-    "R": {
-      "item": "minecraft:spruce_button"
-    }
+    "R": "minecraft:spruce_button"
   },
   "result": {
-    "item": "redbits:spruce_large_button",
     "id": "redbits:spruce_large_button"
   },
   "category": "redstone"

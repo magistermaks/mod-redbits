@@ -7,18 +7,11 @@
     "222"
   ],
   "key": {
-    "1": {
-      "item": "minecraft:redstone_torch"
-    },
-    "2": {
-      "item": "minecraft:stone"
-    },
-    "3": {
-      "item": "minecraft:redstone"
-    }
+    "1": "minecraft:redstone_torch",
+    "2": "minecraft:stone",
+    "3": "minecraft:redstone"
   },
   "result": {
-    "item": "redbits:two_way_repeater",
     "id": "redbits:two_way_repeater"
   },
   "category": "redstone"

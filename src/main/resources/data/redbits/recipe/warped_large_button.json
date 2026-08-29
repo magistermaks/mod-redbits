@@ -1,16 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "redbits:large_wooden_buttons",
   "pattern": [
     "RR",
     "RR"
   ],
   "key": {
-    "R": {
-      "item": "minecraft:warped_button"
-    }
+    "R": "minecraft:warped_button"
   },
   "result": {
-    "item": "redbits:warped_large_button",
     "id": "redbits:warped_large_button"
   },
   "category": "redstone"

@@ -3,6 +3,7 @@
 	"parent": "redbits:block/inverter/base",
 	"textures": {
 		"torch": "block/redstone_torch",
-		"top": "redbits:block/inverter_off"
+		"top": "redbits:block/inverter_off",
+		"glow": "block/redstone_torch"
 	}
 }

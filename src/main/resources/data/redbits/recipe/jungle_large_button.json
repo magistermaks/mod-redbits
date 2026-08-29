@@ -1,16 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "redbits:large_wooden_buttons",
   "pattern": [
     "RR",
     "RR"
   ],
   "key": {
-    "R": {
-      "item": "minecraft:jungle_button"
-    }
+    "R": "minecraft:jungle_button"
   },
   "result": {
-    "item": "redbits:jungle_large_button",
     "id": "redbits:jungle_large_button"
   },
   "category": "redstone"

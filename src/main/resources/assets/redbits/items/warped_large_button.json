@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "redbits:block/large_button/warped_gui"
+  }
+}
