@@ -1,16 +1,20 @@
 package net.darktree.redbits.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.darktree.redbits.utils.PatchouliProxy;
 import net.minecraft.client.resource.SplashTextResourceSupplier;
 import net.minecraft.resource.ResourceManager;
+import net.minecraft.text.Text;
 import net.minecraft.util.profiler.Profiler;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.function.Consumer;
@@ -18,14 +22,12 @@ import java.util.function.Consumer;
 @Mixin(SplashTextResourceSupplier.class)
 public class SplashTextMixin {
 
-	@Shadow
-	@Final
-	private List<String> splashTexts;
+	@WrapMethod(method = "prepare(Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)Ljava/util/List;")
+	protected List<Text> prepare(ResourceManager resourceManager, Profiler profiler, Operation<List<Text>> original) {
+		List<Text> injected = new ArrayList<>(original.call(resourceManager, profiler));
 
-	@Inject(method = "apply(Ljava/util/List;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V", at = @At("TAIL"))
-	protected void apply(List<String> list, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci) {
 		Consumer<String> inject = encoded -> {
-			splashTexts.add(new String(Base64.getDecoder().decode(encoded)));
+			injected.add(Text.literal(new String(Base64.getDecoder().decode(encoded))));
 		};
 
 		// nothing to see here
@@ -52,6 +54,10 @@ public class SplashTextMixin {
 		if (!PatchouliProxy.isModLoaded()) {
 			inject.accept("VHJ5IHdpdGggUGF0Y2hvdWxpIQ==");
 		}
+
+		return List.copyOf(injected);
 	}
+
+
 
 }
