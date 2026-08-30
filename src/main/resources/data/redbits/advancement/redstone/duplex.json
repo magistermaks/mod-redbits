@@ -3,7 +3,7 @@
 	"criteria": {
 		"two_way_repeater": {
 			"conditions": {
-				"recipe_id": "redbits:two_way_repeater"
+				"recipes": "redbits:two_way_repeater"
 			},
 			"trigger": "minecraft:recipe_crafted"
 		}

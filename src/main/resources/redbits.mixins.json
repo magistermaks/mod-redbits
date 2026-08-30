@@ -8,9 +8,8 @@
 		"JukeboxBlockMixin",
 		"RedstoneTorchBlockMixin",
 		"SimpleItemTooltipsMixin",
-		"RedstoneWireMixin",
 		"ItemFrameEntityMixin",
-		"AbstractDecorationEntityMixin",
+		"HangingEntityMixin",
 		"RedstoneViewMixin"
 	],
 	"client": [

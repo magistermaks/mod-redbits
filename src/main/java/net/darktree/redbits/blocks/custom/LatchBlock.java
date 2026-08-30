@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.ticks.TickPriority;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class LatchBlock extends CustomRedstoneGate {
@@ -58,7 +59,7 @@ public class LatchBlock extends CustomRedstoneGate {
 	}
 
 	@Override
-	public boolean connectsTo(BlockState state, Direction direction) {
+	public boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
 		return state.getValue(AXIS) == direction.getAxis();
 	}
 

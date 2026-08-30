@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import org.jetbrains.annotations.Nullable;
 
 public class ProjectorBlock extends CustomRedstoneGate {
 
@@ -38,7 +39,7 @@ public class ProjectorBlock extends CustomRedstoneGate {
 	}
 
 	@Override
-	public boolean connectsTo(BlockState state, Direction direction) {
+	public boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
 		return state.getValue(FACING).getAxis() == direction.getAxis();
 	}
 

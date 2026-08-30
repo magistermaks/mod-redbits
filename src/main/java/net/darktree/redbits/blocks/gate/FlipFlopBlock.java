@@ -3,7 +3,6 @@ package net.darktree.redbits.blocks.gate;
 import com.mojang.serialization.MapCodec;
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
-import net.darktree.redbits.utils.RedstoneConnectable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -20,8 +19,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.ticks.TickPriority;
+import org.jetbrains.annotations.Nullable;
 
-public class FlipFlopBlock extends DiodeBlock implements RedstoneConnectable {
+public class FlipFlopBlock extends DiodeBlock {
 
 	public static final BooleanProperty INPUT = BooleanProperty.create("input");
 
@@ -95,13 +95,8 @@ public class FlipFlopBlock extends DiodeBlock implements RedstoneConnectable {
 	}
 
 	@Override
-	public boolean connectsTo(BlockState state, Direction direction) {
+	public boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
 		return state.getValue(RepeaterBlock.FACING).getAxis() == direction.getAxis();
-	}
-
-	@Override
-	protected MapCodec<? extends DiodeBlock> codec() {
-		return null;
 	}
 
 }

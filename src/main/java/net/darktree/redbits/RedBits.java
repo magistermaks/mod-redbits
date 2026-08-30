@@ -92,11 +92,11 @@ public class RedBits implements ModInitializer {
 	public static final SoundEvent TIMER_CLICK = registerSound("timer_click");
 
 	private static Function<BlockBehaviour.Properties, Block> getButtonFactory(BlockSetType type) {
-		return setting -> new LargeButtonBlock(type, setting.noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY));
+		return setting -> new LargeButtonBlock(type, setting.noCollision().strength(0.5F).pushReaction(PushReaction.POPPED));
 	}
 
 	private static Function<BlockBehaviour.Properties, Block> getGateFactory(Function<BlockBehaviour.Properties, Block> factory) {
-		return setting -> factory.apply(setting.instabreak().sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
+		return setting -> factory.apply(setting.instabreak().sound(SoundType.WOOD).pushReaction(PushReaction.POPPED));
 	}
 
 	private static Function<BlockBehaviour.Properties, Block> getPressurePlateFactory(ComplexPressurePlateBlock.CollisionCondition condition, MapColor color) {
@@ -148,8 +148,8 @@ public class RedBits implements ModInitializer {
 	public final static Block RGB_LAMP = registerBlock("rgb_lamp", settings -> new AnalogLampBlock(settings.lightLevel(n -> n.getValue(AnalogLampBlock.POWER) > 0 ? 1 : 0).emissiveRendering(state -> state.getValue(AnalogLampBlock.POWER) > 0).strength(0.3F).strength(0.3f).sound(SoundType.GLASS).isValidSpawn(Blocks::always)));
 	public final static Block REDSTONE_EMITTER = registerBlock("emitter", settings -> new EmitterBlock(settings.requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE).forceSolidOn()));
 	public final static Block VISION_SENSOR = registerBlock("vision_sensor", settings -> new VisionSensorBlock(settings.requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE).forceSolidOn()));
-	public final static Block INVERTED_REDSTONE_TORCH = registerBlock("inverted_redstone_torch", settings -> new InvertedRedstoneTorchBlock(settings.pushReaction(PushReaction.DESTROY).noCollision().instabreak().lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 7 : 0).sound(SoundType.WOOD)));
-	public final static Block INVERTED_REDSTONE_WALL_TORCH = registerBlock("inverted_redstone_wall_torch", settings -> new WallInvertedRedstoneTorchBlock(settings.pushReaction(PushReaction.DESTROY).noCollision().instabreak().lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 7 : 0).sound(SoundType.WOOD)));
+	public final static Block INVERTED_REDSTONE_TORCH = registerBlock("inverted_redstone_torch", settings -> new InvertedRedstoneTorchBlock(settings.pushReaction(PushReaction.POPPED).noCollision().instabreak().lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 7 : 0).sound(SoundType.WOOD)));
+	public final static Block INVERTED_REDSTONE_WALL_TORCH = registerBlock("inverted_redstone_wall_torch", settings -> new WallInvertedRedstoneTorchBlock(settings.pushReaction(PushReaction.POPPED).noCollision().instabreak().lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 7 : 0).sound(SoundType.WOOD)));
 	public final static Item EMITTER_MINECART_ITEM = registerItem("emitter_minecart", settings -> new MinecartItem(EMITTER_MINECART, settings.stacksTo(1)));
 	public final static Item GUIDE = ProxyBookItem.createInstance();
 

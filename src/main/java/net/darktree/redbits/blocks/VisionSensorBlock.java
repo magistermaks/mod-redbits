@@ -2,7 +2,6 @@ package net.darktree.redbits.blocks;
 
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.utils.LookAtEvent;
-import net.darktree.redbits.utils.RedstoneConnectable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -15,8 +14,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 
-public class VisionSensorBlock extends Block implements RedstoneConnectable, LookAtEvent {
+public class VisionSensorBlock extends Block implements LookAtEvent {
 
 	public static final int DELAY = 8;
 	public static final IntegerProperty POWER = IntegerProperty.create("power", 0, 2);
@@ -50,7 +50,7 @@ public class VisionSensorBlock extends Block implements RedstoneConnectable, Loo
 	}
 
 	@Override
-	public boolean connectsTo(BlockState state, Direction direction) {
+	public boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
 		return true;
 	}
 

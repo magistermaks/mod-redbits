@@ -12,7 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.RedStoneWireBlock;
+import net.minecraft.world.level.block.RedstoneWireBlock;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class RedBitsClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		BlockColorRegistry.register(List.of(state -> RedStoneWireBlock.getColorForPower(state.getValue(EmitterBlock.POWER))), RedBits.REDSTONE_EMITTER);
+		BlockColorRegistry.register(List.of(state -> RedstoneWireBlock.getColorForPower(state.getValue(EmitterBlock.POWER))), RedBits.REDSTONE_EMITTER);
 		BlockColorRegistry.register(List.of(state -> ColorProvider.getColor(state.getValue(AnalogLampBlock.POWER))), RedBits.RGB_LAMP);
 
 		// minecart renderer

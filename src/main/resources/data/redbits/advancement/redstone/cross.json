@@ -3,7 +3,7 @@
 	"criteria": {
 		"bridge": {
 			"conditions": {
-				"recipe_id": "redbits:bridge"
+				"recipes": "redbits:bridge"
 			},
 			"trigger": "minecraft:recipe_crafted"
 		}

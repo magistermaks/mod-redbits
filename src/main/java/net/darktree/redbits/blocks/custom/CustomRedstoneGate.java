@@ -1,6 +1,5 @@
 package net.darktree.redbits.blocks.custom;
 
-import net.darktree.redbits.utils.RedstoneConnectable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -15,7 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RedStoneWireBlock;
+import net.minecraft.world.level.block.RedstoneWireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.redstone.Orientation;
@@ -24,7 +23,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class CustomRedstoneGate extends Block implements RedstoneConnectable {
+public abstract class CustomRedstoneGate extends Block {
 
 	public static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
 
@@ -51,7 +50,7 @@ public abstract class CustomRedstoneGate extends Block implements RedstoneConnec
 			return i;
 		} else {
 			BlockState blockState = world.getBlockState(blockPos);
-			return Math.max(i, blockState.is(Blocks.REDSTONE_WIRE) ? blockState.getValue(RedStoneWireBlock.POWER) : 0);
+			return Math.max(i, blockState.is(Blocks.REDSTONE_WIRE) ? blockState.getValue(RedstoneWireBlock.POWER) : 0);
 		}
 	}
 
@@ -76,7 +75,7 @@ public abstract class CustomRedstoneGate extends Block implements RedstoneConnec
 	}
 
 	@Override
-	public boolean connectsTo(BlockState state, Direction direction) {
+	public boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
 		return true;
 	}
 

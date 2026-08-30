@@ -2,7 +2,6 @@ package net.darktree.redbits.blocks.gate;
 
 import com.mojang.serialization.MapCodec;
 import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
-import net.darktree.redbits.utils.RedstoneConnectable;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
@@ -16,8 +15,9 @@ import net.minecraft.world.level.block.DiodeBlock;
 import net.minecraft.world.level.block.RepeaterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import org.jetbrains.annotations.Nullable;
 
-public class InverterBlock extends DiodeBlock implements RedstoneConnectable {
+public class InverterBlock extends DiodeBlock {
 
 	public InverterBlock(Properties settings) {
 		super(settings);
@@ -52,13 +52,8 @@ public class InverterBlock extends DiodeBlock implements RedstoneConnectable {
 	}
 
 	@Override
-	public boolean connectsTo(BlockState state, Direction direction) {
+	public boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
 		return state.getValue(RepeaterBlock.FACING).getAxis() == direction.getAxis();
-	}
-
-	@Override
-	protected MapCodec<? extends DiodeBlock> codec() {
-		return null;
 	}
 
 }

@@ -3,7 +3,7 @@
 	"criteria": {
 		"inverted_redstone_torch": {
 			"conditions": {
-				"recipe_id": "redbits:inverted_redstone_torch"
+				"recipes": ["redbits:inverted_redstone_torch", "redbits:inverted_redstone_torch_from_normal"]
 			},
 			"trigger": "minecraft:recipe_crafted"
 		}
