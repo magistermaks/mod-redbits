@@ -15,12 +15,10 @@ public class PatchouliProxy {
 	private static final String PATCHOULI_INTERFACE = "vazkii.patchouli.api.PatchouliAPI$IPatchouliAPI";
 
 	private final Object api;
-	private final Object sound;
 	private final Method method;
 
-	private PatchouliProxy(Object api, Object sound, Method method) {
+	private PatchouliProxy(Object api, Method method) {
 		this.api = api;
-		this.sound = sound;
 		this.method = method;
 	}
 
@@ -31,7 +29,6 @@ public class PatchouliProxy {
 
 		try {
 			Object api = Class.forName(PATCHOULI_API).getMethod("get").invoke(null);
-			Object sound = Class.forName(PATCHOULI_SOUNDS).getField("BOOK_OPEN").get(null);
 			Method method = Class.forName(PATCHOULI_INTERFACE).getMethod("openBookGUI", ServerPlayer.class, Identifier.class);
 			Method check = Class.forName(PATCHOULI_INTERFACE).getMethod("isStub");
 
@@ -39,7 +36,7 @@ public class PatchouliProxy {
 				return null;
 			}
 
-			return new PatchouliProxy(api, sound, method);
+			return new PatchouliProxy(api, method);
 		} catch (Throwable throwable) {
 			RedBits.LOGGER.error("Failed to acquire Patchouli API access!", throwable);
 			return null;
@@ -49,7 +46,6 @@ public class PatchouliProxy {
 	public void openBook(ServerPlayer player, Identifier book) {
 		try {
 			method.invoke(api, player, book);
-			player.playSound((SoundEvent) sound, 1f, (float) (0.7 + Math.random() * 0.4));
 		} catch (Throwable throwable) {
 			RedBits.LOGGER.error("Failed to open book on the acquired API instance!", throwable);
 		}
