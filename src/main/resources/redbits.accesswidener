@@ -1,3 +1,4 @@
 accessWidener	v2	official
+accessible method net/minecraft/advancements/triggers/CriteriaTriggers register (Ljava/lang/String;Lnet/minecraft/advancements/triggers/CriterionTrigger;)Lnet/minecraft/advancements/triggers/CriterionTrigger;
 extendable	class	net/minecraft/world/level/block/state/properties/IntegerProperty
 accessible	method	net/minecraft/world/level/block/state/properties/IntegerProperty	<init>	(Ljava/lang/String;II)V

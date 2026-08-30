@@ -17,7 +17,7 @@ import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
 import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -144,8 +144,8 @@ public class RedBits implements ModInitializer {
 			.build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(NAMESPACE, "emitter_minecart")));
 
 	// Other Components
-	public final static Block REDSTONE_LAMP = registerBlock("redstone_lamp", settings -> new RedstoneLampBlock(settings.lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 1 : 0).emissiveRendering((a, b, c) -> a.getValue(BlockStateProperties.LIT)).strength(0.3f).sound(SoundType.GLASS).isValidSpawn(Blocks::always)));
-	public final static Block RGB_LAMP = registerBlock("rgb_lamp", settings -> new AnalogLampBlock(settings.lightLevel(n -> n.getValue(AnalogLampBlock.POWER) > 0 ? 1 : 0).emissiveRendering((a, b, c) -> a.getValue(AnalogLampBlock.POWER) > 0).strength(0.3F).strength(0.3f).sound(SoundType.GLASS).isValidSpawn(Blocks::always)));
+	public final static Block REDSTONE_LAMP = registerBlock("redstone_lamp", settings -> new RedstoneLampBlock(settings.lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 1 : 0).emissiveRendering(state -> state.getValue(BlockStateProperties.LIT)).strength(0.3f).sound(SoundType.GLASS).isValidSpawn(Blocks::always)));
+	public final static Block RGB_LAMP = registerBlock("rgb_lamp", settings -> new AnalogLampBlock(settings.lightLevel(n -> n.getValue(AnalogLampBlock.POWER) > 0 ? 1 : 0).emissiveRendering(state -> state.getValue(AnalogLampBlock.POWER) > 0).strength(0.3F).strength(0.3f).sound(SoundType.GLASS).isValidSpawn(Blocks::always)));
 	public final static Block REDSTONE_EMITTER = registerBlock("emitter", settings -> new EmitterBlock(settings.requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE).forceSolidOn()));
 	public final static Block VISION_SENSOR = registerBlock("vision_sensor", settings -> new VisionSensorBlock(settings.requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE).forceSolidOn()));
 	public final static Block INVERTED_REDSTONE_TORCH = registerBlock("inverted_redstone_torch", settings -> new InvertedRedstoneTorchBlock(settings.pushReaction(PushReaction.DESTROY).noCollision().instabreak().lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 7 : 0).sound(SoundType.WOOD)));

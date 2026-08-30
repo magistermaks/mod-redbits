@@ -5,7 +5,7 @@
 	"compatibilityLevel": "JAVA_16",
 	"mixins": [
 		"CampfireBlockMixin",
-		"JukeboxBlockMixin",
+
 		"RedstoneTorchBlockMixin",
 		"SimpleItemTooltipsMixin",
 		"RedstoneWireMixin",
