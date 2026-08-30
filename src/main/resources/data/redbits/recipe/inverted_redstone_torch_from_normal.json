@@ -3,12 +3,11 @@
   "group": "redbits:inverted_redstone_torch",
   "pattern": [
     "1",
-    "2",
-    "1"
+    "2"
   ],
   "key": {
-    "1": "minecraft:redstone",
-    "2": "minecraft:stick"
+    "1": "minecraft:redstone_torch",
+    "2": "minecraft:redstone"
   },
   "result": {
     "id": "redbits:inverted_redstone_torch"
