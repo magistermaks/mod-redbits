@@ -1,7 +1,5 @@
 package net.darktree.redbits;
 
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
 import net.darktree.redbits.blocks.custom.*;
@@ -67,7 +65,7 @@ import java.util.function.Predicate;
 public class RedBits implements ModInitializer {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger("RedBits");
-	public static final Settings CONFIG = AutoConfig.register(Settings.class, GsonConfigSerializer::new).getConfig();
+	public static final Settings CONFIG = Settings.readConfigFile("redbits.json");
 	public static final String NAMESPACE = "redbits";
 
 	private final static List<Item> lamps = new ArrayList<>();
@@ -166,6 +164,8 @@ public class RedBits implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		CONFIG.save();
+
 		torches.add(registerItem("inverted_redstone_torch", settings -> new StandingAndWallBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, Direction.DOWN, settings.useBlockDescriptionPrefix())));
 		carts.add(EMITTER_MINECART_ITEM);
 

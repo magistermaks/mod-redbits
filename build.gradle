@@ -13,11 +13,6 @@ loom {
 
 repositories {
 
-	// Cloth Config
-	maven {
-		url "https://maven.shedaniel.me/"
-	}
-
 	// ModMenu
 	maven {
 		url 'https://maven.terraformersmc.com'
@@ -44,9 +39,6 @@ dependencies {
 
 	// Fabric API
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-
-	// Cloth Config
-	include( implementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") ) exclude group: 'net.fabricmc.fabric-api'
 
 	// Patchouli
 	if (project.hasProperty("patchouli_version")) {

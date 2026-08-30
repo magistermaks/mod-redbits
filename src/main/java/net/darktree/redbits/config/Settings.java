@@ -1,27 +1,29 @@
 package net.darktree.redbits.config;
 
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import com.google.gson.JsonElement;
 
-@Config(name = "redbits")
-public class Settings implements ConfigData {
+public class Settings {
 
-	@ConfigEntry.Gui.Tooltip(count=2)
+	private transient ConfigStorage storage;
+
 	public boolean disable_burnout = true;
-
-	@ConfigEntry.Gui.Tooltip(count=2)
 	public boolean jukebox_integration = true;
-
-	@ConfigEntry.Gui.Tooltip(count=2)
 	public boolean campfire_integration = true;
-
-	@ConfigEntry.Gui.RequiresRestart
-	@ConfigEntry.Gui.Tooltip(count=2)
 	public boolean add_guide_to_loot_tables = true;
-
-	@ConfigEntry.Gui.RequiresRestart
-	@ConfigEntry.Gui.Tooltip(count=2)
 	public boolean add_guide_to_creative_menu = true;
+
+	public static Settings readConfigFile(String name) {
+		final ConfigStorage storage = new ConfigStorage(name);
+		return storage.read(Settings.class).orElseGet(Settings::new).setStorage(storage);
+	}
+
+	public void save() {
+		storage.write(this);
+	}
+
+	private Settings setStorage(ConfigStorage storage) {
+		this.storage = storage;
+		return this;
+	}
 
 }

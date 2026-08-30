@@ -36,11 +36,11 @@
 
     "message.redbits.power_level": "Энергия: %s",
 
-    "text.autoconfig.redbits.title": "Настройки Red Bits",
-    "text.autoconfig.redbits.option.add_guide_to_loot_tables": "Добавить руководство в таблицу добычи",
-    "text.autoconfig.redbits.option.disable_burnout": "Отключить сгорание редстоунового факела",
-    "text.autoconfig.redbits.option.jukebox_integration": "Включить интеграцию с jukebox",
-    "text.autoconfig.redbits.option.campfire_integration": "Включить расширения для костра",
+    "config.redbits.title": "Настройки Red Bits",
+    "config.redbits.option.add_guide_to_loot_tables": "Добавить руководство в таблицу добычи",
+    "config.redbits.option.disable_burnout": "Отключить сгорание редстоунового факела",
+    "config.redbits.option.jukebox_integration": "Включить интеграцию с jukebox",
+    "config.redbits.option.campfire_integration": "Включить расширения для костра",
     "text.patchouli.redbits.guide.name": "RedBits руководство",
     "text.patchouli.redbits.guide.text": "Руководство по компонентам редстоуна добавленных RedBits, их применению и рецептам."
 }
