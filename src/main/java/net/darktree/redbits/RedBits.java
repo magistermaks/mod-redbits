@@ -11,10 +11,12 @@ import net.darktree.redbits.entity.EmitterMinecartEntity;
 import net.darktree.redbits.item.ProxyBookItem;
 import net.darktree.redbits.network.C2SLookAtPacket;
 import net.darktree.redbits.utils.ParameterlessCriterion;
+import net.darktree.redbits.utils.PatchouliProxy;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -39,6 +41,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MinecartItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RedstoneLampBlock;
@@ -200,6 +204,12 @@ public class RedBits implements ModInitializer {
 
 		registerItem("redstone_lamp", REDSTONE_LAMP, lamps);
 		registerItem("rgb_lamp", RGB_LAMP, lamps);
+
+		// bugfix for patchouli, remove once they call it themselves
+		if (PatchouliProxy.isModLoaded()) {
+			RecipeSynchronization.synchronizeRecipeSerializer(ShapedRecipe.SERIALIZER);
+			RecipeSynchronization.synchronizeRecipeSerializer(ShapelessRecipe.SERIALIZER);
+		}
 
 		// Register the guide item
 		Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(NAMESPACE, "guide"), GUIDE);
