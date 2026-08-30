@@ -65,8 +65,8 @@ abstract public class JukeboxBlockMixin extends BaseEntityBlock {
 		}
 	}
 
-	@Inject(at = @At("HEAD"), method = "getSignal", cancellable = true)
-	public void getWeakRedstonePower(BlockState state, BlockGetter world, BlockPos pos, Direction direction, CallbackInfoReturnable<Integer> cir) {
+	@Inject(at = @At("HEAD"), method = "ownSignal", cancellable = true)
+	public void getWeakRedstonePower(BlockState state, BlockGetter world, BlockPos pos, CallbackInfoReturnable<Integer> cir) {
 		if (RedBits.CONFIG.jukebox_integration && verified) {
 			cir.setReturnValue(0);
 		}
