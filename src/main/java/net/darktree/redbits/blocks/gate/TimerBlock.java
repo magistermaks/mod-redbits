@@ -4,78 +4,78 @@ import net.darktree.redbits.RedBits;
 import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.tick.TickPriority;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.ticks.TickPriority;
 
 public class TimerBlock extends FlipFlopBlock {
 
-	public static final IntProperty DELAY = IntProperty.of("delay", 1, 4);
+	public static final IntegerProperty DELAY = IntegerProperty.create("delay", 1, 4);
 
-	public TimerBlock(Settings settings) {
+	public TimerBlock(Properties settings) {
 		super(settings);
-		this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(POWERED, false).with(INPUT, false).with(DELAY, 1));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(INPUT, false).setValue(DELAY, 1));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, POWERED, INPUT, DELAY);
 	}
 
 	@Override
-	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-		if (player == null || player.getAbilities().allowModifyWorld) {
-			world.setBlockState(pos, state.cycle(DELAY));
+	protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+		if (player == null || player.getAbilities().mayBuild) {
+			world.setBlockAndUpdate(pos, state.cycle(DELAY));
 
 			CustomRedstoneGate.playClickSound(world, pos, RedBits.TIMER_CLICK, true);
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
-		return super.onUse(state, world, pos, player, hit);
+		return super.useWithoutItem(state, world, pos, player, hit);
 	}
 
 	@Override
-	protected void updatePowered(World world, BlockPos pos, BlockState state) {
-		if (hasPower(world, pos, state)) {
-			if (!state.get(INPUT)) {
-				world.scheduleBlockTick(pos, this, getUpdateDelayInternal(state), TickPriority.HIGH);
+	protected void checkTickOnNeighbor(Level world, BlockPos pos, BlockState state) {
+		if (shouldTurnOn(world, pos, state)) {
+			if (!state.getValue(INPUT)) {
+				world.scheduleTick(pos, this, getDelay(state), TickPriority.HIGH);
 			}
 		} else {
-			world.setBlockState(pos, state.with(INPUT, false), Block.NOTIFY_LISTENERS);
+			world.setBlock(pos, state.setValue(INPUT, false), Block.UPDATE_CLIENTS);
 		}
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		if (hasPower(world, pos, state)) {
-			if (state.get(INPUT)) {
-				world.setBlockState(pos, state.cycle(POWERED), Block.NOTIFY_LISTENERS);
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+		if (shouldTurnOn(world, pos, state)) {
+			if (state.getValue(INPUT)) {
+				world.setBlock(pos, state.cycle(POWERED), Block.UPDATE_CLIENTS);
 			} else {
-				world.setBlockState(pos, state.with(INPUT, true), Block.NOTIFY_LISTENERS);
+				world.setBlock(pos, state.setValue(INPUT, true), Block.UPDATE_CLIENTS);
 			}
 
-			world.scheduleBlockTick(pos, this, (int) Math.pow(2, state.get(DELAY)), TickPriority.HIGH);
+			world.scheduleTick(pos, this, (int) Math.pow(2, state.getValue(DELAY)), TickPriority.HIGH);
 		} else {
-			world.setBlockState(pos, state.with(INPUT, false).with(POWERED, false), Block.NOTIFY_LISTENERS);
+			world.setBlock(pos, state.setValue(INPUT, false).setValue(POWERED, false), Block.UPDATE_CLIENTS);
 		}
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-		if (state.get(POWERED)) {
-			CustomRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, state.get(FACING), false, -5);
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+		if (state.getValue(POWERED)) {
+			CustomRedstoneGate.spawnSimpleParticles(DustParticleOptions.REDSTONE, world, pos, random, state.getValue(FACING), false, -5);
 		}
 	}
 

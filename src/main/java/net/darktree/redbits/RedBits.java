@@ -11,36 +11,51 @@ import net.darktree.redbits.entity.EmitterMinecartEntity;
 import net.darktree.redbits.item.ProxyBookItem;
 import net.darktree.redbits.network.C2SLookAtPacket;
 import net.darktree.redbits.utils.ParameterlessCriterion;
+import net.darktree.redbits.utils.PatchouliProxy;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.*;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTables;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.stat.StatFormatter;
-import net.minecraft.stat.Stats;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.stats.StatFormatter;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.npc.villager.Villager;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.MinecartItem;
+import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RedstoneLampBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,22 +68,21 @@ public class RedBits implements ModInitializer {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger("RedBits");
 	public static final Settings CONFIG = AutoConfig.register(Settings.class, GsonConfigSerializer::new).getConfig();
-	public static final Item.Settings SETTINGS = new Item.Settings();
 	public static final String NAMESPACE = "redbits";
 
-	private final static List<ItemStack> lamps = new ArrayList<>();
-	private final static List<ItemStack> torches = new ArrayList<>();
-	private final static List<ItemStack> carts = new ArrayList<>();
-	private final static List<ItemStack> gates = new ArrayList<>();
-	private final static List<ItemStack> cubes = new ArrayList<>();
-	private final static List<ItemStack> plates = new ArrayList<>();
-	private final static List<ItemStack> buttons = new ArrayList<>();
+	private final static List<Item> lamps = new ArrayList<>();
+	private final static List<Item> torches = new ArrayList<>();
+	private final static List<Item> carts = new ArrayList<>();
+	private final static List<Item> gates = new ArrayList<>();
+	private final static List<Item> cubes = new ArrayList<>();
+	private final static List<Item> plates = new ArrayList<>();
+	private final static List<Item> buttons = new ArrayList<>();
 
-	private final static Predicate<Entity> CANT_AVOID_TRAPS = n -> !n.canAvoidTraps();
-	public final static CollisionCondition COLLISION_CONDITION_PET = (world, box) -> world.getNonSpectatingEntities(TameableEntity.class, box).stream().anyMatch(n -> n.isTamed() && !n.canAvoidTraps());
-	public final static CollisionCondition COLLISION_CONDITION_PLAYERS = (world, box) -> world.getNonSpectatingEntities(PlayerEntity.class, box).stream().anyMatch(CANT_AVOID_TRAPS);
-	public final static CollisionCondition COLLISION_CONDITION_HOSTILE = (world, box) -> world.getNonSpectatingEntities(HostileEntity.class, box).stream().anyMatch(CANT_AVOID_TRAPS);
-	public final static CollisionCondition COLLISION_CONDITION_VILLAGER = (world, box) -> world.getNonSpectatingEntities(VillagerEntity.class, box).stream().anyMatch(CANT_AVOID_TRAPS);
+	private final static Predicate<Entity> CANT_AVOID_TRAPS = n -> !n.isIgnoringBlockTriggers();
+	public final static CollisionCondition COLLISION_CONDITION_PET = (world, box) -> world.getEntitiesOfClass(TamableAnimal.class, box).stream().anyMatch(n -> n.isTame() && !n.isIgnoringBlockTriggers());
+	public final static CollisionCondition COLLISION_CONDITION_PLAYERS = (world, box) -> world.getEntitiesOfClass(Player.class, box).stream().anyMatch(CANT_AVOID_TRAPS);
+	public final static CollisionCondition COLLISION_CONDITION_HOSTILE = (world, box) -> world.getEntitiesOfClass(Monster.class, box).stream().anyMatch(CANT_AVOID_TRAPS);
+	public final static CollisionCondition COLLISION_CONDITION_VILLAGER = (world, box) -> world.getEntitiesOfClass(Villager.class, box).stream().anyMatch(CANT_AVOID_TRAPS);
 
 	// Sounds
 	public static final SoundEvent DETECTOR_CLICK = registerSound("detector_click");
@@ -77,16 +91,16 @@ public class RedBits implements ModInitializer {
 	public static final SoundEvent LATCH_CLICK = registerSound("latch_click");
 	public static final SoundEvent TIMER_CLICK = registerSound("timer_click");
 
-	private static Function<AbstractBlock.Settings, Block> getButtonFactory(BlockSetType type) {
-		return setting -> new LargeButtonBlock(type, setting.noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY));
+	private static Function<BlockBehaviour.Properties, Block> getButtonFactory(BlockSetType type) {
+		return setting -> new LargeButtonBlock(type, setting.noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY));
 	}
 
-	private static Function<AbstractBlock.Settings, Block> getGateFactory(Function<AbstractBlock.Settings, Block> factory) {
-		return setting -> factory.apply(setting.breakInstantly().sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
+	private static Function<BlockBehaviour.Properties, Block> getGateFactory(Function<BlockBehaviour.Properties, Block> factory) {
+		return setting -> factory.apply(setting.instabreak().sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
 	}
 
-	private static Function<AbstractBlock.Settings, Block> getPressurePlateFactory(ComplexPressurePlateBlock.CollisionCondition condition, MapColor color) {
-		return setting -> new ComplexPressurePlateBlock(condition, setting.sounds(BlockSoundGroup.STONE).solid().requiresTool().noCollision().strength(0.5f).mapColor(MapColor.BLACK));
+	private static Function<BlockBehaviour.Properties, Block> getPressurePlateFactory(ComplexPressurePlateBlock.CollisionCondition condition, MapColor color) {
+		return setting -> new ComplexPressurePlateBlock(condition, setting.sound(SoundType.STONE).forceSolidOn().requiresCorrectToolForDrops().noCollision().strength(0.5f).mapColor(MapColor.COLOR_BLACK));
 	}
 
 	// Buttons
@@ -117,43 +131,43 @@ public class RedBits implements ModInitializer {
 	public final static Block JUNCTION = registerBlock("junction", getGateFactory(JunctionBlock::new));
 
 	// Pressure Plates
-	public final static Block OBSIDIAN_PRESSURE_PLATE = registerBlock("obsidian_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_PLAYERS, MapColor.BLACK));
-	public final static Block CRYING_OBSIDIAN_PRESSURE_PLATE = registerBlock("crying_obsidian_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_HOSTILE, MapColor.BLACK));
-	public final static Block END_STONE_PRESSURE_PLATE = registerBlock("end_stone_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_VILLAGER, MapColor.PALE_YELLOW));
-	public final static Block BASALT_PRESSURE_PLATE = registerBlock("basalt_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_PET, MapColor.BLACK));
+	public final static Block OBSIDIAN_PRESSURE_PLATE = registerBlock("obsidian_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_PLAYERS, MapColor.COLOR_BLACK));
+	public final static Block CRYING_OBSIDIAN_PRESSURE_PLATE = registerBlock("crying_obsidian_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_HOSTILE, MapColor.COLOR_BLACK));
+	public final static Block END_STONE_PRESSURE_PLATE = registerBlock("end_stone_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_VILLAGER, MapColor.SAND));
+	public final static Block BASALT_PRESSURE_PLATE = registerBlock("basalt_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_PET, MapColor.COLOR_BLACK));
 
-	public static final EntityType<EmitterMinecartEntity> EMITTER_MINECART = EntityType.Builder.create(EmitterMinecartEntity::new, SpawnGroup.MISC)
-			.dropsNothing()
-			.dimensions(0.98F, 0.7F)
+	public static final EntityType<EmitterMinecartEntity> EMITTER_MINECART = EntityType.Builder.of(EmitterMinecartEntity::new, MobCategory.MISC)
+			.noLootTable()
+			.sized(0.98F, 0.7F)
 			.passengerAttachments(0.1875F)
-			.maxTrackingRange(8)
-			.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(NAMESPACE, "emitter_minecart")));
+			.clientTrackingRange(8)
+			.build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(NAMESPACE, "emitter_minecart")));
 
 	// Other Components
-	public final static Block REDSTONE_LAMP = registerBlock("redstone_lamp", settings -> new RedstoneLampBlock(settings.luminance(n -> n.get(Properties.LIT) ? 1 : 0).postProcess((a, b, c) -> a.get(Properties.LIT)).emissiveLighting((a, b, c) -> a.get(Properties.LIT)).strength(0.3f).sounds(BlockSoundGroup.GLASS).allowsSpawning(Blocks::always)));
-	public final static Block RGB_LAMP = registerBlock("rgb_lamp", settings -> new AnalogLampBlock(settings.luminance(n -> n.get(AnalogLampBlock.POWER) > 0 ? 1 : 0).postProcess((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).emissiveLighting((a, b, c) -> a.get(AnalogLampBlock.POWER) > 0).strength(0.3F).strength(0.3f).sounds(BlockSoundGroup.GLASS).allowsSpawning(Blocks::always)));
-	public final static Block REDSTONE_EMITTER = registerBlock("emitter", settings -> new EmitterBlock(settings.requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE).solid()));
-	public final static Block VISION_SENSOR = registerBlock("vision_sensor", settings -> new VisionSensorBlock(settings.requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE).solid()));
-	public final static Block INVERTED_REDSTONE_TORCH = registerBlock("inverted_redstone_torch", settings -> new InvertedRedstoneTorchBlock(settings.pistonBehavior(PistonBehavior.DESTROY).noCollision().breakInstantly().luminance(n -> n.get(Properties.LIT) ? 7 : 0).sounds(BlockSoundGroup.WOOD)));
-	public final static Block INVERTED_REDSTONE_WALL_TORCH = registerBlock("inverted_redstone_wall_torch", settings -> new WallInvertedRedstoneTorchBlock(settings.pistonBehavior(PistonBehavior.DESTROY).noCollision().breakInstantly().luminance(n -> n.get(Properties.LIT) ? 7 : 0).sounds(BlockSoundGroup.WOOD)));
-	public final static Item EMITTER_MINECART_ITEM = registerItem("emitter_minecart", settings -> new MinecartItem(EMITTER_MINECART, settings.maxCount(1)));
+	public final static Block REDSTONE_LAMP = registerBlock("redstone_lamp", settings -> new RedstoneLampBlock(settings.lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 1 : 0).emissiveRendering((a, b, c) -> a.getValue(BlockStateProperties.LIT)).strength(0.3f).sound(SoundType.GLASS).isValidSpawn(Blocks::always)));
+	public final static Block RGB_LAMP = registerBlock("rgb_lamp", settings -> new AnalogLampBlock(settings.lightLevel(n -> n.getValue(AnalogLampBlock.POWER) > 0 ? 1 : 0).emissiveRendering((a, b, c) -> a.getValue(AnalogLampBlock.POWER) > 0).strength(0.3F).strength(0.3f).sound(SoundType.GLASS).isValidSpawn(Blocks::always)));
+	public final static Block REDSTONE_EMITTER = registerBlock("emitter", settings -> new EmitterBlock(settings.requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE).forceSolidOn()));
+	public final static Block VISION_SENSOR = registerBlock("vision_sensor", settings -> new VisionSensorBlock(settings.requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE).forceSolidOn()));
+	public final static Block INVERTED_REDSTONE_TORCH = registerBlock("inverted_redstone_torch", settings -> new InvertedRedstoneTorchBlock(settings.pushReaction(PushReaction.DESTROY).noCollision().instabreak().lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 7 : 0).sound(SoundType.WOOD)));
+	public final static Block INVERTED_REDSTONE_WALL_TORCH = registerBlock("inverted_redstone_wall_torch", settings -> new WallInvertedRedstoneTorchBlock(settings.pushReaction(PushReaction.DESTROY).noCollision().instabreak().lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 7 : 0).sound(SoundType.WOOD)));
+	public final static Item EMITTER_MINECART_ITEM = registerItem("emitter_minecart", settings -> new MinecartItem(EMITTER_MINECART, settings.stacksTo(1)));
 	public final static Item GUIDE = ProxyBookItem.createInstance();
 
 	// Statistics
-	public static final Identifier INTERACT_WITH_SIGHT_SENSOR = Identifier.of(NAMESPACE, "interact_with_sight_sensor");
-	public static final Identifier INTERACT_WITH_REDSTONE_EMITTER = Identifier.of(NAMESPACE, "interact_with_redstone_emitter");
+	public static final Identifier INTERACT_WITH_SIGHT_SENSOR = Identifier.fromNamespaceAndPath(NAMESPACE, "interact_with_sight_sensor");
+	public static final Identifier INTERACT_WITH_REDSTONE_EMITTER = Identifier.fromNamespaceAndPath(NAMESPACE, "interact_with_redstone_emitter");
 
 	// Network
 	public static final C2SLookAtPacket LOOK_AT_PACKET = new C2SLookAtPacket();
 
 	// Advancements
-	public static final ParameterlessCriterion LOOK_AT_SENSOR_CRITERION = Criteria.register("redbits:look_at_sensor", new ParameterlessCriterion());
-	public static final ParameterlessCriterion USE_REDSTONE_EMITTER_CRITERION = Criteria.register("redbits:use_redstone_emitter", new ParameterlessCriterion());
+	public static final ParameterlessCriterion LOOK_AT_SENSOR_CRITERION = CriteriaTriggers.register("redbits:look_at_sensor", new ParameterlessCriterion());
+	public static final ParameterlessCriterion USE_REDSTONE_EMITTER_CRITERION = CriteriaTriggers.register("redbits:use_redstone_emitter", new ParameterlessCriterion());
 
 	@Override
 	public void onInitialize() {
-		torches.add(new ItemStack(registerItem("inverted_redstone_torch", settings -> new VerticallyAttachableBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, Direction.DOWN, settings.useBlockPrefixedTranslationKey()))));
-		carts.add(new ItemStack(EMITTER_MINECART_ITEM));
+		torches.add(registerItem("inverted_redstone_torch", settings -> new StandingAndWallBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, Direction.DOWN, settings.useBlockDescriptionPrefix())));
+		carts.add(EMITTER_MINECART_ITEM);
 
 		registerItem("two_way_repeater", TWO_WAY_REPEATER, gates);
 		registerItem("t_flip_flop", T_FLIP_FLOP, gates);
@@ -191,15 +205,21 @@ public class RedBits implements ModInitializer {
 		registerItem("redstone_lamp", REDSTONE_LAMP, lamps);
 		registerItem("rgb_lamp", RGB_LAMP, lamps);
 
+		// bugfix for patchouli, remove once they call it themselves
+		if (PatchouliProxy.isModLoaded()) {
+			RecipeSynchronization.synchronizeRecipeSerializer(ShapedRecipe.SERIALIZER);
+			RecipeSynchronization.synchronizeRecipeSerializer(ShapelessRecipe.SERIALIZER);
+		}
+
 		// Register the guide item
-		Registry.register(Registries.ITEM, Identifier.of(NAMESPACE, "guide"), GUIDE);
+		Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(NAMESPACE, "guide"), GUIDE);
 
 		// Register statistics
 		registerStat(INTERACT_WITH_SIGHT_SENSOR);
 		registerStat(INTERACT_WITH_REDSTONE_EMITTER);
 
 		// Register custom minecart
-		Registry.register(Registries.ENTITY_TYPE, Identifier.of(NAMESPACE, "emitter_minecart"), EMITTER_MINECART);
+		Registry.register(BuiltInRegistries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(NAMESPACE, "emitter_minecart"), EMITTER_MINECART);
 		MinecartComparatorLogicRegistry.register(EMITTER_MINECART, (minecart, state, pos) -> minecart.getPower());
 
 		// Network
@@ -214,10 +234,10 @@ public class RedBits implements ModInitializer {
 		if (CONFIG.add_guide_to_loot_tables) {
 			LOGGER.info("Adding RedBits Patchouli guide book to loot tables...");
 
-			List<RegistryKey<LootTable>> tables = List.of(
-					LootTables.STRONGHOLD_LIBRARY_CHEST,
-					LootTables.SPAWN_BONUS_CHEST,
-					LootTables.VILLAGE_CARTOGRAPHER_CHEST
+			List<ResourceKey<LootTable>> tables = List.of(
+					BuiltInLootTables.STRONGHOLD_LIBRARY,
+					BuiltInLootTables.SPAWN_BONUS_CHEST,
+					BuiltInLootTables.VILLAGE_CARTOGRAPHER
 			);
 
 			LootTableEvents.MODIFY.register((key, builder, source, registries) -> {
@@ -227,10 +247,10 @@ public class RedBits implements ModInitializer {
 				}
 
 				if (tables.stream().anyMatch(table -> table.equals(key))) {
-					LootPool.Builder pool = LootPool.builder()
-							.with(ItemEntry.builder(GUIDE));
+					LootPool.Builder pool = LootPool.lootPool()
+							.add(LootItem.lootTableItem(GUIDE));
 
-					builder.pool(pool);
+					builder.withPool(pool);
 				}
 			});
 		}
@@ -238,55 +258,57 @@ public class RedBits implements ModInitializer {
 		if (CONFIG.add_guide_to_creative_menu) {
 			LOGGER.info("Adding RedBits Patchouli guide book to creative menu...");
 
-			ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> {
-				content.add(new ItemStack(GUIDE, 1));
+			CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(content -> {
+				content.accept(new ItemStack(GUIDE, 1));
 			});
 		}
 	}
 
-	private static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory) {
-		RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(RedBits.NAMESPACE, name));
-		AbstractBlock.Settings settings = AbstractBlock.Settings.create().registryKey(key);
-		return Registry.register(Registries.BLOCK, key, factory.apply(settings));
+	private static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> factory) {
+		ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(RedBits.NAMESPACE, name));
+		BlockBehaviour.Properties settings = BlockBehaviour.Properties.of().setId(key);
+		return Registry.register(BuiltInRegistries.BLOCK, key, factory.apply(settings));
 	}
 
-	private static Item registerItem(String name, Function<Item.Settings, Item> factory) {
-		RegistryKey<Item> key = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(RedBits.NAMESPACE, name));
-		Item.Settings settings = new Item.Settings().registryKey(key);
-		return Registry.register(Registries.ITEM, key, factory.apply(settings));
+	private static Item registerItem(String name, Function<Item.Properties, Item> factory) {
+		ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(RedBits.NAMESPACE, name));
+		Item.Properties settings = new Item.Properties().setId(key);
+		return Registry.register(BuiltInRegistries.ITEM, key, factory.apply(settings));
 	}
 
-	private void registerItem(String name, Item item, List<ItemStack> group) {
-		group.add(new ItemStack(item));
-		Registry.register(Registries.ITEM, Identifier.of(NAMESPACE, name), item);
+	private void registerItem(String name, Item item, List<Item> group) {
+		group.add(item);
+		Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(NAMESPACE, name), item);
 	}
 
-	private void registerItem(String name, Block block, List<ItemStack> group) {
-		group.add(new ItemStack(registerItem(name, settings -> new BlockItem(block, settings.useBlockPrefixedTranslationKey()))));
+	private void registerItem(String name, Block block, List<Item> group) {
+		group.add(registerItem(name, settings -> new BlockItem(block, settings.useBlockDescriptionPrefix())));
 	}
 
 	private void registerStat(Identifier id) {
-		Registry.register(Registries.CUSTOM_STAT, id, id);
-		Stats.CUSTOM.getOrCreateStat(id, StatFormatter.DEFAULT);
+		Registry.register(BuiltInRegistries.CUSTOM_STAT, id, id);
+		Stats.CUSTOM.get(id, StatFormatter.DEFAULT);
 	}
 
 	public static void appendItemsToGroup() {
-		ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(content -> {
-			content.addAfter(Items.COMPARATOR, gates);
-			content.addAfter(Items.TNT_MINECART, carts);
-			content.addAfter(Items.REDSTONE_LAMP, lamps);
-			content.addAfter(Items.TARGET, cubes);
-			content.addAfter(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, plates);
-			content.addAfter(Items.REDSTONE_TORCH, torches);
 
-			content.addAll(buttons);
+
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(content -> {
+			content.insertAfter(Items.COMPARATOR, gates.stream().map(ItemStack::new).toList());
+			content.insertAfter(Items.TNT_MINECART, carts.stream().map(ItemStack::new).toList());
+			content.insertAfter(Items.REDSTONE_LAMP, lamps.stream().map(ItemStack::new).toList());
+			content.insertAfter(Items.TARGET, cubes.stream().map(ItemStack::new).toList());
+			content.insertAfter(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, plates.stream().map(ItemStack::new).toList());
+			content.insertAfter(Items.REDSTONE_TORCH, torches.stream().map(ItemStack::new).toList());
+
+			content.acceptAll(buttons.stream().map(ItemStack::new).toList());
 		});
 	}
 
 	private static SoundEvent registerSound(String id) {
-		Identifier identifier = Identifier.of(RedBits.NAMESPACE, id);
-		SoundEvent sound = SoundEvent.of(identifier);
-		Registry.register(Registries.SOUND_EVENT, identifier, sound);
+		Identifier identifier = Identifier.fromNamespaceAndPath(RedBits.NAMESPACE, id);
+		SoundEvent sound = SoundEvent.createVariableRangeEvent(identifier);
+		Registry.register(BuiltInRegistries.SOUND_EVENT, identifier, sound);
 		return sound;
 	}
 

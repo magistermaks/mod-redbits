@@ -6,7 +6,7 @@
 	"pages": [
 		{
 			"type": "patchouli:text",
-			"text": "Activated by players looking at it, emits a short redstone pulse. Maximum activation distance is 128 blocks by default."
+			"text": "Activated by players looking at it, emits a redstone pulse. Maximum activation distance is 128 blocks by default."
 		},
 		{
 			"type": "patchouli:crafting",

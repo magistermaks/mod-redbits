@@ -1,19 +1,19 @@
 package net.darktree.redbits.blocks;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.RedstoneTorchBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.RedstoneTorchBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class InvertedRedstoneTorchBlock extends RedstoneTorchBlock {
 
-	public InvertedRedstoneTorchBlock(Settings settings) {
+	public InvertedRedstoneTorchBlock(Properties settings) {
 		super(settings);
-		this.setDefaultState(this.stateManager.getDefaultState().with(LIT, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(LIT, false));
 	}
 
 	@Override
-	protected boolean shouldUnpower(World world, BlockPos pos, BlockState state) {
-		return !super.shouldUnpower(world, pos, state);
+	protected boolean hasNeighborSignal(Level world, BlockPos pos, BlockState state) {
+		return !super.hasNeighborSignal(world, pos, state);
 	}
 }

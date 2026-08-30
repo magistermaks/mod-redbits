@@ -3,28 +3,28 @@ package net.darktree.redbits.blocks.custom;
 import net.darktree.redbits.utils.TwoWayPower;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 @SuppressWarnings("deprecation")
 public class JunctionBlock extends BridgeBlock {
 
 	private static final Direction[] TARGETS = new Direction[] {Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.UP};
 
-	public JunctionBlock(Settings settings) {
+	public JunctionBlock(Properties settings) {
 		super(settings);
 	}
 
 	@Override
-	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-		int power = super.getWeakRedstonePower(state, world, pos, direction);
+	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
+		int power = super.getSignal(state, world, pos, direction);
 
-		if (power == 0 && direction == Direction.DOWN && state.get(X_POWER).any() && state.get(Z_POWER).any()) {
+		if (power == 0 && direction == Direction.DOWN && state.getValue(X_POWER).any() && state.getValue(Z_POWER).any()) {
 			return 15;
 		}
 
@@ -38,12 +38,12 @@ public class JunctionBlock extends BridgeBlock {
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-		TwoWayPower x = state.get(X_POWER);
-		TwoWayPower z = state.get(Z_POWER);
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+		TwoWayPower x = state.getValue(X_POWER);
+		TwoWayPower z = state.getValue(Z_POWER);
 
 		if (x != TwoWayPower.NONE || z != TwoWayPower.NONE) {
-			super.randomDisplayTick(state, world, pos, random);
+			super.animateTick(state, world, pos, random);
 		}
 
 		if (x != TwoWayPower.NONE && z != TwoWayPower.NONE) {
@@ -51,7 +51,7 @@ public class JunctionBlock extends BridgeBlock {
 			double py = pos.getY() + 0.7 + (random.nextDouble() - 0.5) * 0.2;
 			double pz = pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.2;
 
-			world.addParticleClient(DustParticleEffect.DEFAULT, px, py, pz, 0.0, 0.0, 0.0);
+			world.addParticle(DustParticleOptions.REDSTONE, px, py, pz, 0.0, 0.0, 0.0);
 		}
 
 	}

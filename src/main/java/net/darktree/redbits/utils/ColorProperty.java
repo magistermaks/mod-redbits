@@ -1,10 +1,9 @@
 package net.darktree.redbits.utils;
 
-import net.minecraft.state.property.IntProperty;
-
 import java.util.Optional;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-public class ColorProperty extends IntProperty {
+public class ColorProperty extends IntegerProperty {
 
 	protected ColorProperty(String name) {
 		super(name, 0, ColorProvider.COUNT);
@@ -14,7 +13,7 @@ public class ColorProperty extends IntProperty {
 		return new ColorProperty(name);
 	}
 
-	public Optional<Integer> parse(String name) {
+	public Optional<Integer> getValue(String name) {
 		int index = ColorProvider.fromColorName(name);
 
 		if (index == -1) {
@@ -25,7 +24,7 @@ public class ColorProperty extends IntProperty {
 		}
 	}
 
-	public String name(Integer integer) {
+	public String getName(Integer integer) {
 		return ColorProvider.getColorName(integer);
 	}
 

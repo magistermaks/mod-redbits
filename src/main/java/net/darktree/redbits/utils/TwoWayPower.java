@@ -1,12 +1,12 @@
 package net.darktree.redbits.utils;
 
 import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.Level;
 
-public enum TwoWayPower implements StringIdentifiable {
+public enum TwoWayPower implements StringRepresentable {
 	FRONT("front", true, Direction.AxisDirection.POSITIVE),
 	BACK("back", true, Direction.AxisDirection.NEGATIVE),
 	NONE("none", false, null);
@@ -22,11 +22,11 @@ public enum TwoWayPower implements StringIdentifiable {
 	}
 
 	public String toString() {
-		return this.asString();
+		return this.getSerializedName();
 	}
 
 	public boolean isAligned(Direction facing) {
-		return direction != null && direction == facing.getDirection();
+		return direction != null && direction == facing.getAxisDirection();
 	}
 
 	public boolean any() {
@@ -34,14 +34,14 @@ public enum TwoWayPower implements StringIdentifiable {
 	}
 
 	public Direction asDirection(Direction.Axis axis) {
-		return Direction.from(axis, direction);
+		return Direction.fromAxisAndDirection(axis, direction);
 	}
 
-	public String asString() {
+	public String getSerializedName() {
 		return this.name;
 	}
 
-	public static Unit getPower(World world, BlockPos pos, CustomRedstoneGate gate, TwoWayPower power, Direction.Axis axis) {
+	public static Unit getPower(Level world, BlockPos pos, CustomRedstoneGate gate, TwoWayPower power, Direction.Axis axis) {
 
 		if (power == TwoWayPower.NONE) {
 			Unit a = getPower(world, pos, gate, TwoWayPower.FRONT, axis);
@@ -54,7 +54,7 @@ public enum TwoWayPower implements StringIdentifiable {
 		}
 
 		Direction direction = power.asDirection(axis);
-		BlockPos source = pos.offset(direction);
+		BlockPos source = pos.relative(direction);
 
 		return new Unit(power, gate.getInputPower(world, source, direction));
 	}

@@ -3,48 +3,48 @@ package net.darktree.redbits.blocks.custom;
 import net.darktree.redbits.utils.TwoWayPower;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.tick.TickPriority;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.ticks.TickPriority;
 
 public class BridgeBlock extends CustomRedstoneGate {
 
-	public static final EnumProperty<TwoWayPower> X_POWER = EnumProperty.of("x_power", TwoWayPower.class);
-	public static final EnumProperty<TwoWayPower> Z_POWER = EnumProperty.of("z_power", TwoWayPower.class);
+	public static final EnumProperty<TwoWayPower> X_POWER = EnumProperty.create("x_power", TwoWayPower.class);
+	public static final EnumProperty<TwoWayPower> Z_POWER = EnumProperty.create("z_power", TwoWayPower.class);
 
 	private static final Direction[] HORIZONTAL = new Direction[] { Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST };
 	private static final PowerConfig[] CONFIGS = new PowerConfig[] { new PowerConfig(X_POWER, Direction.Axis.X), new PowerConfig(Z_POWER, Direction.Axis.Z) };
 
-	public BridgeBlock(Settings settings) {
+	public BridgeBlock(Properties settings) {
 		super(settings);
-		this.setDefaultState(this.stateManager.getDefaultState().with(X_POWER, TwoWayPower.NONE).with(Z_POWER, TwoWayPower.NONE));
+		this.registerDefaultState(this.stateDefinition.any().setValue(X_POWER, TwoWayPower.NONE).setValue(Z_POWER, TwoWayPower.NONE));
 	}
 
-	protected boolean hasPower(World world, BlockPos pos, TwoWayPower x, TwoWayPower z) {
+	protected boolean hasPower(Level world, BlockPos pos, TwoWayPower x, TwoWayPower z) {
 		return TwoWayPower.getPower(world, pos, this, x, Direction.Axis.X).hasPower() || TwoWayPower.getPower(world, pos, this, z, Direction.Axis.Z).hasPower();
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(X_POWER, Z_POWER);
 	}
 
-	private BlockState getNextState(World world, BlockPos pos, BlockState state) {
+	private BlockState getNextState(Level world, BlockPos pos, BlockState state) {
 		BlockState updated = state;
 
 		for (PowerConfig config : CONFIGS) {
-			TwoWayPower power = state.get(config.property);
+			TwoWayPower power = state.getValue(config.property);
 			TwoWayPower.Unit next = TwoWayPower.getPower(world, pos, this, power, config.axis);
 			boolean unlocked = power == TwoWayPower.NONE;
 
@@ -53,11 +53,11 @@ public class BridgeBlock extends CustomRedstoneGate {
 			}
 
 			if (unlocked && next.hasPower()) {
-				updated = updated.with(config.property, next.getDirection());
+				updated = updated.setValue(config.property, next.getDirection());
 			}
 
 			if (!next.hasPower()) {
-				updated = updated.with(config.property, TwoWayPower.NONE);
+				updated = updated.setValue(config.property, TwoWayPower.NONE);
 			}
 		}
 
@@ -65,22 +65,22 @@ public class BridgeBlock extends CustomRedstoneGate {
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
 		BlockState updated = getNextState(world, pos, state);
 
 		if (updated != state) {
-			world.setBlockState(pos, updated, Block.NOTIFY_LISTENERS);
+			world.setBlock(pos, updated, Block.UPDATE_CLIENTS);
 		}
 	}
 
 	@Override
-	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
+	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
 
-		if (direction.getAxis() == Direction.Axis.X && state.get(X_POWER).isAligned(direction)) {
+		if (direction.getAxis() == Direction.Axis.X && state.getValue(X_POWER).isAligned(direction)) {
 			return 15;
 		}
 
-		if (direction.getAxis() == Direction.Axis.Z && state.get(Z_POWER).isAligned(direction)) {
+		if (direction.getAxis() == Direction.Axis.Z && state.getValue(Z_POWER).isAligned(direction)) {
 			return 15;
 		}
 
@@ -88,18 +88,18 @@ public class BridgeBlock extends CustomRedstoneGate {
 	}
 
 	@Override
-	protected void updatePowered(World world, BlockPos pos, BlockState state) {
+	protected void updatePowered(Level world, BlockPos pos, BlockState state) {
 		BlockState next = getNextState(world, pos, state);
 
-		if ((next != state) && !world.getBlockTickScheduler().isQueued(pos, this)) {
-			world.scheduleBlockTick(pos, this, this.getUpdateDelayInternal(), TickPriority.HIGH);
+		if ((next != state) && !world.getBlockTicks().hasScheduledTick(pos, this)) {
+			world.scheduleTick(pos, this, this.getUpdateDelayInternal(), TickPriority.HIGH);
 		}
 	}
 
 	@Override
-	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-		if (hasPower(world, pos, state.get(X_POWER), state.get(Z_POWER))) {
-			world.scheduleBlockTick(pos, this, 1);
+	public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
+		if (hasPower(world, pos, state.getValue(X_POWER), state.getValue(Z_POWER))) {
+			world.scheduleTick(pos, this, 1);
 		}
 	}
 
@@ -108,27 +108,27 @@ public class BridgeBlock extends CustomRedstoneGate {
 	}
 
 	@Override
-	protected void updateTarget(World world, BlockPos pos, BlockState state) {
+	protected void updateTarget(Level world, BlockPos pos, BlockState state) {
 		for (Direction direction : getTargetDirections()) {
-			BlockPos target = pos.offset(direction);
+			BlockPos target = pos.relative(direction);
 
 			// does the same thing as TwoWayRepeater's updateTarget but for all four sides
-			world.updateNeighbor(target, this, null);
-			world.updateNeighborsExcept(target, this, direction.getOpposite(), null);
+			world.neighborChanged(target, this, null);
+			world.updateNeighborsAtExceptFromFacing(target, this, direction.getOpposite(), null);
 		}
 
 		// needed so the gate won't get stuck when there is a switch-back
-		world.updateNeighbor(pos, this, null);
+		world.neighborChanged(pos, this, null);
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
 		PowerConfig config = CONFIGS[random.nextInt(2)];
-		TwoWayPower power = state.get(config.property);
+		TwoWayPower power = state.getValue(config.property);
 
 		if (power != TwoWayPower.NONE) {
-			CustomRedstoneGate.spawnSimpleParticles(DustParticleEffect.DEFAULT, world, pos, random, power.asDirection(config.axis), false, -5);
+			CustomRedstoneGate.spawnSimpleParticles(DustParticleOptions.REDSTONE, world, pos, random, power.asDirection(config.axis), false, -5);
 		}
 	}
 

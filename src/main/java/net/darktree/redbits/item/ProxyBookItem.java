@@ -2,55 +2,50 @@ package net.darktree.redbits.item;
 
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.utils.PatchouliProxy;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.consume.UseAction;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class ProxyBookItem extends Item {
 
-	private static final Identifier BOOK = Identifier.of(RedBits.NAMESPACE, "guide");
+	private static final Identifier BOOK = Identifier.fromNamespaceAndPath(RedBits.NAMESPACE, "guide");
 	private final PatchouliProxy proxy;
 
 	public static ProxyBookItem createInstance() {
-		return new ProxyBookItem(new Settings().maxCount(1).registryKey(RegistryKey.of(RegistryKeys.ITEM, BOOK)), PatchouliProxy.create());
+		return new ProxyBookItem(new Properties().stacksTo(1).setId(ResourceKey.create(Registries.ITEM, BOOK)), PatchouliProxy.create());
 	}
 
-	private ProxyBookItem(Settings settings, PatchouliProxy proxy) {
+	private ProxyBookItem(Properties settings, PatchouliProxy proxy) {
 		super(settings);
 		this.proxy = proxy;
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-		if (proxy == null) tooltip.accept(Text.translatable("message.redbits.patchouli").formatted(Formatting.DARK_RED));
+	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
+		if (proxy == null) tooltip.accept(Component.translatable("message.redbits.patchouli").withStyle(ChatFormatting.DARK_RED));
 	}
 
 	@Override
-	public ActionResult use(World world, PlayerEntity player, Hand hand) {
-		if (proxy != null && player instanceof ServerPlayerEntity serverPlayer) {
+	public InteractionResult use(Level world, Player player, InteractionHand hand) {
+		if (proxy != null && player instanceof ServerPlayer serverPlayer) {
 			proxy.openBook(serverPlayer, BOOK);
 		}
 
 		// always returns success, even if there is no proxy
-		return ActionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 }
