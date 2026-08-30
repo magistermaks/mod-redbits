@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -17,12 +18,17 @@ import java.util.function.Consumer;
 @Mixin(SplashManager.class)
 public class SplashTextMixin {
 
+	@Shadow
+	private static Component literalSplash(String text) {
+		throw new UnsupportedOperationException("Implemented via mixin");
+	}
+
 	@WrapMethod(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/List;")
 	protected List<Component> prepare(ResourceManager resourceManager, ProfilerFiller profiler, Operation<List<Component>> original) {
 		List<Component> injected = new ArrayList<>(original.call(resourceManager, profiler));
 
 		Consumer<String> inject = encoded -> {
-			injected.add(Component.literal(new String(Base64.getDecoder().decode(encoded))));
+			injected.add(literalSplash(new String(Base64.getDecoder().decode(encoded))));
 		};
 
 		// nothing to see here
