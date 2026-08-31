@@ -11,8 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -48,15 +47,15 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 	}
 
 	@Override
-	protected void readCustomData(ReadView view) {
-		super.readCustomData(view);
-		setPower(view.getInt("power", 1));
+	protected void readCustomDataFromNbt(NbtCompound nbt) {
+		super.readCustomDataFromNbt(nbt);
+		setPower(nbt.getInt("power", 1));
 	}
 
 	@Override
-	protected void writeCustomData(WriteView view) {
-		super.writeCustomData(view);
-		view.putInt("power", this.getPower());
+	protected void writeCustomDataToNbt(NbtCompound nbt) {
+		super.writeCustomDataToNbt(nbt);
+		nbt.putInt("power", this.getPower());
 	}
 
 	private void cycle(PlayerEntity player) {
