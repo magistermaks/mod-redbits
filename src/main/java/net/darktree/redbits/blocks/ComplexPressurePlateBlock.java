@@ -31,8 +31,9 @@ public class ComplexPressurePlateBlock extends PressurePlateBlock {
 		return collisionCondition.call(world, BOX.offset(pos)) ? 15 : 0;
 	}
 
-	public Text getTooltip() {
-		return Text.translatable(this.getTranslationKey() + ".tooltip").formatted(Formatting.GRAY);
+	@Override
+	public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
+		tooltip.add(Text.translatable(this.getTranslationKey() + ".tooltip").formatted(Formatting.GRAY));
 	}
 
 }

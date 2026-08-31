@@ -49,7 +49,7 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 	@Override
 	protected void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
-		setPower(nbt.getInt("power", 1));
+		setPower(nbt.getInt("power"));
 	}
 
 	@Override

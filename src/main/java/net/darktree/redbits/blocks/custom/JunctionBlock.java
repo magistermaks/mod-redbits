@@ -51,7 +51,7 @@ public class JunctionBlock extends BridgeBlock {
 			double py = pos.getY() + 0.7 + (random.nextDouble() - 0.5) * 0.2;
 			double pz = pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.2;
 
-			world.addParticleClient(DustParticleEffect.DEFAULT, px, py, pz, 0.0, 0.0, 0.0);
+			world.addParticle(DustParticleEffect.DEFAULT, px, py, pz, 0.0, 0.0, 0.0);
 		}
 
 	}

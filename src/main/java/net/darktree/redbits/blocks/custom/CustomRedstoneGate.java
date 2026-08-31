@@ -82,7 +82,7 @@ public abstract class CustomRedstoneGate extends Block implements RedstoneConnec
 	}
 
 	@Override
-	protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+	protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
 		if (!moved) {
 			this.updateTarget(world, pos, state);
 		}
@@ -128,7 +128,7 @@ public abstract class CustomRedstoneGate extends Block implements RedstoneConnec
 		double i = (offset / 16f) * (float) facing.getOffsetZ();
 
 		if (!server) {
-			world.addParticleClient(effect, d + h, e, f + i, 0, 0, 0);
+			world.addParticle(effect, d + h, e, f + i, 0, 0, 0);
 		} else if (world instanceof ServerWorld serverWorld) {
 			serverWorld.spawnParticles(effect, d + h, e, f + i, 1, 0, 0, 0, 0);
 		}
