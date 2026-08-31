@@ -3,10 +3,13 @@ package net.darktree.redbits.blocks.gate;
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.blocks.custom.CustomRedstoneGate;
 import net.minecraft.block.*;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -29,10 +32,10 @@ public class EmitterBlock extends Block {
 	}
 
 	@Override
-	protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
-		ItemStack stack = super.getPickStack(world, pos, state, false);
+	public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
+		ItemStack stack = super.getPickStack(world, pos, state);
 
-		if (includeData) {
+		if (Screen.hasControlDown()) {
 			stack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT.with(POWER, state));
 		}
 
