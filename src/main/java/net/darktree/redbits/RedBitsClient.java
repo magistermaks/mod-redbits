@@ -37,7 +37,9 @@ public class RedBitsClient implements ClientModInitializer {
 		cutout(RedBits.PROJECTOR);
 		cutout(RedBits.JUNCTION);
 
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> RedstoneWireBlock.getWireColor(1), RedBits.REDSTONE_EMITTER);
 		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> RedstoneWireBlock.getWireColor(state.get(EmitterBlock.POWER)), RedBits.REDSTONE_EMITTER);
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> ColorProvider.getColor(0), RedBits.RGB_LAMP);
 		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> ColorProvider.getColor(state.get(AnalogLampBlock.POWER)), RedBits.RGB_LAMP);
 
 		// minecart renderer
