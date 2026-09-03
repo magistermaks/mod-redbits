@@ -4,9 +4,7 @@
 	"textures": {
 		"torch_back": "block/redstone_torch_off",
 		"torch_front": "block/redstone_torch_off",
-		"top": "redbits:block/flip_flop_off_off",
-		"glow_front": "redbits:block/empty",
-		"glow_back": "redbits:block/empty"
+		"top": "block/comparator"
 	}
 }
 
