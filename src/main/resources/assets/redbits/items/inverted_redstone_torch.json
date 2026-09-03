@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "redbits:item/inverted_redstone_torch"
+    "model": "redbits:block/redstone_torch/off"
   }
 }
