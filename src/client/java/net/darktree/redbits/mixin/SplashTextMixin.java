@@ -2,6 +2,7 @@ package net.darktree.redbits.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import net.darktree.redbits.RedBits;
 import net.darktree.redbits.utils.PatchouliProxy;
 import net.minecraft.client.resources.SplashManager;
 import net.minecraft.network.chat.Component;

@@ -7,6 +7,15 @@ version = project.mod_version
 group = project.maven_group
 
 loom {
+	splitEnvironmentSourceSets()
+
+	mods {
+		"redbits" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+
 	accessWidenerPath = file("src/main/resources/redbits.accesswidener")
 	runtimeOnlyLog4j = true
 }
@@ -51,9 +60,7 @@ processResources {
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		expand (
-				"version": project.version
-		)
+		expand "version": project.version
 	}
 }
 

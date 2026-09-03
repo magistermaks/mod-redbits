@@ -29,7 +29,11 @@
 	},
 
 	"mixins": [
-		"redbits.mixins.json"
+		"redbits.mixins.json",
+		{
+			"config": "redbits.client.mixins.json",
+			"environment": "client"
+		}
 	],
 
 	"depends": {

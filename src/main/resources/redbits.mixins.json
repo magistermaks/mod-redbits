@@ -2,7 +2,7 @@
 	"required": true,
 	"minVersion": "0.8",
 	"package": "net.darktree.redbits.mixin",
-	"compatibilityLevel": "JAVA_16",
+	"compatibilityLevel": "JAVA_25",
 	"mixins": [
 		"CampfireBlockMixin",
 		"JukeboxBlockMixin",
@@ -11,9 +11,6 @@
 		"ItemFrameEntityMixin",
 		"HangingEntityMixin",
 		"RedstoneViewMixin"
-	],
-	"client": [
-		"SplashTextMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

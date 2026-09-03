@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "net.darktree.redbits.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"SplashTextMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
