@@ -3,6 +3,7 @@ package net.darktree.redbits.config;
 import net.darktree.redbits.RedBits;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.screens.Screen;
@@ -18,14 +19,14 @@ import java.util.function.Supplier;
 @Environment(EnvType.CLIENT)
 public class RedBitsOptionsScreen extends OptionsSubScreen {
 
-	private static final Component TEXT_YES = Component.translatable("gui.yes").setStyle(Style.EMPTY.withColor(0xff11ff11));
-	private static final Component TEXT_NO = Component.translatable("gui.no").setStyle(Style.EMPTY.withColor(0xffff1111));
+	private static final Component TEXT_YES = Component.translatable("gui.yes").setStyle( Style.EMPTY.applyFormat(ChatFormatting.GREEN));
+	private static final Component TEXT_NO = Component.translatable("gui.no").setStyle(Style.EMPTY.applyFormat(ChatFormatting.RED));
 
 	private static OptionInstance<Boolean> create(String name, Supplier<Boolean> getter, Consumer<Boolean> setter, boolean requires_restart) {
 		final MutableComponent description = Component.translatable("config.redbits.option." + name + ".tooltip");
 
 		if (requires_restart) {
-			description.append("\n\n").append(Component.translatable("config.redbits.requires_restart").setStyle(Style.EMPTY.withColor(0xffee1111)));
+			description.append("\n\n").append(Component.translatable("config.redbits.requires_restart").setStyle(Style.EMPTY.applyFormat(ChatFormatting.RED)));
 		}
 
 		return new OptionInstance<>(

@@ -21,7 +21,7 @@ public class SplashTextMixin {
 
 	@Shadow
 	private static Component literalSplash(String text) {
-		throw new UnsupportedOperationException("Implemented via mixin");
+		throw new UnsupportedOperationException();
 	}
 
 	@WrapMethod(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/List;")
