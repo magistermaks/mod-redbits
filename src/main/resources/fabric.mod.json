@@ -25,6 +25,9 @@
 		],
 		"modmenu": [
           "net.darktree.redbits.config.Menu"
+		],
+		"fabric-datagen": [
+          "net.darktree.redbits.RedBitsData"
 		]
 	},
 

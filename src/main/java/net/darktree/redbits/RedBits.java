@@ -276,11 +276,6 @@ public class RedBits implements ModInitializer {
 		return Registry.register(BuiltInRegistries.ITEM, key, factory.apply(settings));
 	}
 
-	private void registerItem(String name, Item item, List<Item> group) {
-		group.add(item);
-		Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(NAMESPACE, name), item);
-	}
-
 	private void registerItem(String name, Block block, List<Item> group) {
 		group.add(registerItem(name, settings -> new BlockItem(block, settings.useBlockDescriptionPrefix())));
 	}
@@ -291,8 +286,6 @@ public class RedBits implements ModInitializer {
 	}
 
 	public static void appendItemsToGroup() {
-
-
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(content -> {
 			content.insertAfter(Items.COMPARATOR, gates.stream().map(ItemStack::new).toList());
 			content.insertAfter(Items.TNT_MINECART, carts.stream().map(ItemStack::new).toList());

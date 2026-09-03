@@ -20,6 +20,12 @@ loom {
 	runtimeOnlyLog4j = true
 }
 
+fabricApi {
+	configureDataGeneration() {
+		client = true
+	}
+}
+
 repositories {
 
 	// ModMenu
