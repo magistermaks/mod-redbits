@@ -17,8 +17,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.block.WireOrientation;
-import org.jetbrains.annotations.Nullable;
 
 public abstract class CustomRedstoneGate extends Block implements RedstoneConnectable {
 
@@ -89,7 +87,7 @@ public abstract class CustomRedstoneGate extends Block implements RedstoneConnec
 	}
 
 	@Override
-	protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation orientation, boolean notify) {
+	protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
 		if (state.canPlaceAt(world, pos)) {
 			this.updatePowered(world, pos, state);
 		} else {

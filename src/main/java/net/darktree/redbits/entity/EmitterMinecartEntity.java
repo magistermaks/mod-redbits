@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 
 public class EmitterMinecartEntity extends AbstractMinecartEntity {
 
+	public static final AbstractMinecartEntity.Type TYPE = AbstractMinecartEntity.Type.valueOf("EMITTER");
 	private static final TrackedData<Integer> POWER = DataTracker.registerData(EmitterMinecartEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
 	public EmitterMinecartEntity(EntityType<? extends EmitterMinecartEntity> type, World world) {
@@ -56,6 +57,11 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 	protected void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
 		nbt.putInt("power", this.getPower());
+	}
+
+	@Override
+	public Type getMinecartType() {
+		return TYPE;
 	}
 
 	private void cycle(PlayerEntity player) {

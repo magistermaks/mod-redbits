@@ -108,15 +108,15 @@ public class TwoWayRepeaterBlock extends CustomRedstoneGate {
 
 		// updateNeighbor updates the block NEXT to the gate
 		// and updateNeighborsExcept updates the neighbors of that block EXCEPT for the gate itself
-		world.updateNeighbor(front, this, null);
-		world.updateNeighborsExcept(front, this, backward, null);
+		world.updateNeighbor(front, this, pos);
+		world.updateNeighborsExcept(front, this, backward);
 
 		// do the same for the other end of the gate
-		world.updateNeighbor(back, this, null);
-		world.updateNeighborsExcept(back, this, forward, null);
+		world.updateNeighbor(back, this, pos);
+		world.updateNeighborsExcept(back, this, forward);
 
 		// needed so the gate won't get stuck when there is a switch-back
-		world.updateNeighbor(pos, this, null);
+		world.updateNeighbor(pos, this, pos);
 	}
 
 	@Override

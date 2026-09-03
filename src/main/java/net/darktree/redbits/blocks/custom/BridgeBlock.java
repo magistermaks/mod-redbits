@@ -113,12 +113,12 @@ public class BridgeBlock extends CustomRedstoneGate {
 			BlockPos target = pos.offset(direction);
 
 			// does the same thing as TwoWayRepeater's updateTarget but for all four sides
-			world.updateNeighbor(target, this, null);
-			world.updateNeighborsExcept(target, this, direction.getOpposite(), null);
+			world.updateNeighbor(target, this, pos);
+			world.updateNeighborsExcept(target, this, direction.getOpposite());
 		}
 
 		// needed so the gate won't get stuck when there is a switch-back
-		world.updateNeighbor(pos, this, null);
+		world.updateNeighbor(pos, this, pos);
 	}
 
 	@Override

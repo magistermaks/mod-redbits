@@ -124,12 +124,9 @@ public class CampfireInventory extends SimpleInventory implements SidedInventory
 
 	@Override
 	public void setStack(int slot, ItemStack stack) {
-		if (world instanceof ServerWorldAccess access) {
-			ServerWorld server = access.toServerWorld();
-
-			Optional<RecipeEntry<CampfireCookingRecipe>> recipe = getRecipeFor(stack);
-			recipe.ifPresent(cookingRecipe -> getCampfireEntity().addItem(server, null, stack));
-		}
+		CampfireBlockEntity entity = getCampfireEntity();
+		Optional<RecipeEntry<CampfireCookingRecipe>> recipe = entity.getRecipeFor(stack);
+		recipe.ifPresent(cookingRecipe -> getCampfireEntity().addItem(null, stack, cookingRecipe.value().getCookingTime()));
 	}
 
 }

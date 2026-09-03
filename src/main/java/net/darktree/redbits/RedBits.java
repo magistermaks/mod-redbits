@@ -98,7 +98,6 @@ public class RedBits implements ModInitializer {
 	public final static Block DARK_OAK_LARGE_BUTTON = registerBlock("dark_oak_large_button", getButtonFactory(BlockSetType.DARK_OAK));
 	public final static Block MANGROVE_LARGE_BUTTON = registerBlock("mangrove_large_button", getButtonFactory(BlockSetType.MANGROVE));
 	public final static Block CHERRY_LARGE_BUTTON = registerBlock("cherry_large_button", getButtonFactory(BlockSetType.CHERRY));
-	public final static Block PALE_OAK_LARGE_BUTTON = registerBlock("pale_oak_large_button", getButtonFactory(BlockSetType.PALE_OAK));
 	public final static Block BAMBOO_LARGE_BUTTON = registerBlock("bamboo_large_button", getButtonFactory(BlockSetType.BAMBOO));
 	public final static Block CRIMSON_LARGE_BUTTON = registerBlock("crimson_large_button", getButtonFactory(BlockSetType.CRIMSON));
 	public final static Block WARPED_LARGE_BUTTON = registerBlock("warped_large_button", getButtonFactory(BlockSetType.WARPED));
@@ -123,11 +122,10 @@ public class RedBits implements ModInitializer {
 	public final static Block BASALT_PRESSURE_PLATE = registerBlock("basalt_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_PET, MapColor.BLACK));
 
 	public static final EntityType<EmitterMinecartEntity> EMITTER_MINECART = EntityType.Builder.create(EmitterMinecartEntity::new, SpawnGroup.MISC)
-			.dropsNothing()
 			.dimensions(0.98F, 0.7F)
 			.passengerAttachments(0.1875F)
 			.maxTrackingRange(8)
-			.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(NAMESPACE, "emitter_minecart")));
+			.build("emitter_minecart");
 
 	// Other Components
 	public final static Block REDSTONE_LAMP = registerBlock("redstone_lamp", settings -> new RedstoneLampBlock(settings.luminance(n -> n.get(Properties.LIT) ? 1 : 0).postProcess((a, b, c) -> a.get(Properties.LIT)).emissiveLighting((a, b, c) -> a.get(Properties.LIT)).strength(0.3f).sounds(BlockSoundGroup.GLASS).allowsSpawning(Blocks::always)));
@@ -136,7 +134,7 @@ public class RedBits implements ModInitializer {
 	public final static Block VISION_SENSOR = registerBlock("vision_sensor", settings -> new VisionSensorBlock(settings.requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE).solid()));
 	public final static Block INVERTED_REDSTONE_TORCH = registerBlock("inverted_redstone_torch", settings -> new InvertedRedstoneTorchBlock(settings.pistonBehavior(PistonBehavior.DESTROY).noCollision().breakInstantly().luminance(n -> n.get(Properties.LIT) ? 7 : 0).sounds(BlockSoundGroup.WOOD)));
 	public final static Block INVERTED_REDSTONE_WALL_TORCH = registerBlock("inverted_redstone_wall_torch", settings -> new WallInvertedRedstoneTorchBlock(settings.pistonBehavior(PistonBehavior.DESTROY).noCollision().breakInstantly().luminance(n -> n.get(Properties.LIT) ? 7 : 0).sounds(BlockSoundGroup.WOOD)));
-	public final static Item EMITTER_MINECART_ITEM = registerItem("emitter_minecart", settings -> new MinecartItem(EMITTER_MINECART, settings.maxCount(1)));
+	public final static Item EMITTER_MINECART_ITEM = registerItem("emitter_minecart", settings -> new MinecartItem(EmitterMinecartEntity.TYPE, settings.maxCount(1)));
 	public final static Item GUIDE = ProxyBookItem.createInstance();
 
 	// Statistics
@@ -152,7 +150,7 @@ public class RedBits implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		torches.add(new ItemStack(registerItem("inverted_redstone_torch", settings -> new VerticallyAttachableBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, Direction.DOWN, settings.useBlockPrefixedTranslationKey()))));
+		torches.add(new ItemStack(registerItem("inverted_redstone_torch", settings -> new VerticallyAttachableBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, settings, Direction.DOWN))));
 		carts.add(new ItemStack(EMITTER_MINECART_ITEM));
 
 		registerItem("two_way_repeater", TWO_WAY_REPEATER, gates);
@@ -176,7 +174,6 @@ public class RedBits implements ModInitializer {
 		registerItem("dark_oak_large_button", DARK_OAK_LARGE_BUTTON, buttons);
 		registerItem("mangrove_large_button", MANGROVE_LARGE_BUTTON, buttons);
 		registerItem("cherry_large_button", CHERRY_LARGE_BUTTON, buttons);
-		registerItem("pale_oak_large_button", PALE_OAK_LARGE_BUTTON, buttons);
 		registerItem("bamboo_large_button", BAMBOO_LARGE_BUTTON, buttons);
 		registerItem("crimson_large_button", CRIMSON_LARGE_BUTTON, buttons);
 		registerItem("warped_large_button", WARPED_LARGE_BUTTON, buttons);
@@ -246,13 +243,13 @@ public class RedBits implements ModInitializer {
 
 	private static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory) {
 		RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(RedBits.NAMESPACE, name));
-		AbstractBlock.Settings settings = AbstractBlock.Settings.create().registryKey(key);
+		AbstractBlock.Settings settings = AbstractBlock.Settings.create();
 		return Registry.register(Registries.BLOCK, key, factory.apply(settings));
 	}
 
 	private static Item registerItem(String name, Function<Item.Settings, Item> factory) {
 		RegistryKey<Item> key = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(RedBits.NAMESPACE, name));
-		Item.Settings settings = new Item.Settings().registryKey(key);
+		Item.Settings settings = new Item.Settings();
 		return Registry.register(Registries.ITEM, key, factory.apply(settings));
 	}
 
@@ -262,7 +259,7 @@ public class RedBits implements ModInitializer {
 	}
 
 	private void registerItem(String name, Block block, List<ItemStack> group) {
-		group.add(new ItemStack(registerItem(name, settings -> new BlockItem(block, settings.useBlockPrefixedTranslationKey()))));
+		group.add(new ItemStack(registerItem(name, settings -> new BlockItem(block, settings))));
 	}
 
 	private void registerStat(Identifier id) {

@@ -10,7 +10,8 @@
 		"RedstoneWireMixin",
 		"ItemFrameEntityMixin",
 		"AbstractDecorationEntityMixin",
-		"RedstoneViewMixin"
+		"RedstoneViewMixin",
+		"AbstractMinecartEntityTypeMixin"
 	],
 	"client": [
 		"SplashTextMixin"

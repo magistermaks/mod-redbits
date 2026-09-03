@@ -11,8 +11,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.block.WireOrientation;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -69,7 +67,7 @@ abstract public class JukeboxBlockMixin extends BlockWithEntity {
 	}
 
 	@Override
-	protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
+	protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos source, boolean notify) {
 		if (!world.isClient && verified) {
 			boolean power = world.isReceivingRedstonePower(pos);
 

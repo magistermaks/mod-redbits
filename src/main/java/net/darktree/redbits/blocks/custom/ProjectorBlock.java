@@ -162,8 +162,8 @@ public class ProjectorBlock extends CustomRedstoneGate {
 
 		// updateNeighbor updates the block NEXT to the gate
 		// and updateNeighborsExcept updates the neighbors of that block EXCEPT for the gate itself
-		world.updateNeighbor(front, this, null);
-		world.updateNeighborsExcept(front, this, backward, null);
+		world.updateNeighbor(front, this, pos);
+		world.updateNeighborsExcept(front, this, backward);
 	}
 
 	@Override

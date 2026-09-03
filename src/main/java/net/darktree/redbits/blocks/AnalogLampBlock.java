@@ -9,8 +9,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import net.minecraft.world.block.WireOrientation;
-import org.jetbrains.annotations.Nullable;
 
 public class AnalogLampBlock extends Block {
 	public static final ColorProperty POWER = ColorProperty.of("color");
@@ -26,7 +24,7 @@ public class AnalogLampBlock extends Block {
 	}
 
 	@Override
-	protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
+	protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
 		if (!world.isClient) {
 			int power = world.getReceivedRedstonePower(pos);
 

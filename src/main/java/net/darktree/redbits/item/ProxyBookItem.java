@@ -6,14 +6,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -24,7 +19,7 @@ public class ProxyBookItem extends Item {
 	private final PatchouliProxy proxy;
 
 	public static ProxyBookItem createInstance() {
-		return new ProxyBookItem(new Settings().maxCount(1).registryKey(RegistryKey.of(RegistryKeys.ITEM, BOOK)), PatchouliProxy.create());
+		return new ProxyBookItem(new Settings().maxCount(1), PatchouliProxy.create());
 	}
 
 	private ProxyBookItem(Settings settings, PatchouliProxy proxy) {
@@ -38,13 +33,13 @@ public class ProxyBookItem extends Item {
 	}
 
 	@Override
-	public ActionResult use(World world, PlayerEntity player, Hand hand) {
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 		if (proxy != null && player instanceof ServerPlayerEntity serverPlayer) {
 			proxy.openBook(serverPlayer, BOOK);
 		}
 
 		// always returns success, even if there is no proxy
-		return ActionResult.SUCCESS;
+		return TypedActionResult.success(player.getStackInHand(hand));
 	}
 
 }
