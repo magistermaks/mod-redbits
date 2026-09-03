@@ -11,7 +11,8 @@
 		"ItemFrameEntityMixin",
 		"AbstractDecorationEntityMixin",
 		"RedstoneViewMixin",
-		"AbstractMinecartEntityTypeMixin"
+		"AbstractMinecartEntityTypeMixin",
+		"AbstractMinecartEntityMixin"
 	],
 	"client": [
 		"SplashTextMixin"

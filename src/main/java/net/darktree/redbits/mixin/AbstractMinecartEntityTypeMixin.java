@@ -25,10 +25,9 @@ public abstract class AbstractMinecartEntityTypeMixin {
 
 	static {
 		ArrayList<AbstractMinecartEntity.Type> values = new ArrayList<>(Arrays.asList(field_7673));
-		AbstractMinecartEntity.Type last = values.getLast();
 
 		// add new value
-		values.add(init("EMITTER", last.ordinal() + 1));
+		values.add(init("EMITTER", values.getLast().ordinal() + 1));
 
 		field_7673 = values.toArray(new AbstractMinecartEntity.Type[0]);
 	}

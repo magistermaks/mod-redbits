@@ -3,6 +3,7 @@ package net.darktree.redbits.entity;
 import net.darktree.redbits.RedBits;
 import net.darktree.redbits.blocks.gate.EmitterBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -12,6 +13,7 @@ import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -21,8 +23,30 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 	public static final AbstractMinecartEntity.Type TYPE = AbstractMinecartEntity.Type.valueOf("EMITTER");
 	private static final TrackedData<Integer> POWER = DataTracker.registerData(EmitterMinecartEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
-	public EmitterMinecartEntity(EntityType<? extends EmitterMinecartEntity> type, World world) {
-		super(type, world);
+	public static EmitterMinecartEntity createFromType(EntityType<EmitterMinecartEntity> entity, World world) {
+		return new EmitterMinecartEntity(entity, world);
+	}
+
+	public EmitterMinecartEntity(EntityType<EmitterMinecartEntity> entity, World world) {
+		super(entity, world);
+	}
+
+	public EmitterMinecartEntity(World world, double x, double y, double z) {
+		super(RedBits.EMITTER_MINECART, world, x, y, z);
+	}
+
+	@Override
+	protected void applySlowdown() {
+		float f = 0.98f + 15 * 0.001f;
+		if (this.isTouchingWater()) {
+			f *= 0.95f;
+		}
+		this.setVelocity(this.getVelocity().multiply(f, 0.0, f));
+	}
+
+	@Override
+	public AbstractMinecartEntity.Type getMinecartType() {
+		return TYPE;
 	}
 
 	@Override
@@ -50,18 +74,15 @@ public class EmitterMinecartEntity extends AbstractMinecartEntity {
 	@Override
 	protected void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
-		setPower(nbt.getInt("power"));
+		if (nbt.contains("power", NbtElement.NUMBER_TYPE)) {
+			setPower(nbt.getInt("power"));
+		}
 	}
 
 	@Override
 	protected void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
-		nbt.putInt("power", this.getPower());
-	}
-
-	@Override
-	public Type getMinecartType() {
-		return TYPE;
+		nbt.putInt("power", getPower());
 	}
 
 	private void cycle(PlayerEntity player) {

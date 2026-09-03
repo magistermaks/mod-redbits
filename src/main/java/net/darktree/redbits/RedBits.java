@@ -14,11 +14,13 @@ import net.darktree.redbits.utils.ParameterlessCriterion;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.mob.HostileEntity;
@@ -121,11 +123,10 @@ public class RedBits implements ModInitializer {
 	public final static Block END_STONE_PRESSURE_PLATE = registerBlock("end_stone_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_VILLAGER, MapColor.PALE_YELLOW));
 	public final static Block BASALT_PRESSURE_PLATE = registerBlock("basalt_pressure_plate", getPressurePlateFactory(COLLISION_CONDITION_PET, MapColor.BLACK));
 
-	public static final EntityType<EmitterMinecartEntity> EMITTER_MINECART = EntityType.Builder.create(EmitterMinecartEntity::new, SpawnGroup.MISC)
-			.dimensions(0.98F, 0.7F)
-			.passengerAttachments(0.1875F)
-			.maxTrackingRange(8)
-			.build("emitter_minecart");
+	public static final EntityType<EmitterMinecartEntity> EMITTER_MINECART = FabricEntityTypeBuilder
+			.create(SpawnGroup.MISC, EmitterMinecartEntity::createFromType)
+			.dimensions(EntityDimensions.fixed(0.98f, 0.7f))
+			.build();
 
 	// Other Components
 	public final static Block REDSTONE_LAMP = registerBlock("redstone_lamp", settings -> new RedstoneLampBlock(settings.luminance(n -> n.get(Properties.LIT) ? 1 : 0).postProcess((a, b, c) -> a.get(Properties.LIT)).emissiveLighting((a, b, c) -> a.get(Properties.LIT)).strength(0.3f).sounds(BlockSoundGroup.GLASS).allowsSpawning(Blocks::always)));
