@@ -4,8 +4,6 @@
 	"textures": {
 		"torch_back": "block/redstone_torch",
 		"torch_front": "block/redstone_torch",
-		"glow_front": "block/redstone_torch",
-		"glow_back": "block/redstone_torch",
 		"top": "redbits:block/detector_on_off"
 	}
 }
