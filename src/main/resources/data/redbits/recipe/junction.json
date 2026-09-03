@@ -6,11 +6,18 @@
     "3"
   ],
   "key": {
-    "1": "minecraft:redstone_torch",
-    "2": "minecraft:quartz",
-    "3": "redbits:bridge"
+    "1": {
+      "item": "minecraft:redstone_torch"
+    },
+    "2": {
+      "item": "minecraft:quartz"
+    },
+    "3": {
+      "item": "redbits:bridge"
+    }
   },
   "result": {
+    "item": "redbits:junction",
     "id": "redbits:junction"
   },
   "category": "redstone"

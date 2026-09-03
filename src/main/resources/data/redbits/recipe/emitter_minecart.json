@@ -5,10 +5,15 @@
     "2"
   ],
   "key": {
-    "1": "redbits:emitter",
-    "2": "minecraft:minecart"
+    "1": {
+      "item": "redbits:emitter"
+    },
+    "2": {
+      "item": "minecraft:minecart"
+    }
   },
   "result": {
+    "item": "redbits:emitter_minecart",
     "id": "redbits:emitter_minecart"
   },
   "category": "redstone"

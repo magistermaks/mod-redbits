@@ -6,9 +6,12 @@
     "RR"
   ],
   "key": {
-    "R": "minecraft:jungle_button"
+    "R": {
+      "item": "minecraft:jungle_button"
+    }
   },
   "result": {
+    "item": "redbits:jungle_large_button",
     "id": "redbits:jungle_large_button"
   },
   "category": "redstone"

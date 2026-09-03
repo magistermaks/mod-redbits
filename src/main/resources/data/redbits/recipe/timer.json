@@ -6,10 +6,15 @@
     "222"
   ],
   "key": {
-    "1": "minecraft:redstone_torch",
-    "2": "minecraft:stone"
+    "1": {
+      "item": "minecraft:redstone_torch"
+    },
+    "2": {
+      "item": "minecraft:stone"
+    }
   },
   "result": {
+    "item": "redbits:timer",
     "id": "redbits:timer"
   },
   "category": "redstone"

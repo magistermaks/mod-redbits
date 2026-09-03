@@ -4,9 +4,12 @@
     "11"
   ],
   "key": {
-    "1": "minecraft:end_stone"
+    "1": {
+      "item": "minecraft:end_stone"
+    }
   },
   "result": {
+    "item": "redbits:end_stone_pressure_plate",
     "id": "redbits:end_stone_pressure_plate"
   },
   "category": "redstone"

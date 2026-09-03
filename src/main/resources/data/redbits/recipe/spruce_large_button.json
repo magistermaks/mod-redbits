@@ -6,9 +6,12 @@
     "RR"
   ],
   "key": {
-    "R": "minecraft:spruce_button"
+    "R": {
+      "item": "minecraft:spruce_button"
+    }
   },
   "result": {
+    "item": "redbits:spruce_large_button",
     "id": "redbits:spruce_large_button"
   },
   "category": "redstone"
