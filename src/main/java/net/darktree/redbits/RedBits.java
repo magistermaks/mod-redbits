@@ -68,6 +68,10 @@ public class RedBits implements ModInitializer {
 	public static final Settings CONFIG = Settings.readConfigFile("redbits.json");
 	public static final String NAMESPACE = "redbits";
 
+	public static Identifier id(String string) {
+		return Identifier.fromNamespaceAndPath(NAMESPACE, string);
+	}
+
 	private final static List<Item> lamps = new ArrayList<>();
 	private final static List<Item> torches = new ArrayList<>();
 	private final static List<Item> carts = new ArrayList<>();

@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class RedBitsLootTables extends FabricBlockLootSubProvider {
+public class RedBitsLootTableProvider extends FabricBlockLootSubProvider {
 
-	public RedBitsLootTables(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public RedBitsLootTableProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
