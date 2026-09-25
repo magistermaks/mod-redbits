@@ -1,10 +1,10 @@
 {
   "variants": {
     "lit=false": {
-      "model": "minecraft:block/redstone_lamp"
+      "model": "redbits:block/lamp_dim/off"
     },
     "lit=true": {
-      "model": "minecraft:block/redstone_lamp_on"
+      "model": "redbits:block/lamp_dim/on"
     }
   }
 }

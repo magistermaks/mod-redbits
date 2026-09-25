@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "redbits:block/rgb_lamp"
+      "model": "redbits:block/lamp_rgb/model"
     }
   }
 }
