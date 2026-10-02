@@ -76,7 +76,7 @@ public abstract class CustomRedstoneGate extends Block {
 
 	@Override
 	public boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
-		return true;
+		return direction != null;
 	}
 
 	@Override
