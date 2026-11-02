@@ -7,7 +7,7 @@
 	"description": "Vanilla style redstone additions and improvements!",
 
 	"icon": "assets/redbits/icon.png",
-	"license": "MIT",
+	"license": "LGPL 3.0",
 	"contact": {
 		"homepage": "http://darktree.net/",
 		"sources": "https://github.com/magistermaks/mod-redbits",
