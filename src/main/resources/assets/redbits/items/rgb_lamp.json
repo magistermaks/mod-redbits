@@ -1,11 +1,11 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "redbits:block/rgb_lamp",
+    "model": "redbits:block/lamp_rgb/model",
     "tints": [
       {
         "type": "minecraft:constant",
-        "value": 5263444
+        "value": 8421508
       }
     ]
   }

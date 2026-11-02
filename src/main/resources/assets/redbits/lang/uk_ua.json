@@ -40,12 +40,12 @@
     "message.redbits.power_level": "Сила: %s",
     "message.redbits.patchouli": "Щоб користуватися цим посібником, установіть Patchouli.",
 
-    "text.autoconfig.redbits.title": "Конфігурація Red Bits",
-    "text.autoconfig.redbits.option.add_guide_to_loot_tables": "Додати путівник до таблиць здобичі",
-    "text.autoconfig.redbits.option.add_guide_to_creative_menu": "Додати путівник до меню творчості",
-    "text.autoconfig.redbits.option.disable_burnout": "Вимкнути згасання редстоунових смолоскипів",
-    "text.autoconfig.redbits.option.jukebox_integration": "Увімкнути інтеграцію з програвачем",
-    "text.autoconfig.redbits.option.campfire_integration": "Увімкнути розширення багать",
+    "config.redbits.title": "Конфігурація Red Bits",
+    "config.redbits.option.add_guide_to_loot_tables": "Додати путівник до таблиць здобичі",
+    "config.redbits.option.add_guide_to_creative_menu": "Додати путівник до меню творчості",
+    "config.redbits.option.disable_burnout": "Вимкнути згасання редстоунових смолоскипів",
+    "config.redbits.option.jukebox_integration": "Увімкнути інтеграцію з програвачем",
+    "config.redbits.option.campfire_integration": "Увімкнути розширення багать",
     "text.patchouli.redbits.guide.name": "Путівник RedBits",
     "text.patchouli.redbits.guide.text": "Посібник для редстоунових компонентів доданих RedBits, їх використання та рецепти.",
 

@@ -1,7 +1,5 @@
 package net.darktree.redbits;
 
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.darktree.redbits.blocks.*;
 import net.darktree.redbits.blocks.ComplexPressurePlateBlock.CollisionCondition;
 import net.darktree.redbits.blocks.custom.*;
@@ -67,8 +65,12 @@ import java.util.function.Predicate;
 public class RedBits implements ModInitializer {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger("RedBits");
-	public static final Settings CONFIG = AutoConfig.register(Settings.class, GsonConfigSerializer::new).getConfig();
+	public static final Settings CONFIG = Settings.readConfigFile("redbits.json");
 	public static final String NAMESPACE = "redbits";
+
+	public static Identifier id(String string) {
+		return Identifier.fromNamespaceAndPath(NAMESPACE, string);
+	}
 
 	private final static List<Item> lamps = new ArrayList<>();
 	private final static List<Item> torches = new ArrayList<>();
@@ -92,11 +94,11 @@ public class RedBits implements ModInitializer {
 	public static final SoundEvent TIMER_CLICK = registerSound("timer_click");
 
 	private static Function<BlockBehaviour.Properties, Block> getButtonFactory(BlockSetType type) {
-		return setting -> new LargeButtonBlock(type, setting.noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY));
+		return setting -> new LargeButtonBlock(type, setting.noCollision().strength(0.5F).pushReaction(PushReaction.POPPED));
 	}
 
 	private static Function<BlockBehaviour.Properties, Block> getGateFactory(Function<BlockBehaviour.Properties, Block> factory) {
-		return setting -> factory.apply(setting.instabreak().sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
+		return setting -> factory.apply(setting.instabreak().sound(SoundType.WOOD).pushReaction(PushReaction.POPPED));
 	}
 
 	private static Function<BlockBehaviour.Properties, Block> getPressurePlateFactory(ComplexPressurePlateBlock.CollisionCondition condition, MapColor color) {
@@ -148,8 +150,8 @@ public class RedBits implements ModInitializer {
 	public final static Block RGB_LAMP = registerBlock("rgb_lamp", settings -> new AnalogLampBlock(settings.lightLevel(n -> n.getValue(AnalogLampBlock.POWER) > 0 ? 1 : 0).emissiveRendering(state -> state.getValue(AnalogLampBlock.POWER) > 0).strength(0.3F).strength(0.3f).sound(SoundType.GLASS).isValidSpawn(Blocks::always)));
 	public final static Block REDSTONE_EMITTER = registerBlock("emitter", settings -> new EmitterBlock(settings.requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE).forceSolidOn()));
 	public final static Block VISION_SENSOR = registerBlock("vision_sensor", settings -> new VisionSensorBlock(settings.requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE).forceSolidOn()));
-	public final static Block INVERTED_REDSTONE_TORCH = registerBlock("inverted_redstone_torch", settings -> new InvertedRedstoneTorchBlock(settings.pushReaction(PushReaction.DESTROY).noCollision().instabreak().lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 7 : 0).sound(SoundType.WOOD)));
-	public final static Block INVERTED_REDSTONE_WALL_TORCH = registerBlock("inverted_redstone_wall_torch", settings -> new WallInvertedRedstoneTorchBlock(settings.pushReaction(PushReaction.DESTROY).noCollision().instabreak().lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 7 : 0).sound(SoundType.WOOD)));
+	public final static Block INVERTED_REDSTONE_TORCH = registerBlock("inverted_redstone_torch", settings -> new InvertedRedstoneTorchBlock(settings.pushReaction(PushReaction.POPPED).noCollision().instabreak().lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 7 : 0).sound(SoundType.WOOD)));
+	public final static Block INVERTED_REDSTONE_WALL_TORCH = registerBlock("inverted_redstone_wall_torch", settings -> new WallInvertedRedstoneTorchBlock(settings.pushReaction(PushReaction.POPPED).noCollision().instabreak().lightLevel(n -> n.getValue(BlockStateProperties.LIT) ? 7 : 0).sound(SoundType.WOOD)));
 	public final static Item EMITTER_MINECART_ITEM = registerItem("emitter_minecart", settings -> new MinecartItem(EMITTER_MINECART, settings.stacksTo(1)));
 	public final static Item GUIDE = ProxyBookItem.createInstance();
 
@@ -166,6 +168,8 @@ public class RedBits implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		CONFIG.save();
+
 		torches.add(registerItem("inverted_redstone_torch", settings -> new StandingAndWallBlockItem(INVERTED_REDSTONE_TORCH, INVERTED_REDSTONE_WALL_TORCH, Direction.DOWN, settings.useBlockDescriptionPrefix())));
 		carts.add(EMITTER_MINECART_ITEM);
 
@@ -276,11 +280,6 @@ public class RedBits implements ModInitializer {
 		return Registry.register(BuiltInRegistries.ITEM, key, factory.apply(settings));
 	}
 
-	private void registerItem(String name, Item item, List<Item> group) {
-		group.add(item);
-		Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(NAMESPACE, name), item);
-	}
-
 	private void registerItem(String name, Block block, List<Item> group) {
 		group.add(registerItem(name, settings -> new BlockItem(block, settings.useBlockDescriptionPrefix())));
 	}
@@ -291,8 +290,6 @@ public class RedBits implements ModInitializer {
 	}
 
 	public static void appendItemsToGroup() {
-
-
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(content -> {
 			content.insertAfter(Items.COMPARATOR, gates.stream().map(ItemStack::new).toList());
 			content.insertAfter(Items.TNT_MINECART, carts.stream().map(ItemStack::new).toList());

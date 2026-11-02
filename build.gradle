@@ -1,22 +1,31 @@
 plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
-	id 'maven-publish'
 }
 
 version = project.mod_version
 group = project.maven_group
 
 loom {
+	splitEnvironmentSourceSets()
+
+	mods {
+		"redbits" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+
 	accessWidenerPath = file("src/main/resources/redbits.accesswidener")
 	runtimeOnlyLog4j = true
 }
 
-repositories {
-
-	// Cloth Config
-	maven {
-		url "https://maven.shedaniel.me/"
+fabricApi {
+	configureDataGeneration() {
+		client = true
 	}
+}
+
+repositories {
 
 	// ModMenu
 	maven {
@@ -45,9 +54,6 @@ dependencies {
 	// Fabric API
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-	// Cloth Config
-	include( implementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") ) exclude group: 'net.fabricmc.fabric-api'
-
 	// Patchouli
 	if (project.hasProperty("patchouli_version")) {
 		implementation "vazkii.patchouli:patchouli-fabric:${project.patchouli_version}"
@@ -59,9 +65,7 @@ processResources {
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		expand (
-				"version": project.version
-		)
+		expand "version": project.version
 	}
 }
 
