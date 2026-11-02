@@ -60,7 +60,8 @@ public class LatchBlock extends CustomRedstoneGate {
 
 	@Override
 	public boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
-		return state.getValue(AXIS) == direction.getAxis();
+		final Direction facing = state.getValue(AXIS).getPositive();
+		return facing == direction || facing.getOpposite() == direction;
 	}
 
 	@Override

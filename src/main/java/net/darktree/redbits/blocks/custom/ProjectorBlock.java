@@ -40,7 +40,8 @@ public class ProjectorBlock extends CustomRedstoneGate {
 
 	@Override
 	public boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
-		return state.getValue(FACING).getAxis() == direction.getAxis();
+		final Direction facing = state.getValue(FACING);
+		return facing == direction || facing.getOpposite() == direction;
 	}
 
 	/**

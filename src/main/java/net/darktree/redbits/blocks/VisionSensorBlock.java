@@ -51,7 +51,7 @@ public class VisionSensorBlock extends Block implements LookAtEvent {
 
 	@Override
 	public boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
-		return true;
+		return direction != null;
 	}
 
 	@Override
